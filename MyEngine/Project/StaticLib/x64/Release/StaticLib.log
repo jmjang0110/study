@@ -1,0 +1,4 @@
+﻿  pch.cpp
+  func.cpp
+  StaticLib.cpp
+  StaticLib.vcxproj -> C:\MyGithub\DirectX11\2D_Dx11\DirectX11_2D\MyEngine\External\Library\StaticLib.lib
