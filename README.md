@@ -1,4 +1,4 @@
-# DirectX11_2D
+# DirectX11_Study
  
 DirectX11 2D Game Programming 
 
