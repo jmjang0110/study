@@ -6,10 +6,16 @@
 #include "main.h"
 
 
-#include "../../External/Include/func.h"
+#include <Engine/CCore.h>
 
-// 실제 코드는 lib 파일안에 있기 때문에 #pragma comment(lib, ~~ ) 를 선언한다. 
-#pragma comment(lib, "../../External/Library/StaticLib_debug.lib")
+#ifdef _DEBUG // debug 시 전처리기에 _DEBUG 라고 써져있다. 
+#pragma comment(lib, "Engine/Engine_debug.lib") // debug
+#else
+#pragma comment(lib, "Engine/Engine.lib") // release
+#endif
+
+typedef int (*SUBFUNC)(int, int);
+
 
 
 #define MAX_LOADSTRING 100
@@ -30,8 +36,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ int       nCmdShow)
 {
 
-    int a = Add(10, 20);
-    
     MyRegisterClass(hInstance);
 
     // 애플리케이션 초기화를 수행합니다:
@@ -39,6 +43,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return FALSE;
     }
+
+    // Engine core  초기화 
+    if (FAILED(CCore::GetInst()->init(g_hwnd, POINT{ 1600,900 })))
+    {
+        return 0;
+    }
+
+
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MYENGINE));
 
@@ -65,7 +77,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // Game Run 
-            
+            CCore::GetInst()->progress();
+
         }
 
     
@@ -95,7 +108,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MYENGINE));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_MYENGINE);
+    wcex.lpszMenuName   = nullptr; //MAKEINTRESOURCEW(IDC_MYENGINE);
     wcex.lpszClassName  = L"WindowClass";
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
