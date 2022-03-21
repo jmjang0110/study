@@ -30,6 +30,13 @@ private:
 public:
 	int init(HWND _hwnd, Vec2 _vRenderResolution);
 
+	void Present() { m_pSwapChain->Present(0, 0); }
+	void ClearTarget();
+
+
+private:
+	int CreateSawpChain();
+	int CreateView();
 
 
 };
