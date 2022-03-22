@@ -2,9 +2,10 @@
 /*
 	Device 
 		-	 GPU 를 컨트롤 하는 기능을 담당한다. 
-
-
 */
+
+
+
 class CDevice
 {
 	SINGLE(CDevice);
@@ -32,6 +33,9 @@ public:
 
 	void Present() { m_pSwapChain->Present(0, 0); }
 	void ClearTarget();
+
+	ComPtr<ID3D11Device> GetDevice() { return m_pDevice;}
+	ComPtr<ID3D11DeviceContext> GetDeviceContext() { return m_pDeviceContext; }
 
 
 private:

@@ -1,7 +1,10 @@
 #include "pch.h"
 #include "CDevice.h"
 
-CDevice::CDevice()
+CDevice::CDevice() 
+	: m_hwnd(nullptr)
+	, m_tSwapChainDesc{}
+	, m_tViewPort{}
 {
 
 }
