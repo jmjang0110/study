@@ -90,13 +90,13 @@ void TestInit()
 	// 지역 변수들 
 	Vertex arrVtx[3] = {};
 	arrVtx[0].vPos = Vec3(0.f, 0.5f, 0.f);
-	arrVtx[0].vColor = Vec4(1.f, 1.f, 1.f, 1.f);
+	arrVtx[0].vColor = Vec4(0.f, 1.f, 0.f, 1.f);
 
 	arrVtx[1].vPos = Vec3(0.5f, -0.5f, 0.f);
-	arrVtx[1].vColor = Vec4(1.f, 1.f, 1.f, 1.f);
+	arrVtx[1].vColor = Vec4(1.f, 0.f, 0.f, 1.f);
 
 	arrVtx[2].vPos = Vec3(-0.5f, -0.5f, 0.f);
-	arrVtx[2].vColor = Vec4(1.f, 1.f, 1.f, 1.f);
+	arrVtx[2].vColor = Vec4(0.f, 0.f, 1.f, 1.f);
 
 	// 버퍼 객체를 만들어서 GPU 로 옮겨야 한다 
 	// 정점 데이터를 저장할 버텍스 버퍼를 생성한다. 
