@@ -6,7 +6,7 @@
 // float3 : Vec3 
 struct VTX_IN
 {
-    float3 vPos : POSITION;
+    float3 vPos : POSITION; // semantic
     floar4 vColor : COLOR;
 };
 

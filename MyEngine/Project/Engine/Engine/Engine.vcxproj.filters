@@ -34,6 +34,9 @@
     <Filter Include="Temp">
       <UniqueIdentifier>{f2a7b976-8204-4620-b95d-b66e4b529492}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\ShaderCode">
+      <UniqueIdentifier>{910ea42a-91a2-4788-9c6d-a3499a905e22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -103,5 +106,10 @@
     <None Include="SimpleMath.inl">
       <Filter>Engine\Module</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="test.fx">
+      <Filter>Engine\ShaderCode</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
