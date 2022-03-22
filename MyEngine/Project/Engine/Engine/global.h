@@ -3,7 +3,6 @@
 #include <wrl/client.h>
 using namespace Microsoft::WRL;
 
-
 // 수학 관련 헤더 
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -12,13 +11,10 @@ using namespace Microsoft::WRL;
 using namespace::DirectX;
 using namespace::DirectX::PackedVector;
 
-
-
 //#pragma comment 에서 .lib 생략 가능하다.
 #pragma comment(lib, "d3d11") // d3d11.lib
-#pragma commnet(lib,"d3dcompiler")
+#pragma comment(lib,"d3dcompiler")
 #pragma comment(lib, "dxguid")
-
 
 #include "SimpleMath.h"
 using namespace DirectX::SimpleMath;

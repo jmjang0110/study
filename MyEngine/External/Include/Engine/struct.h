@@ -8,3 +8,5 @@ struct Vertex
 	Vec4 vColor;	// »ö»ó 
 
 };
+
+typedef Vertex VTX;

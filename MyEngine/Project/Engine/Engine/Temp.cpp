@@ -102,14 +102,14 @@ void TestInit()
 	// 정점 데이터를 저장할 버텍스 버퍼를 생성한다. 
 	D3D11_BUFFER_DESC tBufferDesc = {};
 	tBufferDesc.ByteWidth = sizeof(Vertex) * 3;// 어느정도의 크기냐 
-	
+
 	// 버퍼 생성 이후에도, 버퍼의 내용을 수정 할 수 있는 옵션 
 	tBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE; // RAM 에서 만들어서 GPU로 보낼 때 정점 위치가 바뀌는 걸 다시 건낸다 .
 	tBufferDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 	/*
-		* 
+		*
 		* tBufferDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		* 
+		*
 		*	ID3D11Buffer 로 통일이 되지만
 		*	이 버퍼가 관리하고 있는 GPU의 메모리 공간안에 저장되어있는
 		*	데이터 타입이 어떤 종류냐 라는 것을 생성 시점에 미리 세팅을 해놓는 것이다 .
@@ -128,22 +128,17 @@ void TestInit()
 
 
 
+	// Vertex Shader 컴파일
 	UINT iFlag = 0;
 #ifdef _DEBUG
 	iFlag = D3DCOMPILE_DEBUG;
 #endif
 
-	// Vertex Shader Compile 
+	//					[  Vertex Shader Compile  ] 
 	wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
-	HRESULT hr = D3DCompileFromFile(wstring(strContentPath + L"shader\test.fx").c_str(), nullptr
-		, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VS_Test"
-		, "vs_5_0", D3DCOMPILE_DEBUG , 0 , g_pVSBlob.GetAddressOf()
-		, g_pErrBlob.GetAddressOf()); // (VS_Test)L"" 안붙이고 1byte 로 전달 
-
-	// Compile 된 코드로 Vertex Shader 객체 만들기 
-	// Compile 완료된 Vertex Shader 의 시작 주소를 전달 : Blob안에 있음  
-	DEVICE->CreateVertexShader(g_pVSBlob->GetBufferPointer(), g_pVSBlob->GetBufferSize(),
-		nullptr, g_pVS.GetAddressOf());
+	HRESULT hr = D3DCompileFromFile(wstring(strContentPath + L"shader\\test.fx").c_str(), nullptr
+		, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VS_Test", "vs_5_0", iFlag, 0
+		, g_pVSBlob.GetAddressOf(), g_pErrBlob.GetAddressOf()); // (VS_Test)L"" 안붙이고 1byte 로 전달 
 
 	if (FAILED(hr))
 	{
@@ -151,18 +146,18 @@ void TestInit()
 		assert(nullptr);
 
 	}
-
-
-	// Pixel Shader Compile
-	 hr = D3DCompileFromFile(wstring(strContentPath + L"shader\test.fx").c_str(), nullptr
-		, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PS_Test"
-		, "ps_5_0", D3DCOMPILE_DEBUG, 0, g_pPSBlob.GetAddressOf()
-		, g_pErrBlob.GetAddressOf()); // (VS_Test)L"" 안붙이고 1byte 로 전달 
-
 	// Compile 된 코드로 Vertex Shader 객체 만들기 
 	// Compile 완료된 Vertex Shader 의 시작 주소를 전달 : Blob안에 있음  
-	DEVICE->CreatePixelShader(g_pPSBlob->GetBufferPointer(), g_pPSBlob->GetBufferSize(),
-		nullptr, g_pPS.GetAddressOf());
+	DEVICE->CreateVertexShader(g_pVSBlob->GetBufferPointer(), g_pVSBlob->GetBufferSize(),
+		nullptr, g_pVS.GetAddressOf());
+
+	//					[  Pixel Shader Compile  ]
+	hr = D3DCompileFromFile(wstring(strContentPath + L"shader\\test.fx").c_str(), nullptr
+		, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PS_Test"
+		, "ps_5_0", iFlag, 0, g_pPSBlob.GetAddressOf()
+		, g_pErrBlob.GetAddressOf()); // (VS_Test)L"" 안붙이고 1byte 로 전달 
+
+	
 
 	if (FAILED(hr))
 	{
@@ -170,21 +165,62 @@ void TestInit()
 		assert(nullptr);
 
 	}
+	// Compile 된 코드로 Vertex Shader 객체 만들기 
+	// Compile 완료된 Vertex Shader 의 시작 주소를 전달 : Blob안에 있음  
+	DEVICE->CreatePixelShader(g_pPSBlob->GetBufferPointer(), g_pPSBlob->GetBufferSize(),
+		nullptr, g_pPS.GetAddressOf());
+	/*
+
+		* Shader 쪽에서는 내가 struct 로 정점 구조체를 설정하고 (Vertex)
+		* 그 내부를 어떤 목적으로 분류를 해놨는지 단위를 모른다.
+		* 그냥 Sizeof(Vertex) * 3 으로 덩어리로 안다.
+		* 이건 IA 단계에서 메모리 시작주소 알려주고
+		* 정점을 하나씩 끊어칠 Size 를 알려준다.
+		* 그럼 Vertex Shader 에서 28바이트로 Size를 알려줬다면 28 바이트 만큼을 정점 하나로 보고
+		* 정점 하나당 Vertex Shader 함수를 하나씩 호출 시킨다.
+		* 근데 거기서 12바이트는 정점 16바이트는 색깔로 해놨다 .
+		* 여기서 semantic 이 필요하다 . vPos 얼마만큼인지 vColor 얼마만큼인지를 지정해서
+		* semantic 으로 정점/색깔 정보를 알린다.
+		* semantic은 이미 종류별로 주어진다, 그 이름에 맞춰주면 된다.
+
+		
+	*/
+
+	//** InputLayout 생성 [정점 입력 구조] * *
+
+	vector<D3D11_INPUT_ELEMENT_DESC> arrDesc;
+	D3D11_INPUT_ELEMENT_DESC tInputDesc = {};
+	UINT iOffset = 0;
 
 
-	// Shader 쪽에서는 내가 struct 로 정점 구조체를 설정하고 (Vertex) 
-	// 그 내부를 어떤 목적으로 분류를 해놨는지 단위를 모른다. 
-	// 그냥 Sizeof(Vertex) * 3 으로 덩어리로 안다. 
-	// 이건 IA 단계에서 메모리 시작주소 알려주고 
-	// 정점을 하나씩 끊어칠 Size 를 알려준다. 
-	// 그럼 Vertex Shader 에서 28바이트로 Size를 알려줬다면 28 바이트 만큼을 정점 하나로 보고 
-	// 정점 하나당 Vertex Shader 함수를 하나씩 호출 시킨다. 
-	// 근데 거기서 12바이트는 정점 16바이트는 색깔로 해놨다 .
-	// 여기서 semantic 이 필요하다 . vPos 얼마만큼인지 vColor 얼마만큼인지를 지정해서
-	// semantic 으로 정점/색깔 정보를 알린다. 
-	// semantic은 이미 종류별로 주어진다, 그 이름에 맞춰주면 된다.
+	tInputDesc.SemanticName = "POSITION"; // semantic 이름 
+	tInputDesc.SemanticIndex = 0;		  // 중복 이름일 경우 인덱스로 구분 
+	tInputDesc.InputSlot = 0;				// 0 번재 위치에 있을 것이다. 
+	tInputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA; // 정점 정보이다. ( 내가 전달하는 이 데이터는 정점당 하나씩 들어있을 것이다. ) 
+	tInputDesc.InstanceDataStepRate = 0;
+	tInputDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT; // float3 타입이라고 사이즈를 알린다. 
+	tInputDesc.AlignedByteOffset = iOffset;			// 가장 첫번째 
+	iOffset += 12; // POSITION 크기가 12 바이트 이므로 Offset 크기를 12 늘린다.
 
-	// Input Layout [ 정점 입력 구조 ]
+
+	arrDesc.push_back(tInputDesc);
+
+	tInputDesc.SemanticName = "COLOR";
+	tInputDesc.SemanticIndex = 0;
+	tInputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	tInputDesc.InstanceDataStepRate = 0;
+	tInputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	tInputDesc.AlignedByteOffset = iOffset;
+	iOffset += 16;
+
+
+	arrDesc.push_back(tInputDesc);
+
+	DEVICE->CreateInputLayout(arrDesc.data(), 2
+		, g_pVSBlob->GetBufferPointer(), g_pVSBlob->GetBufferSize()
+		, g_pInputLayout.GetAddressOf());
+
+}
 
 void TestUpdate()
 {
@@ -197,10 +233,21 @@ void TestRender()
 	CDevice::GetInst()->ClearTarget();
 
 	// render 
+	// IA 전달 -- 아래 CONTEXT 함수 호출 순서는 상관이없다. 그냥 저렇게 설정을 한것이지 수행을 하는 것이 아니기 때문 
+	CONTEXT->IASetInputLayout(g_pInputLayout.Get());
 
+	UINT iStride = sizeof(VTX); // 간격 
+	UINT iOffset = 0;
+	CONTEXT->IASetVertexBuffers(0, 1, g_pVB.GetAddressOf(), &iStride, &iOffset); // 간격과 시작 위치 알림 
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST); // 삼각형 모양이다,. 
+
+	CONTEXT->VSSetShader(g_pVS.Get(), 0, 0); // 이 정점들을 어떤 쉐이더를 사용할 것인지를 선택한다. 
+	CONTEXT->PSSetShader(g_pPS.Get(), 0, 0);
+
+
+	CONTEXT->Draw(3, 0); // OffSet 으로 부터 얼마나 출력할 것인지를 알린다. 
 
 
 	CDevice::GetInst()->Present();
-
 
 }

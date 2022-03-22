@@ -7,7 +7,7 @@
 struct VTX_IN
 {
     float3 vPos : POSITION; // semantic
-    floar4 vColor : COLOR;
+    float4 vColor : COLOR;
 };
 
 struct VTX_OUT
