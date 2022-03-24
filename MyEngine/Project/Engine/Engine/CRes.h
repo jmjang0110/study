@@ -6,8 +6,10 @@ class CRes :
 {
 
 private:
-	wstring	m_strKey;
-	wstring m_strRelativePath;
+	wstring		m_strKey;
+	wstring		m_strRelativePath;
+	UINT		m_iRefCount;
+
 
 protected:
 	void SetKey(const wstring& _strKey) { m_strKey = _strKey;}
@@ -25,6 +27,11 @@ public:
 	// 순수가상함수를 추가했다. 
 	virtual int Load(const wstring& _strFilePath) = 0;
 
+
+private:
+	void AddRef() { ++m_iRefCount; }
+	void SubRef() { --m_iRefCount; }
+	}
 public:
 	CRes();
 	~CRes();

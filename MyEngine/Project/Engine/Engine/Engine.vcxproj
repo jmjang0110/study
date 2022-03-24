@@ -173,6 +173,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CPathMgr.h" />
     <ClInclude Include="CRes.h" />
+    <ClInclude Include="CResMgr.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CTimeMgr.h" />
     <ClInclude Include="define.h" />
@@ -193,6 +194,8 @@ call EngineCopy.bat</Command>
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CPathMgr.cpp" />
     <ClCompile Include="CRes.cpp" />
+    <ClCompile Include="CResMgr.cpp" />
+    <ClCompile Include="CResMgr_Init.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CTimeMgr.cpp" />
     <ClCompile Include="Engine.cpp" />

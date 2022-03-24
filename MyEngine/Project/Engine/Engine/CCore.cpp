@@ -8,6 +8,8 @@
 #include "Temp.h"
 #include "CDevice.h"
 
+#include "CResMgr.h"
+
 
 CCore::CCore()
 	: m_hwnd(nullptr)
@@ -34,14 +36,16 @@ int CCore::init(HWND _hwnd, POINT _ptResolution)
 	//===============
 	// Manager ÃÊ±âÈ­
 	//===============
-	CPathMgr::GetInst()->init();
 	if (FAILED(CDevice::GetInst()->init(m_hwnd, Vec2((float)m_ptResolution.x, (float)m_ptResolution.y))))
 	{
 		return E_FAIL;
 	}
+
+	CPathMgr::GetInst()->init();
 	CKeyMgr::GetInst()->init();
 	CTimeMgr::GetInst()->init();
-	
+	CResMgr::GetInst()->init();
+
 
 
 	TestInit();

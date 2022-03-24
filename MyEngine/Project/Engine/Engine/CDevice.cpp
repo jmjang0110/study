@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CDevice.h"
+#include "CConstBuffer.h"
 
 CDevice::CDevice() 
 	: m_hwnd(nullptr)
@@ -97,7 +98,10 @@ int CDevice::init(HWND _hwnd, Vec2 _vRenderResolution)
 	// 윈도우에 띄울 창(렌더링) 크기와 위치를 세팅한다. 
 	m_pDeviceContext->RSSetViewports(1, &m_tViewPort);
 	
-
+	if (FAILED(CreateConstBuffer()))
+	{
+		return E_FAIL;
+	}
 
 
 
@@ -227,6 +231,14 @@ int CDevice::CreateView()
 
 
 	return S_OK;
+}
+
+int CDevice::CreateConstBuffer()
+{
+	m_arrCB[(UINT)CB_TYPE::TRANSFORM] = new CConstBuffer(CB_TYPE::TRANSFORM);
+	m_arrCB[(UINT)CB_TYPE::TRANSFORM]->Create(sizeof(Vec4));
+
+	return 0;
 }
 
 

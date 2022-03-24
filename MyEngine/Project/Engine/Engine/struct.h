@@ -9,4 +9,4 @@ struct Vertex
 
 };
 
-typedef Vertex VTX;
+typedef Vertex Vtx;

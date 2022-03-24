@@ -61,7 +61,25 @@
     <Filter Include="Engine\07. Resource\06. Shader\ComputeShader">
       <UniqueIdentifier>{6a9ba9ab-4736-402b-86b5-d693ba015234}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\03. Manager\ConstantBuffer">
+    <Filter Include="Engine\03. Manager\01. Device">
+      <UniqueIdentifier>{19591b13-b0e2-4c8a-9c78-6e44600a62b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\02. RenderMgr">
+      <UniqueIdentifier>{b65be7bf-acf4-499a-92b6-e73becaa60e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\03. TimeMgr">
+      <UniqueIdentifier>{a4f17eac-211e-48c1-88bf-e6445c234c0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\04. KeyMgr">
+      <UniqueIdentifier>{d42d254b-846c-4e32-88ee-618fbfbc836f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\05. PathMgr">
+      <UniqueIdentifier>{b07766aa-6436-40ee-8ff0-0ba35d1d4f23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\06. ResMgr">
+      <UniqueIdentifier>{346a2950-295f-41a3-af0f-fb7a3c9e8d60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\01. Device\ConstantBuffer">
       <UniqueIdentifier>{e2219322-6d7a-4e58-a5c9-a580309c05a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -81,23 +99,11 @@
     <ClInclude Include="CCore.h">
       <Filter>Engine\02. Core</Filter>
     </ClInclude>
-    <ClInclude Include="CTimeMgr.h">
-      <Filter>Engine\03. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CPathMgr.h">
-      <Filter>Engine\03. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CKeyMgr.h">
-      <Filter>Engine\03. Manager</Filter>
-    </ClInclude>
     <ClInclude Include="SimpleMath.h">
       <Filter>Engine\Module</Filter>
     </ClInclude>
     <ClInclude Include="Temp.h">
       <Filter>Temp</Filter>
-    </ClInclude>
-    <ClInclude Include="CDevice.h">
-      <Filter>Engine\03. Manager</Filter>
     </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>Engine\01. Header</Filter>
@@ -118,7 +124,22 @@
       <Filter>Engine\07. Resource\06. Shader\GraphicsShader</Filter>
     </ClInclude>
     <ClInclude Include="CConstBuffer.h">
-      <Filter>Engine\03. Manager\ConstantBuffer</Filter>
+      <Filter>Engine\03. Manager\01. Device\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CDevice.h">
+      <Filter>Engine\03. Manager\01. Device</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyMgr.h">
+      <Filter>Engine\03. Manager\04. KeyMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CPathMgr.h">
+      <Filter>Engine\03. Manager\05. PathMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimeMgr.h">
+      <Filter>Engine\03. Manager\03. TimeMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CResMgr.h">
+      <Filter>Engine\03. Manager\06. ResMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,20 +152,8 @@
     <ClCompile Include="CCore.cpp">
       <Filter>Engine\02. Core</Filter>
     </ClCompile>
-    <ClCompile Include="CTimeMgr.cpp">
-      <Filter>Engine\03. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CPathMgr.cpp">
-      <Filter>Engine\03. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CKeyMgr.cpp">
-      <Filter>Engine\03. Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Temp.cpp">
       <Filter>Temp</Filter>
-    </ClCompile>
-    <ClCompile Include="CDevice.cpp">
-      <Filter>Engine\03. Manager</Filter>
     </ClCompile>
     <ClCompile Include="CEntity.cpp">
       <Filter>Engine</Filter>
@@ -162,7 +171,25 @@
       <Filter>Engine\07. Resource\06. Shader\GraphicsShader</Filter>
     </ClCompile>
     <ClCompile Include="CConstBuffer.cpp">
-      <Filter>Engine\03. Manager\ConstantBuffer</Filter>
+      <Filter>Engine\03. Manager\01. Device\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CDevice.cpp">
+      <Filter>Engine\03. Manager\01. Device</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyMgr.cpp">
+      <Filter>Engine\03. Manager\04. KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CPathMgr.cpp">
+      <Filter>Engine\03. Manager\05. PathMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeMgr.cpp">
+      <Filter>Engine\03. Manager\03. TimeMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CResMgr.cpp">
+      <Filter>Engine\03. Manager\06. ResMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CResMgr_Init.cpp">
+      <Filter>Engine\03. Manager\06. ResMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

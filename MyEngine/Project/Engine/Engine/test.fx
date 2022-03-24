@@ -2,7 +2,7 @@
 #define _TEST
 
 // 0 번 슬롯으로 전달한다고 했었다. 
-cbuffer POSITION : register(b0)
+cbuffer TRANSFORM : register(b0)
 {
     float4 g_Pos;
     
