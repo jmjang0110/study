@@ -18,6 +18,7 @@ CCore::CCore()
 
 CCore::~CCore()
 {
+	TestRelease();
 
 }
 
@@ -52,6 +53,8 @@ int CCore::init(HWND _hwnd, POINT _ptResolution)
 void CCore::progress()
 {
 	// 1. Update
+	CTimeMgr::GetInst()->update();
+	CKeyMgr::GetInst()->update();
 	TestUpdate();
 
 	// 2. Rendering

@@ -4,6 +4,15 @@
 #include "CDevice.h"
 #include "CPathMgr.h"
 
+#include "CTimeMgr.h"
+#include "CKeyMgr.h"
+
+#include "CMesh.h"
+#include "CGraphicsShader.h"
+#include "CConstBuffer.h"
+
+
+
 /*
 	Vertex ( 정점 )
 	* 정점을 저장시킬 버퍼 하나를 
@@ -21,22 +30,14 @@
 	* 
 */
 
-// Vertex
-ComPtr<ID3D11Buffer>		g_pVB; 
-// 하나의 정점이 어떤 구조로 만들어져 있는가 
-ComPtr<ID3D11InputLayout> g_pInputLayout;
+// 정점 위치 
+Vertex arrVtx[4] = {};
+Vec4	g_vPos;
 
+CMesh*				g_pMesh = nullptr;		// 사용할 형태	
+CGraphicsShader*	g_pShader = nullptr;	// 그릴 방식 
+CConstBuffer*		g_pCB = nullptr;
 
-// Shader Conpile Error_ Fail Reason store BLob
-ComPtr<ID3DBlob>			g_pErrBlob;
-
-// Vertex Shader 
-ComPtr<ID3DBlob>			g_pVSBlob;
-ComPtr<ID3D11VertexShader>	g_pVS;
-
-// Pixel Shader 
-ComPtr<ID3DBlob>			g_pPSBlob;
-ComPtr<ID3D11PixelShader>	g_pPS;
 
 
 /*
@@ -87,88 +88,31 @@ ComPtr<ID3D11PixelShader>	g_pPS;
 
 void TestInit()
 {
+
 	// 지역 변수들 
-	Vertex arrVtx[3] = {};
-	arrVtx[0].vPos = Vec3(0.f, 0.5f, 0.f);
+	
+	arrVtx[0].vPos = Vec3(-0.5f, 0.5f, 0.f);
 	arrVtx[0].vColor = Vec4(0.f, 1.f, 0.f, 1.f);
 
-	arrVtx[1].vPos = Vec3(0.5f, -0.5f, 0.f);
+	arrVtx[1].vPos = Vec3(0.5f, 0.5f, 0.f);
 	arrVtx[1].vColor = Vec4(1.f, 0.f, 0.f, 1.f);
 
-	arrVtx[2].vPos = Vec3(-0.5f, -0.5f, 0.f);
+	arrVtx[2].vPos = Vec3(0.5f, -0.5f, 0.f);
 	arrVtx[2].vColor = Vec4(0.f, 0.f, 1.f, 1.f);
 
-	// 버퍼 객체를 만들어서 GPU 로 옮겨야 한다 
-	// 정점 데이터를 저장할 버텍스 버퍼를 생성한다. 
-	D3D11_BUFFER_DESC tBufferDesc = {};
-	tBufferDesc.ByteWidth = sizeof(Vertex) * 3;// 어느정도의 크기냐 
 
-	// 버퍼 생성 이후에도, 버퍼의 내용을 수정 할 수 있는 옵션 
-	tBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE; // RAM 에서 만들어서 GPU로 보낼 때 정점 위치가 바뀌는 걸 다시 건낸다 .
-	tBufferDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-	/*
-		*
-		* tBufferDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		*
-		*	ID3D11Buffer 로 통일이 되지만
-		*	이 버퍼가 관리하고 있는 GPU의 메모리 공간안에 저장되어있는
-		*	데이터 타입이 어떤 종류냐 라는 것을 생성 시점에 미리 세팅을 해놓는 것이다 .
-		*	이렇게 해야 내부적으로 최적화가 가능하다.
-	*/
-	// 정점을 저장하는 목적의 버퍼 임을 알림
-	tBufferDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-	tBufferDesc.MiscFlags = 0;
-	tBufferDesc.StructureByteStride = 0;
+	arrVtx[3].vPos = Vec3(-0.5f, -0.5f, 0.f);
+	arrVtx[3].vColor = Vec4(0.f, 1.f, 0.f, 1.f);
 
-	// 초기 데이터를 넘겨주기 위한 정보 구조체 
-	D3D11_SUBRESOURCE_DATA tSubDesc = {};
-	tSubDesc.pSysMem = arrVtx;
+	UINT arrIdx[6] = { 0,2,3,0,1,2 };
 
-	DEVICE->CreateBuffer(&tBufferDesc, &tSubDesc, g_pVB.GetAddressOf());
+	g_pMesh = new CMesh;
+	g_pMesh->Create(arrVtx,4, arrIdx, 6);
 
-
-
-	// Vertex Shader 컴파일
-	UINT iFlag = 0;
-#ifdef _DEBUG
-	iFlag = D3DCOMPILE_DEBUG;
-#endif
-
-	//					[  Vertex Shader Compile  ] 
-	wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
-	HRESULT hr = D3DCompileFromFile(wstring(strContentPath + L"shader\\test.fx").c_str(), nullptr
-		, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VS_Test", "vs_5_0", iFlag, 0
-		, g_pVSBlob.GetAddressOf(), g_pErrBlob.GetAddressOf()); // (VS_Test)L"" 안붙이고 1byte 로 전달 
-
-	if (FAILED(hr))
-	{
-		MessageBoxA(nullptr, (char*)g_pErrBlob->GetBufferPointer(), "Vertex Shader Compile Failed!! ", MB_OK);
-		assert(nullptr);
-
-	}
-	// Compile 된 코드로 Vertex Shader 객체 만들기 
-	// Compile 완료된 Vertex Shader 의 시작 주소를 전달 : Blob안에 있음  
-	DEVICE->CreateVertexShader(g_pVSBlob->GetBufferPointer(), g_pVSBlob->GetBufferSize(),
-		nullptr, g_pVS.GetAddressOf());
-
-	//					[  Pixel Shader Compile  ]
-	hr = D3DCompileFromFile(wstring(strContentPath + L"shader\\test.fx").c_str(), nullptr
-		, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PS_Test"
-		, "ps_5_0", iFlag, 0, g_pPSBlob.GetAddressOf()
-		, g_pErrBlob.GetAddressOf()); // (VS_Test)L"" 안붙이고 1byte 로 전달 
 
 	
 
-	if (FAILED(hr))
-	{
-		MessageBoxA(nullptr, (char*)g_pErrBlob->GetBufferPointer(), "Pixel Shader Compile Failed!! ", MB_OK);
-		assert(nullptr);
-
-	}
-	// Compile 된 코드로 Vertex Shader 객체 만들기 
-	// Compile 완료된 Vertex Shader 의 시작 주소를 전달 : Blob안에 있음  
-	DEVICE->CreatePixelShader(g_pPSBlob->GetBufferPointer(), g_pPSBlob->GetBufferSize(),
-		nullptr, g_pPS.GetAddressOf());
+	
 	/*
 
 		* Shader 쪽에서는 내가 struct 로 정점 구조체를 설정하고 (Vertex)
@@ -183,12 +127,11 @@ void TestInit()
 		* semantic 으로 정점/색깔 정보를 알린다.
 		* semantic은 이미 종류별로 주어진다, 그 이름에 맞춰주면 된다.
 
-		
+
 	*/
 
 	//** InputLayout 생성 [정점 입력 구조] * *
 
-	vector<D3D11_INPUT_ELEMENT_DESC> arrDesc;
 	D3D11_INPUT_ELEMENT_DESC tInputDesc = {};
 	UINT iOffset = 0;
 
@@ -202,8 +145,7 @@ void TestInit()
 	tInputDesc.AlignedByteOffset = iOffset;			// 가장 첫번째 
 	iOffset += 12; // POSITION 크기가 12 바이트 이므로 Offset 크기를 12 늘린다.
 
-
-	arrDesc.push_back(tInputDesc);
+	CGraphicsShader::AddInputLayout(tInputDesc);
 
 	tInputDesc.SemanticName = "COLOR";
 	tInputDesc.SemanticIndex = 0;
@@ -214,17 +156,42 @@ void TestInit()
 	iOffset += 16;
 
 
-	arrDesc.push_back(tInputDesc);
+	CGraphicsShader::AddInputLayout(tInputDesc);
 
-	DEVICE->CreateInputLayout(arrDesc.data(), 2
-		, g_pVSBlob->GetBufferPointer(), g_pVSBlob->GetBufferSize()
-		, g_pInputLayout.GetAddressOf());
+	
 
-}
+
+
+	// ========================== 상수 버퍼 ==================================
+	g_pCB = new CConstBuffer(CB_TYPE::TRANSFORM);
+	g_pCB->Create(sizeof(Vec4));
+
+	D3D11_BUFFER_DESC tBufferDesc = {};
+
+	
+
+	g_pShader = new CGraphicsShader;
+	g_pShader->CreateVertexShader(L"shader\\test.fx", "VS_Test"); // ( CreateInputLayout 함수내 존재 )
+	g_pShader->CreatePixelShader(L"shader\\test.fx", "PS_Test");
+
+ }
 
 void TestUpdate()
 {
+	// 왼쪽 키를 누르고 있다면 
+	if (KEY_PRESSED(KEY::LEFT))
+	{
+		g_vPos.x -= DT * 0.5f;
+	}
 
+
+	// 왼쪽 키를 누르고 있다면 
+	if (KEY_PRESSED(KEY::RIGHT))
+	{
+		g_vPos.x += DT * 0.5f;
+	}
+
+	g_pCB->SetData(&g_vPos, sizeof(Vec4));
 
 }
 
@@ -232,22 +199,25 @@ void TestRender()
 {
 	CDevice::GetInst()->ClearTarget();
 
+	// 상수 버퍼가 Vertex Shader 시점에 온다.
+	// ( 전달된 상수 값이 Object 의 위치가 된다. 
+
 	// render 
 	// IA 전달 -- 아래 CONTEXT 함수 호출 순서는 상관이없다. 그냥 저렇게 설정을 한것이지 수행을 하는 것이 아니기 때문 
-	CONTEXT->IASetInputLayout(g_pInputLayout.Get());
-
-	UINT iStride = sizeof(VTX); // 간격 
-	UINT iOffset = 0;
-	CONTEXT->IASetVertexBuffers(0, 1, g_pVB.GetAddressOf(), &iStride, &iOffset); // 간격과 시작 위치 알림 
-	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST); // 삼각형 모양이다,. 
-
-	CONTEXT->VSSetShader(g_pVS.Get(), 0, 0); // 이 정점들을 어떤 쉐이더를 사용할 것인지를 선택한다. 
-	CONTEXT->PSSetShader(g_pPS.Get(), 0, 0);
-
-
-	CONTEXT->Draw(3, 0); // OffSet 으로 부터 얼마나 출력할 것인지를 알린다. 
-
+	g_pShader->UpdateData();
+	g_pCB->UpdateData(); // 레지스터에 전달
+	//CONTEXT->Draw(6, 0); // OffSet 으로 부터 얼마나 출력할 것인지를 알린다. 
+	g_pMesh->render();
 
 	CDevice::GetInst()->Present();
+
+}
+
+void TestRelease()
+{
+	SAFE_DELETE(g_pMesh);
+	SAFE_DELETE(g_pShader);
+	SAFE_DELETE(g_pCB);
+
 
 }

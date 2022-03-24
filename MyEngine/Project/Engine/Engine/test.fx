@@ -1,6 +1,14 @@
 #ifndef _TEST
 #define _TEST
 
+// 0 번 슬롯으로 전달한다고 했었다. 
+cbuffer POSITION : register(b0)
+{
+    float4 g_Pos;
+    
+    
+}
+
 // Vertex Shader 
 // 입력으로 정점이 들어온다.
 // float3 : Vec3 
@@ -20,7 +28,11 @@ VTX_OUT VS_Test(VTX_IN _in)
 {
     VTX_OUT output = (VTX_OUT) 0.f; // 구조체 초기화 = {}; (C++) 
         
-    output.vPosition = float4(_in.vPos, 1.f);
+    
+    float3 vFinalPos = _in.vPos + g_Pos.xyz;
+    
+    
+    output.vPosition = float4(vFinalPos, 1.f);
     output.vColor = _in.vColor;
     
     return output;
