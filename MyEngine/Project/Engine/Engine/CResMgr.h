@@ -47,13 +47,13 @@ public:
 };
 
 template<typename type>
-inline RES_TYPE GetResType()
+inline RES_TYPE CResMgr::GetResType()
 {
 	const type_info& info = typeid(type);
 
-	if (info.hash_code == typeid(CMesh).hash_code)
+	if (info.hash_code() == typeid(CMesh).hash_code())
 		return RES_TYPE::MESH;
-	else if (info.hash_code == typeid(CGraphicsShader).hash_code)
+	else if (info.hash_code() == typeid(CGraphicsShader).hash_code())
 		return RES_TYPE::GRAPHICS_SHADER;
 	/*else if (info.hash_code == typeid(CMesh).hash_code)
 		return RES_TYPE::MESH;
@@ -88,7 +88,7 @@ type* CResMgr::FindRes(const wstring& _strKey)
 }
 
 template<typename type>
-void AddRes(const wstring& _strKey, type* _pRes)
+void CResMgr::AddRes(const wstring& _strKey, type* _pRes)
 {
 	RES_TYPE eType = GetResType<type>();
 

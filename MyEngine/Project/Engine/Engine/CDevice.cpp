@@ -6,12 +6,14 @@ CDevice::CDevice()
 	: m_hwnd(nullptr)
 	, m_tSwapChainDesc{}
 	, m_tViewPort{}
+	, m_arrCB{}
 {
 
 }
 
 CDevice::~CDevice()
 {
+	Safe_Del_Arr(m_arrCB);
 
 
 }

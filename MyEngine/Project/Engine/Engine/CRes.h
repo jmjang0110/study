@@ -31,10 +31,10 @@ public:
 private:
 	void AddRef() { ++m_iRefCount; }
 	void SubRef() { --m_iRefCount; }
-	}
+	
 public:
 	CRes();
-	~CRes();
+	virtual ~CRes();
 
 
 	friend class CResMgr;

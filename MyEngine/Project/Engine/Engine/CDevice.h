@@ -39,6 +39,8 @@ public:
 	ComPtr<ID3D11Device> GetDevice() { return m_pDevice;}
 	ComPtr<ID3D11DeviceContext> GetDeviceContext() { return m_pDeviceContext; }
 
+	CConstBuffer* GetCB(CB_TYPE _eType) { return m_arrCB[(UINT)_eType]; }
+
 
 private:
 	int CreateSawpChain();

@@ -12,6 +12,12 @@
 #include "CGraphicsShader.h"
 #include "CConstBuffer.h"
 
+#include "CGameObject.h"
+#include "CMeshRender.h"
+#include "CTransform.h"
+
+
+CGameObject* g_pObj = nullptr;
 
 
 /*
@@ -31,9 +37,6 @@
 	* 
 */
 
-// 정점 위치 
-Vertex arrVtx[4] = {};
-Vec4	g_vPos;
 
 
 /*
@@ -84,31 +87,27 @@ Vec4	g_vPos;
 
 void TestInit()
 {
+	g_pObj = new CGameObject;
+	g_pObj->SetName(L"Player");
+	g_pObj->AddComponent(new CTransform);
+	g_pObj->AddComponent(new CMeshRender);
 
-	
+	g_pObj->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	g_pObj->MeshRender()->SetShader(CResMgr::GetInst()->FindRes<CGraphicsShader>(L"TestShader"));
 
 
 
-	
+
+
 
  }
 
 void TestUpdate()
 {
-	// 왼쪽 키를 누르고 있다면 
-	if (KEY_PRESSED(KEY::LEFT))
-	{
-		g_vPos.x -= DT * 0.5f;
-	}
+	g_pObj->update();
+	g_pObj->lateupdate();
+	g_pObj->finalupdate();
 
-
-	// 왼쪽 키를 누르고 있다면 
-	if (KEY_PRESSED(KEY::RIGHT))
-	{
-		g_vPos.x += DT * 0.5f;
-	}
-
-	g_pCB->SetData(&g_vPos, sizeof(Vec4));
 
 }
 
@@ -124,16 +123,8 @@ void TestRender()
 	CDevice::GetInst()->ClearTarget();
 
 	// Render
-	
-	// 사용할 쉐이더 
-	CGraphicsShader* pShader = CResMgr::GetInst()->FindRes<CGraphicsShader>(L"TestShader");
-	pShader->UpdateData();	
+	g_pObj->render();
 
-	g_pCB->UpdateData();		// b0 레지스터에 전달할 상수 버퍼 
-	//CONTEXT->Draw(6, 0);		// OffSet 으로 부터 얼마나 출력할 것인지를 알린다. 
-	
-	CMesh* pRectMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh");
-	pRectMesh->render();		// 사용할 정점 ( 메쉬 )
 
 	CDevice::GetInst()->Present();
 
@@ -141,9 +132,7 @@ void TestRender()
 
 void TestRelease()
 {
-	SAFE_DELETE(g_pMesh);
-	SAFE_DELETE(g_pShader);
-	SAFE_DELETE(g_pCB);
+	SAFE_DELETE(g_pObj);
 
 
 }

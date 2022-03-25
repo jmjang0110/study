@@ -49,3 +49,29 @@ enum class CB_TYPE
 	GLOBAL, // b2
 	END,
 };
+
+enum class COMPONENT_TYPE
+{
+	TRANSFORM, // 위치, 크기, 회전 ( Location )
+	
+	COLLIDER2D, // 2D 충돌체
+	COLLIDER3D, // 3D 충돌체 
+	
+	ANIMATOR2D, // 2D Sprite Animation
+	ANIMATOR3D, // 3D Bone Skinning Animation
+
+	BOUNDINGBOX, // Picking, FrustumCulling
+
+	// renderer
+	MESHRENDER,			// Mesh Renderer
+	TILEMAP,			// 2D Tile Map Renderer 
+	PARTICLESYSTEM,		// 입자 렌더링	
+	LANDSCAPE,			// 지형 
+	DECAL,				// 데칼 오브젝트 
+	
+
+	// Update
+	SCRIPT,				// 로직
+	END,
+		
+};
