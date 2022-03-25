@@ -95,11 +95,6 @@ void TestInit()
 	g_pObj->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	g_pObj->MeshRender()->SetShader(CResMgr::GetInst()->FindRes<CGraphicsShader>(L"TestShader"));
 
-
-
-
-
-
  }
 
 void TestUpdate()
