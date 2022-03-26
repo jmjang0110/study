@@ -51,6 +51,7 @@ int CConstBuffer::Create(UINT _iBufferSize)
 
 }
 
+// _pData 를 GPU 메모리와 매핑 
 void CConstBuffer::SetData(void* _pData, UINT _iSize)
 {
 

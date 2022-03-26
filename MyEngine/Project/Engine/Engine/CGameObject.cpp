@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "CGameObject.h"
 
+#include "CKeyMgr.h"
+#include "CTimeMgr.h"
+
 #include "CComponent.h"
+#include "CTransform.h"
 #include "CMeshRender.h"
 
 
@@ -19,6 +23,24 @@ CGameObject::~CGameObject()
 
 void CGameObject::update()
 {
+	if (KEY_PRESSED(KEY::LEFT))
+	{
+		Vec3 vPos = Transform()->GetPos();
+		vPos.x -= DT * 0.5f;
+		Transform()->SetPos(vPos);
+
+
+	}
+
+	if (KEY_PRESSED(KEY::RIGHT))
+	{
+		Vec3 vPos = Transform()->GetPos();
+		vPos.x += DT * 0.5f;
+		Transform()->SetPos(vPos);
+  
+	}
+
+
 	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
 	{
 		if (nullptr != m_arrCom[i])

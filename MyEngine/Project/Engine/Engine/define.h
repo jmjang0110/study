@@ -44,9 +44,9 @@ enum class RES_TYPE
 
 enum class CB_TYPE
 {
-	TRANSFORM, // b0 ( 0 번 레지스터에는 위치정보만 전달 ) 
-	MATERIAL_PARAM, // b1
-	GLOBAL, // b2
+	TRANSFORM,			// b0 ( 0 번 레지스터에는 위치정보만 전달 ) 
+	MATERIAL_PARAM,		// b1
+	GLOBAL,				// b2
 	END,
 };
 
