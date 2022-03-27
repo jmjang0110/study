@@ -130,6 +130,15 @@
     <Filter Include="Engine\Scripts\PlayerScript">
       <UniqueIdentifier>{dd6d51c3-e387-48c4-8689-473d22a048bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Manager\07. SceneMgr">
+      <UniqueIdentifier>{1cdcd811-64de-421f-8c66-32790af9a46d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\06. Scene\02. Layer">
+      <UniqueIdentifier>{7d361317-5a7e-403a-bfe4-ae32613aa1f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\06. Scene\01. Scene">
+      <UniqueIdentifier>{44349557-55e5-4766-8f90-ab27dfbedb20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -210,6 +219,15 @@
     <ClInclude Include="CPlayerScript.h">
       <Filter>Engine\Scripts\PlayerScript</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneMgr.h">
+      <Filter>Engine\03. Manager\07. SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>Engine\06. Scene\01. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CLayer.h">
+      <Filter>Engine\06. Scene\02. Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -277,6 +295,15 @@
     </ClCompile>
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>Engine\Scripts\PlayerScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>Engine\03. Manager\07. SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>Engine\06. Scene\01. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CLayer.cpp">
+      <Filter>Engine\06. Scene\02. Layer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

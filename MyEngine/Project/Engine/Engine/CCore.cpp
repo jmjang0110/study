@@ -4,6 +4,8 @@
 #include "CKeyMgr.h"
 #include "CPathMgr.h"
 #include "CTimeMgr.h"
+#include "CSceneMgr.h"
+
 
 #include "Temp.h"
 #include "CDevice.h"
@@ -20,7 +22,6 @@ CCore::CCore()
 
 CCore::~CCore()
 {
-	TestRelease();
 
 }
 
@@ -45,10 +46,9 @@ int CCore::init(HWND _hwnd, POINT _ptResolution)
 	CKeyMgr::GetInst()->init();
 	CTimeMgr::GetInst()->init();
 	CResMgr::GetInst()->init();
+	CSceneMgr::GetInst()->init();
 
 
-
-	TestInit();
 
 
 	return S_OK;
@@ -59,9 +59,12 @@ void CCore::progress()
 	// 1. Update
 	CTimeMgr::GetInst()->update();
 	CKeyMgr::GetInst()->update();
-	TestUpdate();
 
-	// 2. Rendering
-	TestRender();
+	// Scene Update
+	CSceneMgr::GetInst()->progress();
+
+	// Scene Render
+	CSceneMgr::GetInst()->render();
+
 
 }
