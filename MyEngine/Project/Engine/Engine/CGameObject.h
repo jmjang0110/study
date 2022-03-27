@@ -12,6 +12,7 @@ private:
     class CComponent* m_arrCom[(UINT)COMPONENT_TYPE::END];
 
 public:
+    void start();
     void update();
     void lateupdate();
     void finalupdate();

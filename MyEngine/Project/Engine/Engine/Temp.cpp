@@ -16,6 +16,7 @@
 #include "CMeshRender.h"
 #include "CTransform.h"
 
+#include "CPlayerScript.h"
 
 CGameObject* g_pObj = nullptr;
 
@@ -91,6 +92,8 @@ void TestInit()
 	g_pObj->SetName(L"Player");
 	g_pObj->AddComponent(new CTransform);
 	g_pObj->AddComponent(new CMeshRender);
+	g_pObj->AddComponent(new CPlayerScript);
+
 
 	g_pObj->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	g_pObj->MeshRender()->SetShader(CResMgr::GetInst()->FindRes<CGraphicsShader>(L"TestShader"));

@@ -118,6 +118,18 @@
     <Filter Include="Engine\05. Component\12. Script">
       <UniqueIdentifier>{eb6b2807-1037-4266-b583-8dfb1d976486}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scripts">
+      <UniqueIdentifier>{b36477e3-4210-4bba-aa8c-1708e60c7084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scripts\MonsterScript">
+      <UniqueIdentifier>{cef33910-78b4-4962-a769-69e3ef912adf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scripts\MissileScript">
+      <UniqueIdentifier>{e1a65fc1-86dc-4a16-acbd-b19f448645ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scripts\PlayerScript">
+      <UniqueIdentifier>{dd6d51c3-e387-48c4-8689-473d22a048bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -192,6 +204,12 @@
     <ClInclude Include="CMeshRender.h">
       <Filter>Engine\05. Component\07. MeshRender</Filter>
     </ClInclude>
+    <ClInclude Include="CScript.h">
+      <Filter>Engine\05. Component\12. Script</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>Engine\Scripts\PlayerScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -253,6 +271,12 @@
     </ClCompile>
     <ClCompile Include="CMeshRender.cpp">
       <Filter>Engine\05. Component\07. MeshRender</Filter>
+    </ClCompile>
+    <ClCompile Include="CScript.cpp">
+      <Filter>Engine\05. Component\12. Script</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>Engine\Scripts\PlayerScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

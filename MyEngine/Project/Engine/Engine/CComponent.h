@@ -12,6 +12,7 @@ private:
     class CGameObject*           m_pOwner;
 
 public:
+    virtual void start() {};
     virtual void update() {};
     virtual void lateupdate() {};
     virtual void finalupdate() = 0; // 반드시 구현하라. 
