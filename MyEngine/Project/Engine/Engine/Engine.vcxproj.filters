@@ -159,9 +159,6 @@
     <ClInclude Include="SimpleMath.h">
       <Filter>Engine\Module</Filter>
     </ClInclude>
-    <ClInclude Include="Temp.h">
-      <Filter>Temp</Filter>
-    </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>Engine\01. Header</Filter>
     </ClInclude>
@@ -228,6 +225,9 @@
     <ClInclude Include="CLayer.h">
       <Filter>Engine\06. Scene\02. Layer</Filter>
     </ClInclude>
+    <ClInclude Include="Temp.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -238,9 +238,6 @@
     </ClCompile>
     <ClCompile Include="CCore.cpp">
       <Filter>Engine\02. Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Temp.cpp">
-      <Filter>Temp</Filter>
     </ClCompile>
     <ClCompile Include="CEntity.cpp">
       <Filter>Engine</Filter>
@@ -296,14 +293,17 @@
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>Engine\Scripts\PlayerScript</Filter>
     </ClCompile>
-    <ClCompile Include="CSceneMgr.cpp">
-      <Filter>Engine\03. Manager\07. SceneMgr</Filter>
-    </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>Engine\06. Scene\01. Scene</Filter>
     </ClCompile>
     <ClCompile Include="CLayer.cpp">
       <Filter>Engine\06. Scene\02. Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Temp.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>Engine\03. Manager\07. SceneMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
