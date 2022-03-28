@@ -27,6 +27,8 @@ private:
 	D3D11_VIEWPORT					m_tViewPort;
 	DXGI_SWAP_CHAIN_DESC			m_tSwapChainDesc;
 
+
+	ComPtr<ID3D11RasterizerState>	m_arrRS[(UINT)RS_TYPE::END];
 	class CConstBuffer*				m_arrCB[(UINT)CB_TYPE::END];
 
 

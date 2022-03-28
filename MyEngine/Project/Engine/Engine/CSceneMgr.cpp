@@ -45,8 +45,6 @@ void CSceneMgr::init()
 
 	m_pCurScene->AddObject(pObject, L"Default");
 
-
-
 	m_pCurScene->start();
 }
 

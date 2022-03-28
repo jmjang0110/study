@@ -52,6 +52,16 @@ enum class CB_TYPE
 	END,
 };
 
+enum class RS_TYPE
+{
+	CULL_BACK,	// Default
+	CULL_FRONT,
+	CULL_NONE,
+	WIRE_FRAME,
+	END,
+
+};
+
 enum class COMPONENT_TYPE
 {
 	TRANSFORM, // 위치, 크기, 회전 ( Location )
