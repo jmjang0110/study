@@ -29,19 +29,21 @@ private:
     ComPtr<ID3D11GeometryShader>    m_GS;
     ComPtr<ID3D11PixelShader>       m_PS;
 
-    ComPtr<ID3D11InputLayout>       m_InputLayout;
 
-    
+    RS_TYPE                         m_eRSType;
+    ComPtr<ID3D11InputLayout>       m_InputLayout;
     D3D11_PRIMITIVE_TOPOLOGY        m_eTopology; // Triangle? Rectangle? 
 
 public:
 
     int CreateVertexShader(const wstring& _strRrelativePath, const string& _strFunc);
-   // int CreateHullShader(const wstring& _strRrelativePath, const string& _strVSFunc);
-    //int CreateDomainShader(const wstring& _strRrelativePath, const string& _strVSFunc);
-    //int CreateGeometryShader(const wstring& _strRrelativePath, const string& _strVSFunc);
+    // int CreateHullShader(const wstring& _strRrelativePath, const string& _strVSFunc);
+     //int CreateDomainShader(const wstring& _strRrelativePath, const string& _strVSFunc);
+     //int CreateGeometryShader(const wstring& _strRrelativePath, const string& _strVSFunc);
     int CreatePixelShader(const wstring& _strRrelativePath, const string& _strFunc);
 
+
+    void SetRSType(RS_TYPE _eType) { m_eRSType = _eType; }
     void SetTopology(D3D11_PRIMITIVE_TOPOLOGY _eTopology) { m_eTopology = _eTopology; }
     D3D11_PRIMITIVE_TOPOLOGY GetTopology() { return m_eTopology; }
 

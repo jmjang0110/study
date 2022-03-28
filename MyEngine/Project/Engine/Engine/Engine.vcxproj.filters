@@ -49,9 +49,6 @@
     <Filter Include="Engine\07. Resource\04. Texture">
       <UniqueIdentifier>{b0057eef-5f5d-4c57-84d2-cafae3b28235}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\07. Resource\05. Sound">
-      <UniqueIdentifier>{818e5790-2fa3-4998-afe8-8ed076faafa1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\07. Resource\06. Shader">
       <UniqueIdentifier>{46e9efce-df22-473b-9ba1-bf60dbbb7c54}</UniqueIdentifier>
     </Filter>
@@ -138,6 +135,9 @@
     </Filter>
     <Filter Include="Engine\06. Scene\01. Scene">
       <UniqueIdentifier>{44349557-55e5-4766-8f90-ab27dfbedb20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Resource\06. Shader\05. Sound">
+      <UniqueIdentifier>{818e5790-2fa3-4998-afe8-8ed076faafa1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

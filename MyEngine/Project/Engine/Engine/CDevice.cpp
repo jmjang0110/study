@@ -6,6 +6,7 @@ CDevice::CDevice()
 	: m_hwnd(nullptr)
 	, m_tSwapChainDesc{}
 	, m_tViewPort{}
+	, m_arrRS{}
 	, m_arrCB{}
 {
 
@@ -100,6 +101,15 @@ int CDevice::init(HWND _hwnd, Vec2 _vRenderResolution)
 	// 윈도우에 띄울 창(렌더링) 크기와 위치를 세팅한다. 
 	m_pDeviceContext->RSSetViewports(1, &m_tViewPort);
 	
+	// 레스터라이저 스테이트 생성 
+	if (FAILED(CreateRasterizerState()))
+	{
+		return E_FAIL;
+	}
+
+
+
+	// 상수버퍼 생성 
 	if (FAILED(CreateConstBuffer()))
 	{
 		return E_FAIL;
@@ -235,12 +245,46 @@ int CDevice::CreateView()
 	return S_OK;
 }
 
+int CDevice::CreateRasterizerState()
+{
+	D3D11_RASTERIZER_DESC desc = {};
+	HRESULT hr = S_OK;
+
+	// Default State
+	// 반시계(뒷면) 제외, 시계방향(앞면) 통괴 
+	m_arrRS[(UINT)RS_TYPE::CULL_BACK] = nullptr;
+
+	
+	desc.CullMode = D3D11_CULL_FRONT;
+	desc.FillMode = D3D11_FILL_SOLID;
+	hr = DEVICE->CreateRasterizerState(&desc, m_arrRS[(UINT)RS_TYPE::CULL_FRONT].GetAddressOf());
+	if (FAILED(hr))
+		return E_FAIL;
+
+
+
+	desc.CullMode = D3D11_CULL_FRONT;
+	desc.FillMode = D3D11_FILL_SOLID;
+	// 양면 모두 그리기 (주로 단면 형태의 메쉬를 앞 뒤에서 볼 때 )
+	hr = DEVICE->CreateRasterizerState(&desc, m_arrRS[(UINT)RS_TYPE::CULL_NONE].GetAddressOf());
+	if (FAILED(hr))
+		return E_FAIL;
+
+	desc.CullMode = D3D11_CULL_FRONT;
+	desc.FillMode = D3D11_FILL_SOLID;
+	// 양면 모두 그리기 , 뼈대 픽셀만 렌더링 
+	hr = DEVICE->CreateRasterizerState(&desc, m_arrRS[(UINT)RS_TYPE::WIRE_FRAME].GetAddressOf());
+	if (FAILED(hr))
+		return E_FAIL;
+	return S_OK;
+}
+
 int CDevice::CreateConstBuffer()
 {
 	m_arrCB[(UINT)CB_TYPE::TRANSFORM] = new CConstBuffer(CB_TYPE::TRANSFORM);
 	m_arrCB[(UINT)CB_TYPE::TRANSFORM]->Create(sizeof(Vec4));
 
-	return 0;
+	return S_OK;
 }
 
 

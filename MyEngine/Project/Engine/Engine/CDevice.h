@@ -47,7 +47,8 @@ public:
 private:
 	int CreateSawpChain();
 	int CreateView();
-	int CreateConstBuffer();
+	int CreateRasterizerState();
+	int CreateConstBuffer();;
 
 
 
