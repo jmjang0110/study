@@ -20,6 +20,8 @@ public:							\
 #define DEVICE CDevice::GetInst()->GetDevice().Get()
 #define CONTEXT CDevice::GetInst()->GetDeviceContext().Get()
 
+#define MAX_LAYER 32
+
 #define SAFE_DELETE(p) if(nullptr != p) delete p; p = nullptr;
 
 
