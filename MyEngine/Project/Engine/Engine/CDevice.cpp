@@ -282,7 +282,7 @@ int CDevice::CreateRasterizerState()
 int CDevice::CreateConstBuffer()
 {
 	m_arrCB[(UINT)CB_TYPE::TRANSFORM] = new CConstBuffer(CB_TYPE::TRANSFORM);
-	m_arrCB[(UINT)CB_TYPE::TRANSFORM]->Create(sizeof(Vec4));
+	m_arrCB[(UINT)CB_TYPE::TRANSFORM]->Create(sizeof(Matrix));
 
 	return S_OK;
 }

@@ -4,10 +4,16 @@
 // 0 번 슬롯으로 전달한다고 했었다. 
 cbuffer TRANSFORM : register(b0)
 {
-    float4 g_Pos;
-    
-    
+    // 행 우선으로 읽기
+    row_major matrix g_matWorld;
 }
+
+// Texture2D g_tex_0 : register(t0);
+// StructuredBuffer<float4> g_buffer : register(t1);
+// sampler g_sam : register(s0);
+// RWStructuredBuffer<float4> g_rwbuffer : register(u0);
+
+
 
 // Vertex Shader 
 // 입력으로 정점이 들어온다.
@@ -18,7 +24,7 @@ struct VTX_IN
     float4 vColor : COLOR;
 };
 
-struct VTX_OUT
+struct VTX_OUT 
 {
     float4 vPosition : SV_Position;
     float4 vColor : COLOR;
@@ -29,11 +35,12 @@ VTX_OUT VS_Test(VTX_IN _in)
     VTX_OUT output = (VTX_OUT) 0.f; // 구조체 초기화 = {}; (C++) 
         
     
-    float3 vFinalPos = _in.vPos + g_Pos.xyz;
-    
-    
-    output.vPosition = float4(vFinalPos, 1.f);
+    float4 vFinalPos = mul(float4(_in.vPos,1.f), g_matWorld);
+     
+    output.vPosition = vFinalPos;
     output.vColor = _in.vColor;
+    
+   
     
     return output;
 }

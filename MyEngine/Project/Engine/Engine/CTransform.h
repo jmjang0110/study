@@ -8,6 +8,9 @@ private:
     Vec3 m_vRelativeScale;
     Vec3 m_vRelativeRot;
 
+    Matrix  m_matWorld; // 위치변환 정보 행렬
+
+
 public:
     void SetPos(const Vec3& _vPos) { m_vRelativePos = _vPos; };
     void SetScale(const Vec3& _vScale) { m_vRelativeScale = _vScale; };;

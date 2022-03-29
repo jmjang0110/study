@@ -30,7 +30,7 @@ void CConstBuffer::UpdateData()
 int CConstBuffer::Create(UINT _iBufferSize)
 {
 
-	m_Desc.ByteWidth = sizeof(Vec4); // 어느정도의 크기냐 
+	m_Desc.ByteWidth = _iBufferSize; // 어느정도의 크기냐 
 
 	// 버퍼 생성 이후에도, 버퍼의 내용을 수정 할 수 있는 옵션 
 	m_Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
@@ -66,7 +66,7 @@ void CConstBuffer::SetData(void* _pData, UINT _iSize)
 	CONTEXT->Unmap(g_pVB.Get(), 0);
 	*/
 	D3D11_MAPPED_SUBRESOURCE tSub = {};
-	tSub.pData = nullptr;
+	//tSub.pData = nullptr;
 
 	// GPU 메모리 영역을  tSub.pData 와 매핑 
 	CONTEXT->Map(m_CB.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &tSub);
