@@ -254,7 +254,7 @@ int CDevice::CreateRasterizerState()
 	// 반시계(뒷면) 제외, 시계방향(앞면) 통괴 
 	m_arrRS[(UINT)RS_TYPE::CULL_BACK] = nullptr;
 
-	
+	// 반시계(뒷면) 통과, 시계방향(앞면) 제외
 	desc.CullMode = D3D11_CULL_FRONT;
 	desc.FillMode = D3D11_FILL_SOLID;
 	hr = DEVICE->CreateRasterizerState(&desc, m_arrRS[(UINT)RS_TYPE::CULL_FRONT].GetAddressOf());
@@ -262,17 +262,17 @@ int CDevice::CreateRasterizerState()
 		return E_FAIL;
 
 
-
-	desc.CullMode = D3D11_CULL_FRONT;
-	desc.FillMode = D3D11_FILL_SOLID;
 	// 양면 모두 그리기 (주로 단면 형태의 메쉬를 앞 뒤에서 볼 때 )
+
+	desc.CullMode = D3D11_CULL_NONE;
+	desc.FillMode = D3D11_FILL_SOLID;
 	hr = DEVICE->CreateRasterizerState(&desc, m_arrRS[(UINT)RS_TYPE::CULL_NONE].GetAddressOf());
 	if (FAILED(hr))
 		return E_FAIL;
 
-	desc.CullMode = D3D11_CULL_FRONT;
-	desc.FillMode = D3D11_FILL_SOLID;
 	// 양면 모두 그리기 , 뼈대 픽셀만 렌더링 
+	desc.CullMode = D3D11_CULL_NONE;
+	desc.FillMode = D3D11_FILL_WIREFRAME;
 	hr = DEVICE->CreateRasterizerState(&desc, m_arrRS[(UINT)RS_TYPE::WIRE_FRAME].GetAddressOf());
 	if (FAILED(hr))
 		return E_FAIL;
@@ -292,7 +292,8 @@ int CDevice::CreateConstBuffer()
 void CDevice::ClearTarget()
 {
 	
-	m_pDeviceContext->ClearRenderTargetView(m_RTV.Get(), Vec4(0.f,0.f,0.f,1.f));
+	// 배경화면 색 설정 
+	m_pDeviceContext->ClearRenderTargetView(m_RTV.Get(), Vec4(0.2f,0.2f,0.2f,1.f)); 
 	m_pDeviceContext->ClearDepthStencilView(m_DSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 
 

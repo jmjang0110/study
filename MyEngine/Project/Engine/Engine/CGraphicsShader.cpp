@@ -112,6 +112,7 @@ void CGraphicsShader::UpdateData()
 	CONTEXT->PSSetShader(m_PS.Get(), 0, 0);
 
 
+	CONTEXT->RSSetState(CDevice::GetInst()->GetRS(m_eRSType).Get());
 
 }
 
