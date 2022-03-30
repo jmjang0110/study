@@ -147,6 +147,8 @@ int CDevice::CreateSawpChain()
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
 
+
+
 	desc.OutputWindow = m_hwnd; // Front BUffer를 어디에 보내야 하는지 목적값을 저장 
 	desc.Windowed = true;
 
