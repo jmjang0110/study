@@ -45,7 +45,7 @@ void CPlayerScript::update()
 	if (KEY_PRESSED(KEY::Z))
 	{
 		Vec3 vRot = Transform()->GetRotation();
-		vRot.z += DT * XM_2PI;
+		vRot.y += DT * XM_2PI;
 		Transform()->SetRotation(vRot);
 	}
 

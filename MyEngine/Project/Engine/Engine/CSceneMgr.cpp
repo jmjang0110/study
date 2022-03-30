@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "CSceneMgr.h"
 
+
+#include "CDevice.h"
+
+
 #include "CResMgr.h"
 #include "CMesh.h"
 #include "CGraphicsShader.h"
@@ -11,8 +15,10 @@
 #include "CTransform.h"
 #include "CMeshRender.h"
 #include "CPlayerScript.h"
+#include "CCameraMoveScript.h"
+#include "CCamera.h"
 
-#include "CDevice.h"
+
 
 CSceneMgr::CSceneMgr()
 	: m_pCurScene(nullptr)
@@ -31,6 +37,15 @@ void CSceneMgr::init()
 	m_pCurScene->SetLayerName(0, L"Default");
 	m_pCurScene->SetLayerName(1, L"Player");
 	m_pCurScene->SetLayerName(2, L"Monster");
+
+	//  Scene 에 Camera Object 추가 
+	CGameObject* pCamObj = new CGameObject;
+	pCamObj->AddComponent(new CTransform);
+	pCamObj->AddComponent(new CCamera);
+	pCamObj->AddComponent(new CCameraMoveScript);
+
+	m_pCurScene->AddObject(pCamObj, L"Default");
+
 
 
 	// Scene 에 GameObject 추가

@@ -64,15 +64,17 @@ enum class RS_TYPE
 
 enum class COMPONENT_TYPE
 {
-	TRANSFORM, // 위치, 크기, 회전 ( Location )
-	
-	COLLIDER2D, // 2D 충돌체
-	COLLIDER3D, // 3D 충돌체 
-	
-	ANIMATOR2D, // 2D Sprite Animation
-	ANIMATOR3D, // 3D Bone Skinning Animation
+	TRANSFORM,			// 위치, 크기, 회전 ( Location )
+			
+	CAMERA,				// 화면을 찍는 카메라 역할 		
 
-	BOUNDINGBOX, // Picking, FrustumCulling
+	COLLIDER2D,			// 2D 충돌체
+	COLLIDER3D,			// 3D 충돌체 
+	
+	ANIMATOR2D,			// 2D Sprite Animation
+	ANIMATOR3D,			// 3D Bone Skinning Animation
+
+	BOUNDINGBOX,		// Picking, FrustumCulling
 
 	// renderer
 	MESHRENDER,			// Mesh Renderer

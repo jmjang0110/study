@@ -82,39 +82,6 @@
     <Filter Include="Engine\05. Component\01. Transform">
       <UniqueIdentifier>{925baad1-3aa4-481f-a943-b77995caba5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\05. Component\02. Collider2D">
-      <UniqueIdentifier>{dac40cc3-db97-4aff-8699-4bb8d1001795}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\05. Component\03. Collider3D">
-      <UniqueIdentifier>{38824797-8cc3-4f9a-b1c8-93e7c1ffa489}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\05. Component\04. Animator2D">
-      <UniqueIdentifier>{cf7083f5-711f-42eb-a211-4bdade51108e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\05. Component\05. Animator3D">
-      <UniqueIdentifier>{91699ad5-afad-403f-b9d5-9f64234d493b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\05. Component\06. BoundingBox">
-      <UniqueIdentifier>{e5e74e7f-6f14-4a47-b5a0-13c7ac35db24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\05. Component\07. MeshRender">
-      <UniqueIdentifier>{93a009a5-dff0-453a-84cd-9ef8e00c8761}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\05. Component\08. TileMap">
-      <UniqueIdentifier>{cab0a5f0-cd8e-4bf5-a465-ef8a6f7ba99f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\05. Component\09. ParticleSystem">
-      <UniqueIdentifier>{3cfaa17a-a4e1-412f-8765-08e04c862fac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\05. Component\10. Decal">
-      <UniqueIdentifier>{340e0109-8800-4c71-84db-d8954c18b294}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\05. Component\11. LandScape">
-      <UniqueIdentifier>{6093603b-e6cf-4810-9c97-fc8cc619e98a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\05. Component\12. Script">
-      <UniqueIdentifier>{eb6b2807-1037-4266-b583-8dfb1d976486}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Scripts">
       <UniqueIdentifier>{b36477e3-4210-4bba-aa8c-1708e60c7084}</UniqueIdentifier>
     </Filter>
@@ -138,6 +105,45 @@
     </Filter>
     <Filter Include="Engine\07. Resource\06. Shader\05. Sound">
       <UniqueIdentifier>{818e5790-2fa3-4998-afe8-8ed076faafa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\02. Camera">
+      <UniqueIdentifier>{3f815ff4-3ace-471c-ac07-e894e4f9969a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\03. Collider2D">
+      <UniqueIdentifier>{dac40cc3-db97-4aff-8699-4bb8d1001795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\04. Collider3D">
+      <UniqueIdentifier>{38824797-8cc3-4f9a-b1c8-93e7c1ffa489}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\05. Animator2D">
+      <UniqueIdentifier>{cf7083f5-711f-42eb-a211-4bdade51108e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\06. Animator3D">
+      <UniqueIdentifier>{91699ad5-afad-403f-b9d5-9f64234d493b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\07. BoundingBox">
+      <UniqueIdentifier>{e5e74e7f-6f14-4a47-b5a0-13c7ac35db24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\08. MeshRender">
+      <UniqueIdentifier>{93a009a5-dff0-453a-84cd-9ef8e00c8761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\09. TileMap">
+      <UniqueIdentifier>{cab0a5f0-cd8e-4bf5-a465-ef8a6f7ba99f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\10. ParticleSystem">
+      <UniqueIdentifier>{3cfaa17a-a4e1-412f-8765-08e04c862fac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\11. Decal">
+      <UniqueIdentifier>{340e0109-8800-4c71-84db-d8954c18b294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\12. LandScape">
+      <UniqueIdentifier>{6093603b-e6cf-4810-9c97-fc8cc619e98a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Component\13 Script">
+      <UniqueIdentifier>{eb6b2807-1037-4266-b583-8dfb1d976486}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scripts\CameraMoveScript">
+      <UniqueIdentifier>{120c3979-9440-4987-9bc8-c6480dd363e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -208,10 +214,10 @@
       <Filter>Engine\05. Component\01. Transform</Filter>
     </ClInclude>
     <ClInclude Include="CMeshRender.h">
-      <Filter>Engine\05. Component\07. MeshRender</Filter>
+      <Filter>Engine\05. Component\08. MeshRender</Filter>
     </ClInclude>
     <ClInclude Include="CScript.h">
-      <Filter>Engine\05. Component\12. Script</Filter>
+      <Filter>Engine\05. Component\13 Script</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerScript.h">
       <Filter>Engine\Scripts\PlayerScript</Filter>
@@ -227,6 +233,12 @@
     </ClInclude>
     <ClInclude Include="Temp.h">
       <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Engine\05. Component\02. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraMoveScript.h">
+      <Filter>Engine\Scripts\CameraMoveScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -285,10 +297,10 @@
       <Filter>Engine\05. Component\01. Transform</Filter>
     </ClCompile>
     <ClCompile Include="CMeshRender.cpp">
-      <Filter>Engine\05. Component\07. MeshRender</Filter>
+      <Filter>Engine\05. Component\08. MeshRender</Filter>
     </ClCompile>
     <ClCompile Include="CScript.cpp">
-      <Filter>Engine\05. Component\12. Script</Filter>
+      <Filter>Engine\05. Component\13 Script</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>Engine\Scripts\PlayerScript</Filter>
@@ -304,6 +316,12 @@
     </ClCompile>
     <ClCompile Include="CSceneMgr.cpp">
       <Filter>Engine\03. Manager\07. SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Engine\05. Component\02. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraMoveScript.cpp">
+      <Filter>Engine\Scripts\CameraMoveScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
