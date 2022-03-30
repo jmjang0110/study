@@ -89,7 +89,7 @@ void CResMgr::CreateEngineShader()
 	pShader = new CGraphicsShader;
 	pShader->CreateVertexShader(L"shader\\test.fx", "VS_Test"); // ( CreateInputLayout 함수내 존재 )
 	pShader->CreatePixelShader(L"shader\\test.fx", "PS_Test");
-	pShader->SetRSType(RS_TYPE::WIRE_FRAME);
+	pShader->SetRSType(RS_TYPE::CULL_BACK);
 	AddRes<CGraphicsShader>(L"TestShader", pShader);
 
 }

@@ -22,11 +22,22 @@ CTransform::~CTransform()
 void CTransform::finalupdate()
 {
 
-	// Transform 행렬 만들기
-	m_matWorld._11 = m_vRelativeScale.x; m_matWorld._12 = 0;				  m_matWorld._13 = 0.f;				   m_matWorld._14 = 0.f;
-	m_matWorld._21 = 0;					 m_matWorld._22 = m_vRelativeScale.y; m_matWorld._23 = 0.f;				   m_matWorld._24 = 0.f;
-	m_matWorld._31 = 0;					 m_matWorld._32 = 0;				  m_matWorld._33 = m_vRelativeScale.z; m_matWorld._34 = 0.f;
-	m_matWorld._41 = m_vRelativePos.x;	 m_matWorld._42 = m_vRelativePos.y;   m_matWorld._43 = m_vRelativePos.z;   m_matWorld._44 = 1.f;
+	// Size x Rotation x Translation
+	Matrix matScale = XMMatrixScaling(m_vRelativeScale.x, m_vRelativeScale.y, m_vRelativeScale.z);
+	Matrix matTranlation = XMMatrixTranslation(m_vRelativePos.x, m_vRelativePos.y, m_vRelativePos.z);
+
+
+	// 회전량 : radian 
+	Matrix matRotX = XMMatrixRotationX(m_vRelativeRot.x);
+	Matrix matRotY = XMMatrixRotationY(m_vRelativeRot.y);
+	Matrix matRotZ = XMMatrixRotationZ(m_vRelativeRot.z); 
+	Matrix matRotation = matRotX * matRotY * matRotZ;
+
+	// World Matrix 생성 
+	m_matWorld = matScale * matRotation * matTranlation; // [ S * R * T ]
+
+
+
 }
 
 

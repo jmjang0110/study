@@ -6,7 +6,7 @@ class CTransform :
 private:
     Vec3 m_vRelativePos;
     Vec3 m_vRelativeScale;
-    Vec3 m_vRelativeRot;
+    Vec3 m_vRelativeRot; // 축별 회전 각도 
 
     Matrix  m_matWorld; // 위치변환 정보 행렬
 

@@ -4,6 +4,9 @@
 #define GET_COMPONENT(type, TYPE) class C##type* type() { return (C##type*)m_arrCom[(UINT)COMPONENT_TYPE::TYPE];}
 
 class CComponent;
+class CTransform;
+class CMeshRender;
+
 
 class CGameObject :
     public CEntity
