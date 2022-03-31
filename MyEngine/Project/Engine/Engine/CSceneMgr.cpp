@@ -17,6 +17,8 @@
 #include "CPlayerScript.h"
 #include "CCameraMoveScript.h"
 #include "CCamera.h"
+#include "CMaterial.h"
+
 
 
 
@@ -55,8 +57,15 @@ void CSceneMgr::init()
 	pObject->AddComponent(new CMeshRender);
 	pObject->AddComponent(new CPlayerScript);
 
+	pObject->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
+
 	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	pObject->MeshRender()->SetShader(CResMgr::GetInst()->FindRes<CGraphicsShader>(L"TestShader"));
+	pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));
+
+	int a = 0;
+	//pObject->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, &a);
+	pObject->MeshRender()->GetMaterial()->SetScalarParam(L"IsColorRed", &a);
+
 
 	m_pCurScene->AddObject(pObject, L"Default");
 

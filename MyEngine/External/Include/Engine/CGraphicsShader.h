@@ -1,5 +1,14 @@
 #pragma once
 #include "CShader.h"
+
+struct tParamInfo
+{
+    wstring         strDesc;
+    SCALAR_PARAM    eScalarParam;
+
+};
+
+
 class CGraphicsShader :
     public CShader
 {
@@ -34,6 +43,8 @@ private:
     ComPtr<ID3D11InputLayout>       m_InputLayout;
     D3D11_PRIMITIVE_TOPOLOGY        m_eTopology; // Triangle? Rectangle? 
 
+    vector<tParamInfo>              m_vecParamInfo;
+
 public:
 
     int CreateVertexShader(const wstring& _strRrelativePath, const string& _strFunc);
@@ -49,6 +60,11 @@ public:
 
 
     virtual void UpdateData() override;
+
+public:
+    void AddParamInfo(const wstring& _strDesc, SCALAR_PARAM _eParamType);
+    const vector<tParamInfo>& GetParamInfo() { return m_vecParamInfo; }
+
 
 
 public:

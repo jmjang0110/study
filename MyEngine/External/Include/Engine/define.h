@@ -47,7 +47,7 @@ enum class RES_TYPE
 enum class CB_TYPE
 {
 	TRANSFORM,			// b0 ( 0 번 레지스터에는 위치정보만 전달 ) 
-	MATERIAL_PARAM,		// b1
+	SCALAR_PARAM,		// b1
 	GLOBAL,				// b2
 	END,
 };
@@ -88,4 +88,37 @@ enum class COMPONENT_TYPE
 	SCRIPT,				// 로직
 	END,
 		
+};
+
+
+enum class SCALAR_PARAM
+{
+	INT_0,
+	INT_1,
+	INT_2,
+	INT_3,
+
+	FLOAT_0,
+	FLOAT_1,
+	FLOAT_2,
+	FLOAT_3,
+
+	VEC2_0,
+	VEC2_1,
+	VEC2_2,
+	VEC2_3,
+
+	VEC4_0,
+	VEC4_1,
+	VEC4_2,
+	VEC4_3,
+
+	MAT_0,
+	MAT_1,
+	MAT_2,
+	MAT_3,
+
+	END,
+
+
 };

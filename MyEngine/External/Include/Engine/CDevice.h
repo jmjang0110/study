@@ -41,9 +41,12 @@ public:
 	ComPtr<ID3D11Device> GetDevice() { return m_pDevice;}
 	ComPtr<ID3D11DeviceContext> GetDeviceContext() { return m_pDeviceContext; }
 
-
+	// return Rasterizer State 
 	ComPtr<ID3D11RasterizerState> GetRS(RS_TYPE _eType) { return m_arrRS[(UINT)_eType]; }
+	// return Constant Buffer 
 	CConstBuffer* GetCB(CB_TYPE _eType) { return m_arrCB[(UINT)_eType]; }
+	// return Render Resolution
+	Vec2 GetRenderResolution() { return m_vRenderResolution; }
 
 
 

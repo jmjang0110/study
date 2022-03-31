@@ -6,16 +6,47 @@ cbuffer TRANSFORM : register(b0)
 {
     // 행 우선으로 읽기
     row_major matrix g_matWorld;
+    row_major matrix g_matView;
+    row_major matrix g_matProj;
+    
 }
 
+cbuffer SCALARL_PARAM : register(b1)
+{
+    // 4byte 짜리 배열을 만들 수 없기 때문에 이렇게 일일히 쓴다 .
+    int g_int_0;
+    int g_int_1;
+    int g_int_2;
+    int g_int_3;
+    
+    float g_float_0;
+    float g_float_1;
+    float g_float_2;
+    float g_float_3;
+    
+    float2 g_vec2_0;
+    float2 g_vec2_1;
+    float2 g_vec2_2;
+    float2 g_vec2_3;
+    
+    matrix g_mat_0;
+    matrix g_mat_1;
+    matrix g_mat_2;
+    matrix g_mat_3;
+    
+    
+}
 // Texture2D g_tex_0 : register(t0);
 // StructuredBuffer<float4> g_buffer : register(t1);
 // sampler g_sam : register(s0);
 // RWStructuredBuffer<float4> g_rwbuffer : register(u0);
 
 
-
+//==============
 // Vertex Shader 
+//==============
+
+
 // 입력으로 정점이 들어온다.
 // float3 : Vec3 
 struct VTX_IN
@@ -35,9 +66,11 @@ VTX_OUT VS_Test(VTX_IN _in)
     VTX_OUT output = (VTX_OUT) 0.f; // 구조체 초기화 = {}; (C++) 
         
     
-    float4 vFinalPos = mul(float4(_in.vPos,1.f), g_matWorld);
-     
-    output.vPosition = vFinalPos;
+    float4 vWorldPos = mul(float4(_in.vPos,1.f), g_matWorld);   // World Space
+    float4 vViewPos = mul(vWorldPos, g_matView);                // Camera Space  
+    float4 vProjPos = mul(vViewPos, g_matProj);                 // Projection Space 
+    
+    output.vPosition = vProjPos;
     output.vColor = _in.vColor;
     
    
@@ -46,6 +79,10 @@ VTX_OUT VS_Test(VTX_IN _in)
 }
 
 
+
+//==============
+// Pixel Shader 
+//==============
 
 // Rasterizer 단계로 간다. 
 // 정점이 만드는 도형 (Topology ) 안에 들어오는 픽셀을 검출 ( 픽쉘 세이더 후보 )
@@ -57,7 +94,11 @@ float4 PS_Test(VTX_OUT _in) : SV_Target
 {
     float4 vOutColor = (float4) 0.f;
     
-    vOutColor = _in.vColor;
+    //vOutColor = _in.vColor;
+    if(g_int_0)
+        vOutColor = float4(1.f, 0.f, 0.f, 1.f);
+    else 
+        vOutColor = float4(0.f, 0.f, 1.f, 1.f);
     
     return vOutColor;
     

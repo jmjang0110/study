@@ -5,6 +5,7 @@ class CCamera :
 {
 private:
     Matrix      m_matView;
+    Matrix      m_matProj;
 
 
 public:

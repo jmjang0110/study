@@ -45,10 +45,12 @@ void CTransform::finalupdate()
 void CTransform::UpdateData()
 {
 	// 필요한 데이터들을 GPU 로 보냅니다... 
+	g_transform.matWorld = m_matWorld;
+
 
 	// 1. 상수버퍼를 가져온디..
 	CConstBuffer* pBuffer = CDevice::GetInst()->GetCB(CB_TYPE::TRANSFORM);
-	pBuffer->SetData(&m_matWorld, sizeof(Matrix));
+	pBuffer->SetData(&g_transform, sizeof(tTransform));
 	pBuffer->UpdateData(); // 0번 레지스터에 저장한다. 
 
 

@@ -90,13 +90,26 @@ void CResMgr::CreateEngineShader()
 	pShader->CreateVertexShader(L"shader\\test.fx", "VS_Test"); // ( CreateInputLayout 함수내 존재 )
 	pShader->CreatePixelShader(L"shader\\test.fx", "PS_Test");
 	pShader->SetRSType(RS_TYPE::CULL_BACK);
+
+	// SCALAR_PARAM::INT_0 가 빨간색인지의 여부인지에 대한 Info 정보
+	pShader->AddParamInfo(L"IsColorRed", SCALAR_PARAM::INT_0); 
+
+
 	AddRes<CGraphicsShader>(L"TestShader", pShader);
 
 }
 
 void CResMgr::CreateEngineMaterial()
 {
-}
+	CMaterial* pMtrl = nullptr;
+
+	// TestMtrl 생성 
+	pMtrl = new CMaterial;
+	pMtrl->SetShader(FindRes<CGraphicsShader>(L"TestShader"));
+
+	AddRes<CMaterial>(L"TestMtrl", pMtrl);
+
+	}
 
 void CResMgr::MakeInputLayoutInfo()
 {

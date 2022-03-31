@@ -283,8 +283,14 @@ int CDevice::CreateRasterizerState()
 
 int CDevice::CreateConstBuffer()
 {
+	// register b0 ¿¡ ´ëÀÀµÊ 
 	m_arrCB[(UINT)CB_TYPE::TRANSFORM] = new CConstBuffer(CB_TYPE::TRANSFORM);
-	m_arrCB[(UINT)CB_TYPE::TRANSFORM]->Create(sizeof(Matrix));
+	m_arrCB[(UINT)CB_TYPE::TRANSFORM]->Create(sizeof(tTransform));
+
+
+	// register b1 ¿¡ ´ëÀÀµÊ 
+	m_arrCB[(UINT)CB_TYPE::SCALAR_PARAM] = new CConstBuffer(CB_TYPE::SCALAR_PARAM);
+	m_arrCB[(UINT)CB_TYPE::SCALAR_PARAM]->Create(sizeof(tScalarParam));
 
 	return S_OK;
 }
