@@ -73,4 +73,6 @@ void CConstBuffer::SetData(void* _pData, UINT _iSize)
 	memcpy(tSub.pData, _pData, _iSize);
 	CONTEXT->Unmap(m_CB.Get(), 0);
 
+	// map unmap : System Mem -> GPU Mem?? ¿Œ∞°?
+
 }

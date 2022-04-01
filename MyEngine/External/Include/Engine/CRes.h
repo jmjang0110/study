@@ -17,6 +17,7 @@ private:
 protected:
 	void SetKey(const wstring& _strKey) { m_strKey = _strKey;}
 	void SetRElativePath(const wstring& _strRelativePath) { m_strRelativePath = _strRelativePath; }
+	bool CheckFail(HRESULT _hr);
 
 public:
 	const wstring& GetKey() { return m_strKey; }

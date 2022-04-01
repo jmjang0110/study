@@ -3,7 +3,7 @@
 
 
 #include "CDevice.h"
-
+#include "CPathMgr.h"
 
 #include "CResMgr.h"
 #include "CMesh.h"
@@ -18,6 +18,9 @@
 #include "CCameraMoveScript.h"
 #include "CCamera.h"
 #include "CMaterial.h"
+
+
+#include "CTexture.h"
 
 
 
@@ -39,6 +42,12 @@ void CSceneMgr::init()
 	m_pCurScene->SetLayerName(0, L"Default");
 	m_pCurScene->SetLayerName(1, L"Player");
 	m_pCurScene->SetLayerName(2, L"Monster");
+
+	// teture 한장 로딩해보기 
+	wstring strConentPath = CPathMgr::GetInst()->GetContentPath();
+
+	Ptr<CTexture> tex = new CTexture;
+	tex->Load(strConentPath + L"texture\\Player.bmp");
 
 	//  Scene 에 Camera Object 추가 
 	CGameObject* pCamObj = new CGameObject;
