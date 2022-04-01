@@ -246,6 +246,9 @@
     <ClInclude Include="CMaterial.h">
       <Filter>Engine\07. Resource\01. Material</Filter>
     </ClInclude>
+    <ClInclude Include="Ptr.h">
+      <Filter>Engine\07. Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">

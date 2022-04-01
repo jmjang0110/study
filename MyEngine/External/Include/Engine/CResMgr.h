@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Ptr.h"
 
 #include "CMaterial.h"
 #include "CMesh.h"
@@ -38,7 +39,7 @@ public:
 	RES_TYPE GetResType();
 
 	template<typename type>
-	type* FindRes(const wstring& _strKey);
+	Ptr<type> FindRes(const wstring& _strKey);
 
 
 	template<typename type>
@@ -75,7 +76,7 @@ inline RES_TYPE CResMgr::GetResType()
 
 
 template<typename type>
-type* CResMgr::FindRes(const wstring& _strKey)
+Ptr<type> CResMgr::FindRes(const wstring& _strKey)
 {
 
 	RES_TYPE eType = GetResType<type>();
@@ -94,7 +95,7 @@ void CResMgr::AddRes(const wstring& _strKey, type* _pRes)
 {
 	RES_TYPE eType = GetResType<type>();
 
-	CRes* pRes = FindRes<type>(_strKey);
+	Ptr<type> pRes = FindRes<type>(_strKey);
 
 	// pRes 가 nullptr가 아니라는 것은 해당 리소스가 이미 들어있다는 것
 	assert(nullptr == pRes);

@@ -2,6 +2,8 @@
 #include "CRes.h"
 #include "CGraphicsShader.h"
 
+class CGraphicsShader;
+
 
 class CMaterial :
     public CRes
@@ -9,12 +11,12 @@ class CMaterial :
 
 private:
     tScalarParam              m_Param;
-    class CGraphicsShader*  m_pShader;
+    Ptr<CGraphicsShader>   m_pShader;
 
     vector<tParamInfo > m_vecParamInfo;
 public:
-    void SetShader(CGraphicsShader* _pShader);
-    CGraphicsShader* GetShader() { return m_pShader; }
+    void SetShader(Ptr<CGraphicsShader>  _pShader);
+    Ptr<CGraphicsShader>  GetShader() { return m_pShader; }
 
     void SetScalarParam(SCALAR_PARAM _eType, void* _pData );
     void SetScalarParam(const wstring& _strParamName, void* _pData);

@@ -1,6 +1,9 @@
 #pragma once
 #include "CEntity.h"
 
+#include "ptr.h"
+
+
 class CRes : 
 	public CEntity
 {
@@ -38,6 +41,9 @@ public:
 
 
 	friend class CResMgr;
+
+	template<typename T>
+	friend class Ptr;
 
 };
 

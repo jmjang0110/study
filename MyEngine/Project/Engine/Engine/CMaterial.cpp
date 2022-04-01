@@ -34,7 +34,7 @@ void CMaterial::UpdateData()
 }
 
 
-void CMaterial::SetShader(CGraphicsShader* _pShader)
+void CMaterial::SetShader(Ptr<CGraphicsShader> _pShader)
 {
 	m_pShader = _pShader;
 
@@ -89,6 +89,15 @@ void CMaterial::SetScalarParam(SCALAR_PARAM _eType, void* _pData)
 
 void CMaterial::SetScalarParam(const wstring& _strParamName, void* _pData)
 {
+	for (size_t i = 0; i < m_vecParamInfo.size(); ++i)
+	{
+		if (m_vecParamInfo[i].strDesc == _strParamName)
+		{
+			SetScalarParam(m_vecParamInfo[i].eScalarParam, _pData);
+			break;
+		}
+	}
+
 }
 
 

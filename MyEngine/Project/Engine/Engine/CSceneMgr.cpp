@@ -62,7 +62,7 @@ void CSceneMgr::init()
 	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));
 
-	int a = 0;
+	int a = 1;
 	//pObject->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, &a);
 	pObject->MeshRender()->GetMaterial()->SetScalarParam(L"IsColorRed", &a);
 
