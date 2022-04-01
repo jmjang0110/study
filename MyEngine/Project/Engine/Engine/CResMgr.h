@@ -38,6 +38,8 @@ public:
 	template<typename type>
 	RES_TYPE GetResType();
 
+	
+
 	template<typename type>
 	Ptr<type> FindRes(const wstring& _strKey);
 

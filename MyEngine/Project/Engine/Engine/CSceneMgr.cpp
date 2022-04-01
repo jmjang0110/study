@@ -49,6 +49,8 @@ void CSceneMgr::init()
 	Ptr<CTexture> tex = new CTexture;
 	tex->Load(strConentPath + L"texture\\Player.bmp");
 
+	delete tex.Get();
+
 	//  Scene ¿¡ Camera Object Ãß°¡ 
 	CGameObject* pCamObj = new CGameObject;
 	pCamObj->AddComponent(new CTransform);

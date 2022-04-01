@@ -122,3 +122,20 @@ enum class SCALAR_PARAM
 
 
 };
+
+enum class PIPELINE_STAGE
+{
+	VS = 0x01, // Vertex
+	HS = 0x02, // Hull
+	DS = 0x04, // Domain
+	GS = 0x08, // Geometry
+	PS = 0x10, // Pixel
+	
+
+	NO_PS = VS | HS | DS | GS,
+	ALL = VS | HS | DS | GS | PS,
+
+
+
+};
+

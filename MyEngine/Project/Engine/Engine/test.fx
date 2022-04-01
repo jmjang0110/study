@@ -100,6 +100,8 @@ float4 PS_Test(VTX_OUT _in) : SV_Target
     else 
         vOutColor = float4(0.f, 0.f, 1.f, 1.f);
     
+
+    
     return vOutColor;
     
 }
