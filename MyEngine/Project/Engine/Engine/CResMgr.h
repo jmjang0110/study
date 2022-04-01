@@ -2,9 +2,12 @@
 
 #include "Ptr.h"
 
+#include "CPathMgr.h"
+
+
 #include "CMaterial.h"
 #include "CMesh.h"
-//#include "CTexture.h"
+#include "CTexture.h"
 #include "CGraphicsShader.h"
 //#include "CComputeShader.h"
 //#include "CShound.h"
@@ -38,7 +41,9 @@ public:
 	template<typename type>
 	RES_TYPE GetResType();
 
-	
+	template<typename type>
+	Ptr<type> Load(const wstring& _strKey, const wstring& _strRelativePath);
+
 
 	template<typename type>
 	Ptr<type> FindRes(const wstring& _strKey);
@@ -62,9 +67,10 @@ inline RES_TYPE CResMgr::GetResType()
 		return RES_TYPE::GRAPHICS_SHADER;
 	else if (info.hash_code() == typeid(CMaterial).hash_code())
 		return RES_TYPE::MATERIAL;
+	else if (info.hash_code() == typeid(CTexture).hash_code())
+		return RES_TYPE::TEXTURE;
+
 	/*else if (info.hash_code == typeid(CMesh).hash_code)
-		return RES_TYPE::MESH;
-	else if (info.hash_code == typeid(CMesh).hash_code)
 		return RES_TYPE::MESH;
 	else if (info.hash_code == typeid(CMesh).hash_code)
 		return RES_TYPE::MESH;*/
@@ -73,6 +79,36 @@ inline RES_TYPE CResMgr::GetResType()
 	return RES_TYPE::END;
 
 
+}
+
+template<typename type>
+Ptr<type> CResMgr::Load(const wstring& _strKey, const wstring& _strRelativePath)
+{
+	RES_TYPE eType = GetResType<type>();
+
+
+	// 이미 있으면 반환한다. 
+	CRes* pRes = FindRes<type>(_strKey).Get();
+	if (nullptr != pRes)
+		return Ptr<type>((type*)pRes);
+	
+	wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
+	wstring strFilePath = strContentPath + _strRelativePath;
+
+	pRes = new type;
+	if (FAILED(pRes->Load(strFilePath)))
+	{
+		MessageBox(nullptr, L"Resource Loading Failed!", L"REsource Loading Error", MB_OK);
+		return nullptr;
+	}
+
+	pRes->SetKey(_strKey);
+	pRes->SetRelativePath(_strRelativePath);
+
+
+	m_Res[(UINT)eType].insert(make_pair(_strKey, pRes));
+
+	return Ptr<type>((type*)pRes);
 }
 
 

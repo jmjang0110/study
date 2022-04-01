@@ -35,13 +35,12 @@ private:
 
 
 
-public:
+protected:
     virtual int Load(const wstring& _strFilePath);
 
-
-    // PIPELINE_STAGE 
-    void UpdateData(int _PipelineStage, int _iRegisterNum);
-
+public:
+    // PIPELINE_STAGE
+    void UpdateData(int _PipelineStage ,int _iRegisterNum);
 
 public:
     CTexture();

@@ -34,9 +34,14 @@ cbuffer SCALARL_PARAM : register(b1)
     matrix g_mat_2;
     matrix g_mat_3;
     
-    
 }
-// Texture2D g_tex_0 : register(t0);
+
+Texture2D g_tex_0 : register(t0);
+
+SamplerState g_sam_0 : register(s0);
+
+
+
 // StructuredBuffer<float4> g_buffer : register(t1);
 // sampler g_sam : register(s0);
 // RWStructuredBuffer<float4> g_rwbuffer : register(u0);
@@ -51,14 +56,16 @@ cbuffer SCALARL_PARAM : register(b1)
 // float3 : Vec3 
 struct VTX_IN
 {
-    float3 vPos : POSITION; // semantic
-    float4 vColor : COLOR;
+    float3 vPos     : POSITION; // semantic
+    float4 vColor   : COLOR;
+    float2 vUV      : TEXCOORD;
 };
 
 struct VTX_OUT 
 {
-    float4 vPosition : SV_Position;
-    float4 vColor : COLOR;
+    float4 vPosition    : SV_Position;
+    float4 vColor       : COLOR;
+    float2 vUV          : TEXCOORD;
 };
 
 VTX_OUT VS_Test(VTX_IN _in)
@@ -72,6 +79,7 @@ VTX_OUT VS_Test(VTX_IN _in)
     
     output.vPosition = vProjPos;
     output.vColor = _in.vColor;
+    output.vUV = _in.vUV;
     
    
     
@@ -93,12 +101,15 @@ VTX_OUT VS_Test(VTX_IN _in)
 float4 PS_Test(VTX_OUT _in) : SV_Target
 {
     float4 vOutColor = (float4) 0.f;
+
+     //vOutColor = _in.vColor;
     
-    //vOutColor = _in.vColor;
-    if(g_int_0)
-        vOutColor = float4(1.f, 0.f, 0.f, 1.f);
-    else 
-        vOutColor = float4(0.f, 0.f, 1.f, 1.f);
+    //if (g_int_0)
+    //    vOutColor = float4(1.f, 0.f, 0.f, 1.f);
+    //else
+    //    vOutColor = float4(0.f, 0.f, 1.f, 1.f);
+        
+    vOutColor = g_tex_0.Sample(g_sam_0, _in.vUV);
     
     return vOutColor;
     

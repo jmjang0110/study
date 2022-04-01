@@ -75,6 +75,7 @@ int CTexture::Load(const wstring& _strFilePath)
 
 void CTexture::UpdateData(int _PipelineStage, int _iRegisterNum)
 {
+	// Binding 시킨다. // 해당 쉐이더 시점에 바인딩 시킨다 .
 	if (_PipelineStage & (int)PIPELINE_STAGE::VS)
 		CONTEXT->VSSetShaderResources(_iRegisterNum, 1, m_pSRV.GetAddressOf());
 

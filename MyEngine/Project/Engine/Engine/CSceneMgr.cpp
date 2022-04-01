@@ -44,12 +44,11 @@ void CSceneMgr::init()
 	m_pCurScene->SetLayerName(2, L"Monster");
 
 	// teture 한장 로딩해보기 
-	wstring strConentPath = CPathMgr::GetInst()->GetContentPath();
+	CResMgr::GetInst()->Load<CTexture>(L"PlayerTexture", L"texture\\Player.bmp");
+	Ptr<CTexture> pTex = CResMgr::GetInst()->FindRes<CTexture>(L"PlayerTexture");
 
-	Ptr<CTexture> tex = new CTexture;
-	tex->Load(strConentPath + L"texture\\Player.bmp");
-
-	delete tex.Get();
+	//  텍스쳐를 렌더링 파이프라인 PixelShader 단계 때 t0 레지스터에 바인딩 시켜 둠 
+	pTex->UpdateData((int)PIPELINE_STAGE::PS, 0);
 
 	//  Scene 에 Camera Object 추가 
 	CGameObject* pCamObj = new CGameObject;

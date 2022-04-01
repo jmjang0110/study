@@ -6,6 +6,7 @@ struct Vertex
 
 	Vec3 vPos;		// 좌표
 	Vec4 vColor;	// 색상 
+	Vec2 vUV;		// 텍스쳐
 
 };
 
