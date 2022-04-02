@@ -115,6 +115,8 @@ int CDevice::init(HWND _hwnd, Vec2 _vRenderResolution)
 		return E_FAIL;
 	}
 
+	// Sampler 생성 
+	CreateSamplerState();
 
 
 
@@ -293,6 +295,45 @@ int CDevice::CreateConstBuffer()
 	m_arrCB[(UINT)CB_TYPE::SCALAR_PARAM]->Create(sizeof(tScalarParam));
 
 	return S_OK;
+}
+
+void CDevice::CreateSamplerState()
+{
+	// Sampling : 어떤 방식으로 텍스쳐를 매핑 시킬 것인지
+	D3D11_SAMPLER_DESC tDesc = {};
+
+	// D3D11_TEXTURE_ADDRESS_WRAP : 만약 UV 가 0 ~ 2 라서 
+	// 1,3 1,5... 이런 UV 값이 있으면 소수점만 추출해서 0.3으로 바꾸고 매핑
+	tDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;// 3차원 텍스쳐에서 쓰인다. 
+	tDesc.Filter = D3D11_FILTER::D3D11_FILTER_ANISOTROPIC; // 주변 색상 평균치 매핑 
+
+	DEVICE->CreateSamplerState(&tDesc, m_arrSam[0].GetAddressOf());
+
+
+	tDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;// 3차원 텍스쳐에서 쓰인다. 
+	tDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_POINT; // 원본 그대로 매핑 
+
+
+	DEVICE->CreateSamplerState(&tDesc, m_arrSam[1].GetAddressOf());
+
+	// 모든 쉐이더에서 Sampler 를 쓸 수 있게 설정했다. ( Binding )
+	CONTEXT->VSSetSamplers(0, 1, m_arrSam[0].GetAddressOf());
+	CONTEXT->HSSetSamplers(0, 1, m_arrSam[0].GetAddressOf());
+	CONTEXT->DSSetSamplers(0, 1, m_arrSam[0].GetAddressOf());
+	CONTEXT->GSSetSamplers(0, 1, m_arrSam[0].GetAddressOf());
+	CONTEXT->PSSetSamplers(0, 1, m_arrSam[0].GetAddressOf());
+
+
+	CONTEXT->VSSetSamplers(1, 1, m_arrSam[1].GetAddressOf());
+	CONTEXT->HSSetSamplers(1, 1, m_arrSam[1].GetAddressOf());
+	CONTEXT->DSSetSamplers(1, 1, m_arrSam[1].GetAddressOf());
+	CONTEXT->GSSetSamplers(1, 1, m_arrSam[1].GetAddressOf());
+	CONTEXT->PSSetSamplers(1, 1, m_arrSam[1].GetAddressOf());
+
 }
 
 

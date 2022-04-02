@@ -32,6 +32,9 @@ private:
 	class CConstBuffer*				m_arrCB[(UINT)CB_TYPE::END];
 
 
+	ComPtr<ID3D11SamplerState>		m_arrSam[2];
+
+
 public:
 	int init(HWND _hwnd, Vec2 _vRenderResolution);
 
@@ -54,7 +57,8 @@ private:
 	int CreateSawpChain();
 	int CreateView();
 	int CreateRasterizerState();
-	int CreateConstBuffer();;
+	int CreateConstBuffer();
+	void CreateSamplerState();
 
 
 

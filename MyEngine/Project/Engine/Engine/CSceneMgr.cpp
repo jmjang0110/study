@@ -67,7 +67,7 @@ void CSceneMgr::init()
 	pObject->AddComponent(new CMeshRender);
 	pObject->AddComponent(new CPlayerScript);
 
-	pObject->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
+	pObject->Transform()->SetScale(Vec3(200.f, 200.f, 1.f));
 
 	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));

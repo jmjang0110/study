@@ -37,8 +37,21 @@ cbuffer SCALARL_PARAM : register(b1)
 }
 
 Texture2D g_tex_0 : register(t0);
+Texture2D g_tex_1 : register(t1);
+Texture2D g_tex_2 : register(t2);
+Texture2D g_tex_3 : register(t3);
 
-SamplerState g_sam_0 : register(s0);
+Texture2D g_texcube_0 : register(t4);
+Texture2D g_texcube_1 : register(t5);
+
+Texture2D g_texarr_0 : register(t6);
+Texture2D g_texarr_1 : register(t7);
+
+
+
+
+SamplerState g_sam_0 : register(s0);    // Anisotropic Filter 
+SamplerState g_sam_1 : register(s1);    // Point Filter 
 
 
 

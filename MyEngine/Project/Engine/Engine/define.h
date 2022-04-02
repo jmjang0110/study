@@ -122,6 +122,22 @@ enum class SCALAR_PARAM
 
 
 };
+enum class TEX_PAARAM
+{
+	TEX_0,
+	TEX_1,
+	TEX_2,
+	TEX_3,
+
+	TEX_CUBE_0,
+	TEX_CUBE_1,
+
+	TEX_ARR_0,
+	TEX_ARR_1,
+
+	END,
+
+};
 
 enum class PIPELINE_STAGE
 {
