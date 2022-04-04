@@ -173,6 +173,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CEntity.h" />
+    <ClInclude Include="CEventMgr.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGraphicsShader.h" />
     <ClInclude Include="CKeyMgr.h" />
@@ -199,6 +200,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Ptr.h" />
     <ClInclude Include="SimpleMath.h" />
+    <ClInclude Include="singleton.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="Temp.h" />
   </ItemGroup>
@@ -210,6 +212,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CEntity.cpp" />
+    <ClCompile Include="CEventMgr.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CGraphicsShader.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />

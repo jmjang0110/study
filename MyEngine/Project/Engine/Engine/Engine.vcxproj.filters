@@ -145,6 +145,9 @@
     <Filter Include="Engine\Scripts\CameraMoveScript">
       <UniqueIdentifier>{120c3979-9440-4987-9bc8-c6480dd363e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Manager\08. EventMgr">
+      <UniqueIdentifier>{500f331d-d674-407d-980e-bfb0c3b0a34d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -252,6 +255,12 @@
     <ClInclude Include="CTexture.h">
       <Filter>Engine\07. Resource\04. Texture</Filter>
     </ClInclude>
+    <ClInclude Include="CEventMgr.h">
+      <Filter>Engine\03. Manager\08. EventMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="singleton.h">
+      <Filter>Engine\03. Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -343,6 +352,9 @@
     </ClCompile>
     <ClCompile Include="CTexture.cpp">
       <Filter>Engine\07. Resource\04. Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CEventMgr.cpp">
+      <Filter>Engine\03. Manager\08. EventMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

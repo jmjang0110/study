@@ -19,8 +19,8 @@ CPlayerScript::~CPlayerScript()
 void CPlayerScript::start()
 	
 {
-	Vec3 vPos = Vec3(0.f, 0.f, 0.5f); //Z : 0.5f 만큼 이동 
-	Transform()->SetPos(vPos);
+	//Vec3 vPos = Vec3(0.f, 0.f, 0.5f); //Z : 0.5f 만큼 이동 
+	//Transform()->SetPos(vPos);
 }
 
 void CPlayerScript::update()
@@ -28,7 +28,7 @@ void CPlayerScript::update()
 	if (KEY_PRESSED(KEY::LEFT))
 	{
 		Vec3 vPos = Transform()->GetPos();
-		vPos.x -= DT * 0.5f;
+		vPos.x -= DT * 0.5f; // 1초 눌러야 0.5 픽셀 이동 
 		Transform()->SetPos(vPos);
 
 

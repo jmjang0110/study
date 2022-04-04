@@ -2,13 +2,13 @@
 
 
 #define SINGLE(TYPE) private:	\
-	TYPE();					\
+	TYPE();						\
 	~TYPE();					\
 public:							\
 	static TYPE* GetInst()		\
 	{							\
-		static TYPE core;		\
-		return &core;			\
+		static TYPE mgr;		\
+		return &mgr;			\
 	}							\
 
 #define DT CTimeMgr::GetInst()->GetDT()

@@ -2,8 +2,15 @@
 
 
 class CSceneMgr
+	: CSingleton<CSceneMgr>
 {
-	SINGLE(CSceneMgr)
+
+	friend class CSingleton<CSceneMgr>;
+private:
+	CSceneMgr();
+	~CSceneMgr();
+
+
 private:
 	class CScene* m_pCurScene;
 
@@ -12,6 +19,14 @@ public:
 	void progress();
 	void render();
 
+public:
+	CSceneMgr()
+	{
 
+	}
+	virtual ~CSceneMgr()
+	{
+
+	}
 };
 
