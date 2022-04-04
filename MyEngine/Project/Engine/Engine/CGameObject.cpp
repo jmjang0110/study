@@ -17,6 +17,7 @@ CGameObject::CGameObject()
 
 CGameObject::CGameObject(const CGameObject& _origin)
 	:CEntity(_origin)
+	, m_arrCom{}
 	, m_bActive(true)
 	, m_bDead(false)
 {

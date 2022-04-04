@@ -82,6 +82,15 @@ void CSceneMgr::init()
 
 
 	m_pCurScene->AddObject(pObject, L"Default");
+
+	pObject = pObject->Clone();
+	pObject->SetName(L"Player_Clone");
+	pObject->Transform()->SetPos(pObject->Transform()->GetPos() + Vec3(200.f, 0.f, 0.f));
+	m_pCurScene->AddObject(pObject, L"Default");
+
+
+
+
 	m_pCurScene->start();
 }
 
