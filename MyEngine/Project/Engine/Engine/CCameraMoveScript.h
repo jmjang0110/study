@@ -11,6 +11,9 @@ private:
 public:
 	virtual void update();
 
+	CLONE(CCameraMoveScript);
+
+
 public:
 	CCameraMoveScript();
 	~CCameraMoveScript();

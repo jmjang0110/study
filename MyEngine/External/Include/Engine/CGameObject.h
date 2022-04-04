@@ -12,7 +12,11 @@ class CGameObject :
     public CEntity
 {
 private:
-    class CComponent* m_arrCom[(UINT)COMPONENT_TYPE::END];
+    class CComponent*   m_arrCom[(UINT)COMPONENT_TYPE::END];
+        
+    bool                m_bActive;
+    bool                m_bDead;
+
 
 public:
     void start();
@@ -27,12 +31,15 @@ public:
     CComponent* GetComponent(COMPONENT_TYPE _eType) { return m_arrCom[(UINT)_eType]; }
 
     GET_COMPONENT(Transform, TRANSFORM)
-    GET_COMPONENT(MeshRender, MESHRENDER)
+        GET_COMPONENT(MeshRender, MESHRENDER)
 
+public:
+    CLONE(CGameObject);
 
 
 public:
     CGameObject();
+    CGameObject(const CGameObject& _origin);
     ~CGameObject();
 
 

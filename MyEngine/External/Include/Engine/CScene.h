@@ -24,6 +24,7 @@ public:
 private:
     int GetLayerIdxFromName(const wstring& _strName);
 
+    CLONE(CScene)
 
 public:
     CScene();

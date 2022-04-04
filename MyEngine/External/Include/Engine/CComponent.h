@@ -25,6 +25,8 @@ public:
     GET_OTHER_COMPONENT(Transform);
     GET_OTHER_COMPONENT(MeshRender);
 
+    CComponent* Clone() = 0;
+
 
 public:
     CComponent(COMPONENT_TYPE _eType);

@@ -30,6 +30,7 @@ protected:
 	// 을 한다는 명분으로 순수가상함수를 두어야할 필요가 있기에 
 	// 순수가상함수를 추가했다. 
 	virtual int Load(const wstring& _strFilePath) = 0;
+	CLONE_DISABLE(CRes)
 
 
 private:

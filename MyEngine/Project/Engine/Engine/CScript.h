@@ -17,6 +17,7 @@ public:
     // 스크립트로 finalupdate 를 또 해버리면 프레임이 꼬인다. 
 
 
+    virtual CScript* Clone() = 0;
 
 
 public:

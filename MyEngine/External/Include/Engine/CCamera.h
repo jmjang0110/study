@@ -11,6 +11,9 @@ private:
 public:
     virtual void finalupdate() override;
 
+
+    CLONE(CCamera)
+
 public:
     CCamera();
     ~CCamera();

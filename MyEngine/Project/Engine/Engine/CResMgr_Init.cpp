@@ -18,14 +18,18 @@ void CResMgr::CreateEngineMesh()
 
 	Vtx v;
 
-
+	// ==============
 	// RectMesh
 	// 0 --- 1
 	// |  \  |
 	// 3 --- 2
-
+	// ==============
 	// 지역 변수들 
+	// 
+	// ==============
 	// RectMesh
+	// ==============
+
 	v.vPos = Vec3(-0.5f, 0.5f, 0.f);
 	v.vColor = Vec4(0.f, 1.f, 0.f, 1.f);
 	v.vUV = Vec2(0.f, 0.f);
@@ -62,7 +66,46 @@ void CResMgr::CreateEngineMesh()
 	vecVtx.clear();
 	vecIdx.clear();
 
-	// CIrcke Mesh
+
+	// ==============
+	// CIrcle Mesh
+	// ==============
+	v.vPos = Vec3(0.f, 0.f, 0.f);
+	v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
+	v.vUV = Vec2(0.5f, 0.5f); // 중점 
+
+	UINT iSliceCount = 40;
+	float fRadius = 0.5f;
+	float fAngleStep = XM_2PI / float(iSliceCount);
+
+	// 원 좌표를 찍는다. 
+	for (UINT i = 0; i < iSliceCount + 1; ++i)
+	{ 
+		v.vPos = Vec3(fRadius * cosf(fAngleStep* (float)i), fRadius * sinf(fAngleStep * (float)i), 0.f);
+		v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
+		v.vUV = Vec2(v.vPos.x + 0.5f, -v.vPos.y + 0.5f);
+		vecVtx.push_back(v);
+
+	}
+
+	for (UINT i = 0; i < iSliceCount + 1; ++i)
+	{
+		vecIdx.push_back(0);
+		vecIdx.push_back(i + 2);
+		vecIdx.push_back(i + 1);
+
+
+	}
+
+	pMesh = new CMesh;
+	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	AddRes<CMesh>(L"CircleMesh", pMesh);
+	vecVtx.clear();
+	vecIdx.clear();
+
+
+
+
 	// cube
 	// sphere
 	// Cylinder

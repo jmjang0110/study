@@ -24,6 +24,7 @@ public:
     virtual void UpdateData() override;
     virtual void finalupdate() override;
 
+    CLONE(CTransform)
 
 public:
     CTransform();

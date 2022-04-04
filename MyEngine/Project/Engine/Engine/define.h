@@ -23,6 +23,9 @@ public:							\
 #define MAX_LAYER 32
 
 #define SAFE_DELETE(p) if(nullptr != p) delete p; p = nullptr;
+#define CLONE_DISABLE(type) virtual type* Clone() { return nullptr; }
+#define CLONE(type)virtual type* Clone() { return new type(*this); }
+
 
 
 typedef Vector2 Vec2;

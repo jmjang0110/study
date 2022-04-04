@@ -18,6 +18,7 @@ public:
 public:
     void AddObject(CGameObject* _pObj);
 
+    CLONE(CLayer)
 
 public:
     CLayer();

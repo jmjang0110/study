@@ -13,7 +13,8 @@ public:
     virtual void update();
     virtual void lateupdate();
   
-    
+    CLONE(CPlayerScript);
+
 public:
     CPlayerScript();
     ~CPlayerScript();

@@ -21,6 +21,9 @@ public:
 public:
 	virtual void UpdateData() {}
 
+	virtual CEntity* Clone() = 0; // 반드시 구현해야한다. 
+
+
 
 public:
 	CEntity();
