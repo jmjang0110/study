@@ -48,7 +48,7 @@ void CSceneMgr::init()
 	Ptr<CTexture> pTex = CResMgr::GetInst()->FindRes<CTexture>(L"PlayerTexture");
 
 	//  텍스쳐를 렌더링 파이프라인 PixelShader 단계 때 t0 레지스터에 바인딩 시켜 둠 
-	pTex->UpdateData((int)PIPELINE_STAGE::PS, 0);
+	// pTex->UpdateData((int)PIPELINE_STAGE::PS, 0);
 
 	//  Scene 에 Camera Object 추가 
 	CGameObject* pCamObj = new CGameObject;
@@ -75,6 +75,7 @@ void CSceneMgr::init()
 	int a = 1;
 	//pObject->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, &a);
 	pObject->MeshRender()->GetMaterial()->SetScalarParam(L"IsColorRed", &a);
+	pObject->MeshRender()->GetMaterial()->SetTexParam(L"OutputTex", pTex);
 
 
 	m_pCurScene->AddObject(pObject, L"Default");

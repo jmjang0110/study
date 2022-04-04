@@ -1,12 +1,20 @@
 #pragma once
 #include "CShader.h"
 
-struct tParamInfo
+struct tScalarParamInfo
 {
     wstring         strDesc;
     SCALAR_PARAM    eScalarParam;
 
 };
+
+struct tTexrParamInfo
+{
+    wstring         strDesc;
+    TEX_PARAM       eTexParam;
+
+};
+
 
 
 class CGraphicsShader :
@@ -43,7 +51,8 @@ private:
     ComPtr<ID3D11InputLayout>       m_InputLayout;
     D3D11_PRIMITIVE_TOPOLOGY        m_eTopology; // Triangle? Rectangle? 
 
-    vector<tParamInfo>              m_vecParamInfo;
+    vector<tScalarParamInfo>        m_vecScalarParamInfo;
+    vector<tTexrParamInfo>          m_VecTexParamInfo;
 
 public:
 
@@ -62,8 +71,11 @@ public:
     virtual void UpdateData() override;
 
 public:
-    void AddParamInfo(const wstring& _strDesc, SCALAR_PARAM _eParamType);
-    const vector<tParamInfo>& GetParamInfo() { return m_vecParamInfo; }
+    void AddScalarParamInfo(const wstring& _strDesc, SCALAR_PARAM _eParamType);
+    void AddtexParamInfo(const wstring& _strDesc, TEX_PARAM _eParamType);
+   
+    const vector<tScalarParamInfo>& GetScalarParamInfo() { return m_vecScalarParamInfo; }
+    const vector<tTexrParamInfo>& GetTexParamInfo() { return m_VecTexParamInfo; }
 
 
 

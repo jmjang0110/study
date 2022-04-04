@@ -116,9 +116,15 @@ void CGraphicsShader::UpdateData()
 
 }
 
-void CGraphicsShader::AddParamInfo(const wstring& _strDesc, SCALAR_PARAM _eParamType)
+void CGraphicsShader::AddScalarParamInfo(const wstring& _strDesc, SCALAR_PARAM _eParamType)
 {
-	m_vecParamInfo.push_back(tParamInfo{ _strDesc, _eParamType });
+	m_vecScalarParamInfo.push_back(tScalarParamInfo{ _strDesc, _eParamType });
+
+}
+
+void CGraphicsShader::AddtexParamInfo(const wstring& _strDesc, TEX_PARAM _eParamType)
+{
+	m_VecTexParamInfo.push_back(tTexrParamInfo{ _strDesc ,_eParamType });
 
 }
 

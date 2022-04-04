@@ -122,7 +122,7 @@ enum class SCALAR_PARAM
 
 
 };
-enum class TEX_PAARAM
+enum class TEX_PARAM
 {
 	TEX_0,
 	TEX_1,

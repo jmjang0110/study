@@ -105,8 +105,9 @@ void CResMgr::CreateEngineShader()
 	pShader->SetRSType(RS_TYPE::CULL_BACK);
 
 	// SCALAR_PARAM::INT_0 가 빨간색인지의 여부인지에 대한 Info 정보
-	pShader->AddParamInfo(L"IsColorRed", SCALAR_PARAM::INT_0); 
-
+	pShader->AddScalarParamInfo(L"IsColorRed", SCALAR_PARAM::INT_0); 
+	pShader->AddtexParamInfo(L"OutputTex", TEX_PARAM::TEX_0);
+	
 
 	AddRes<CGraphicsShader>(L"TestShader", pShader);
 

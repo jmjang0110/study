@@ -7,6 +7,7 @@
 
 CMaterial::CMaterial()
 	: m_pShader(nullptr)
+	, m_arrTex{}
 {
 }
 
@@ -25,6 +26,14 @@ void CMaterial::UpdateData()
 	pCB->SetData(&m_Param, sizeof(tScalarParam));
 	pCB->UpdateData();
 
+	for (UINT i = 0; i < (UINT)TEX_PARAM::END; ++i)
+	{
+		if (nullptr != m_arrTex[i])
+		{
+			m_arrTex[i]->UpdateData((int)PIPELINE_STAGE::ALL, i); // i 번 레지스터에 어느 PipeLine시점에 보낼 것인가 .
+		}
+	}
+
 	if (nullptr != m_pShader)
 	{
 		m_pShader->UpdateData();
@@ -40,7 +49,9 @@ void CMaterial::SetShader(Ptr<CGraphicsShader> _pShader)
 
 	if (nullptr != m_pShader)
 	{
-		m_vecParamInfo = m_pShader->GetParamInfo();
+		m_vecScalarParamInfo = m_pShader->GetScalarParamInfo();
+		m_vecTexParamInfo = m_pShader->GetTexParamInfo();
+
 	}
 }
 
@@ -89,14 +100,51 @@ void CMaterial::SetScalarParam(SCALAR_PARAM _eType, void* _pData)
 
 void CMaterial::SetScalarParam(const wstring& _strParamName, void* _pData)
 {
-	for (size_t i = 0; i < m_vecParamInfo.size(); ++i)
+	for (size_t i = 0; i < m_vecScalarParamInfo.size(); ++i)
 	{
-		if (m_vecParamInfo[i].strDesc == _strParamName)
+		if (m_vecScalarParamInfo[i].strDesc == _strParamName)
 		{
-			SetScalarParam(m_vecParamInfo[i].eScalarParam, _pData);
+			SetScalarParam(m_vecScalarParamInfo[i].eScalarParam, _pData);
 			break;
 		}
 	}
+
+}
+
+void CMaterial::SetTexParam(TEX_PARAM _eType, Ptr<CTexture> _pTex)
+{
+	switch (_eType)
+	{
+	case TEX_PARAM::TEX_0:
+	case TEX_PARAM::TEX_1:
+	case TEX_PARAM::TEX_2:
+	case TEX_PARAM::TEX_3:
+	case TEX_PARAM::TEX_CUBE_0:
+	case TEX_PARAM::TEX_CUBE_1:
+	case TEX_PARAM::TEX_ARR_0:
+	case TEX_PARAM::TEX_ARR_1:
+
+
+		m_arrTex[(UINT)_eType] = _pTex;
+		break;
+	}
+}
+
+
+
+void CMaterial::SetTexParam(const wstring& _strParamName, Ptr<CTexture> _pTex)
+{
+
+	for (size_t i = 0; i < m_vecTexParamInfo.size(); ++i)
+	{
+		if (m_vecTexParamInfo[i].strDesc == _strParamName)
+		{
+			SetTexParam(m_vecTexParamInfo[i].eTexParam, _pTex);
+			break;
+		}
+	}
+
+
 
 }
 
