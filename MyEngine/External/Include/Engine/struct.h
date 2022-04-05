@@ -2,7 +2,7 @@
 
 struct tEventInfo
 {
-	EEVENT_TYPE eType;
+	EVENT_TYPE eType;
 	DWORD_PTR	lParam;
 	DWORD_PTR	wParam;
 };

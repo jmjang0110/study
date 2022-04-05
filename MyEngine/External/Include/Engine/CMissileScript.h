@@ -6,6 +6,8 @@ class CMissileScript :
 private:
 
     float m_fSpeed;
+    float m_fAccTime;
+
 
 public:
 

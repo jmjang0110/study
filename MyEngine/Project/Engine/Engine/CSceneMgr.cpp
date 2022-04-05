@@ -4,6 +4,8 @@
 
 #include "CDevice.h"
 #include "CPathMgr.h"
+#include "CEventMgr.h"
+
 
 #include "CResMgr.h"
 #include "CMesh.h"
@@ -21,6 +23,10 @@
 
 
 #include "CTexture.h"
+#include "CMissileScript.h"
+#include "CTransform.h"
+#include "CPrefab.h"
+
 
 
 
@@ -36,6 +42,8 @@ CSceneMgr::~CSceneMgr()
 	SAFE_DELETE(m_pCurScene);
 }
 
+
+
 void CSceneMgr::init()
 {
 	m_pCurScene = new CScene;
@@ -48,6 +56,21 @@ void CSceneMgr::init()
 	// ** teture 한장 로딩해보기 
 	CResMgr::GetInst()->Load<CTexture>(L"PlayerTexture", L"texture\\Player.bmp");
 	Ptr<CTexture> pTex = CResMgr::GetInst()->FindRes<CTexture>(L"PlayerTexture");
+
+
+	// ** Prefab 
+		// 오브젝트 생성 
+	CGameObject* pMissileObj = new CGameObject;
+	pMissileObj->AddComponent(new CTransform);
+	pMissileObj->AddComponent(new CMeshRender);
+	pMissileObj->AddComponent(new CMissileScript);
+
+	pMissileObj->Transform()->SetScale(Vec3(50.f, 50.f, 1.f));
+	pMissileObj->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CircleMesh"));
+	pMissileObj->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));
+
+	CResMgr::GetInst()->AddRes<CPrefab>(L"MissilePrefab", new CPrefab(pMissileObj));
+
 
 	//  텍스쳐를 렌더링 파이프라인 PixelShader 단계 때 t0 레지스터에 바인딩 시켜 둠 
 	// pTex->UpdateData((int)PIPELINE_STAGE::PS, 0);
@@ -112,3 +135,33 @@ void CSceneMgr::render()
 
 	CDevice::GetInst()->Present();
 }
+
+
+void CSceneMgr::SpawnObject(CGameObject* _pSpawnObject, Vec3 _vWorldPos, wstring _strName, UINT _iLayerIdx)
+{
+	tEventInfo info = {};
+	info.eType = EVENT_TYPE::CREATE_OBJ;
+	info.lParam = (DWORD_PTR)_pSpawnObject;
+	info.wParam = (DWORD_PTR)_iLayerIdx;
+
+	_pSpawnObject->Transform()->SetPos(_vWorldPos);
+	_pSpawnObject->SetName(_strName);
+
+	CEventMgr::GetInst()->AddEvent(info);
+
+
+}
+
+void CSceneMgr::SpawnObject(CGameObject* _pSpawnObject, UINT _iLayerIdx)
+{
+
+	tEventInfo info = {};
+	info.eType = EVENT_TYPE::CREATE_OBJ;
+	info.lParam = (DWORD_PTR)_pSpawnObject;
+	info.wParam = (DWORD_PTR)_iLayerIdx;
+
+	CEventMgr::GetInst()->AddEvent(info);
+
+
+}
+

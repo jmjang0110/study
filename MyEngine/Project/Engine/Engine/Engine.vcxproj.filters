@@ -40,24 +40,6 @@
     <Filter Include="Engine\07. Resource\02. MeshData">
       <UniqueIdentifier>{8f7f024e-fe74-4367-a6e8-cb7f61ce4d1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\07. Resource\01. Material">
-      <UniqueIdentifier>{b5eeb40f-09bc-4fea-a1ed-310c043bc088}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\07. Resource\03. Mesh">
-      <UniqueIdentifier>{a141a74f-2fba-4c29-8eb2-fb7035a9e05c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\07. Resource\04. Texture">
-      <UniqueIdentifier>{b0057eef-5f5d-4c57-84d2-cafae3b28235}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\07. Resource\06. Shader">
-      <UniqueIdentifier>{46e9efce-df22-473b-9ba1-bf60dbbb7c54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\07. Resource\06. Shader\GraphicsShader">
-      <UniqueIdentifier>{b30f11fe-5b9b-4978-a2df-9c98e18d98d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\07. Resource\06. Shader\ComputeShader">
-      <UniqueIdentifier>{6a9ba9ab-4736-402b-86b5-d693ba015234}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\03. Manager\01. Device">
       <UniqueIdentifier>{19591b13-b0e2-4c8a-9c78-6e44600a62b4}</UniqueIdentifier>
     </Filter>
@@ -103,9 +85,6 @@
     <Filter Include="Engine\06. Scene\01. Scene">
       <UniqueIdentifier>{44349557-55e5-4766-8f90-ab27dfbedb20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\07. Resource\06. Shader\05. Sound">
-      <UniqueIdentifier>{818e5790-2fa3-4998-afe8-8ed076faafa1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\05. Component\02. Camera">
       <UniqueIdentifier>{3f815ff4-3ace-471c-ac07-e894e4f9969a}</UniqueIdentifier>
     </Filter>
@@ -148,6 +127,30 @@
     <Filter Include="Engine\03. Manager\08. EventMgr">
       <UniqueIdentifier>{500f331d-d674-407d-980e-bfb0c3b0a34d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\07. Resource\03. Material">
+      <UniqueIdentifier>{b5eeb40f-09bc-4fea-a1ed-310c043bc088}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Resource\04. Mesh">
+      <UniqueIdentifier>{a141a74f-2fba-4c29-8eb2-fb7035a9e05c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Resource\05. Texture">
+      <UniqueIdentifier>{b0057eef-5f5d-4c57-84d2-cafae3b28235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Resource\06. Sound">
+      <UniqueIdentifier>{818e5790-2fa3-4998-afe8-8ed076faafa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Resource\07. Shader">
+      <UniqueIdentifier>{46e9efce-df22-473b-9ba1-bf60dbbb7c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Resource\07. Shader\GraphicsShader">
+      <UniqueIdentifier>{b30f11fe-5b9b-4978-a2df-9c98e18d98d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Resource\07. Shader\ComputeShader">
+      <UniqueIdentifier>{6a9ba9ab-4736-402b-86b5-d693ba015234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Resource\01. Prefab">
+      <UniqueIdentifier>{90b8d885-3ea2-41c2-8423-54526d258a62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -178,13 +181,13 @@
       <Filter>Engine\07. Resource</Filter>
     </ClInclude>
     <ClInclude Include="CMesh.h">
-      <Filter>Engine\07. Resource\03. Mesh</Filter>
+      <Filter>Engine\07. Resource\04. Mesh</Filter>
     </ClInclude>
     <ClInclude Include="CShader.h">
-      <Filter>Engine\07. Resource\06. Shader</Filter>
+      <Filter>Engine\07. Resource\07. Shader</Filter>
     </ClInclude>
     <ClInclude Include="CGraphicsShader.h">
-      <Filter>Engine\07. Resource\06. Shader\GraphicsShader</Filter>
+      <Filter>Engine\07. Resource\07. Shader\GraphicsShader</Filter>
     </ClInclude>
     <ClInclude Include="CConstBuffer.h">
       <Filter>Engine\03. Manager\01. Device\ConstantBuffer</Filter>
@@ -247,13 +250,13 @@
       <Filter>Engine\01. Header</Filter>
     </ClInclude>
     <ClInclude Include="CMaterial.h">
-      <Filter>Engine\07. Resource\01. Material</Filter>
+      <Filter>Engine\07. Resource\03. Material</Filter>
     </ClInclude>
     <ClInclude Include="Ptr.h">
       <Filter>Engine\07. Resource</Filter>
     </ClInclude>
     <ClInclude Include="CTexture.h">
-      <Filter>Engine\07. Resource\04. Texture</Filter>
+      <Filter>Engine\07. Resource\05. Texture</Filter>
     </ClInclude>
     <ClInclude Include="CEventMgr.h">
       <Filter>Engine\03. Manager\08. EventMgr</Filter>
@@ -263,6 +266,9 @@
     </ClInclude>
     <ClInclude Include="CMissileScript.h">
       <Filter>Engine\Scripts\MissileScript</Filter>
+    </ClInclude>
+    <ClInclude Include="CPrefab.h">
+      <Filter>Engine\07. Resource\01. Prefab</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -282,13 +288,13 @@
       <Filter>Engine\07. Resource</Filter>
     </ClCompile>
     <ClCompile Include="CMesh.cpp">
-      <Filter>Engine\07. Resource\03. Mesh</Filter>
+      <Filter>Engine\07. Resource\04. Mesh</Filter>
     </ClCompile>
     <ClCompile Include="CShader.cpp">
-      <Filter>Engine\07. Resource\06. Shader</Filter>
+      <Filter>Engine\07. Resource\07. Shader</Filter>
     </ClCompile>
     <ClCompile Include="CGraphicsShader.cpp">
-      <Filter>Engine\07. Resource\06. Shader\GraphicsShader</Filter>
+      <Filter>Engine\07. Resource\07. Shader\GraphicsShader</Filter>
     </ClCompile>
     <ClCompile Include="CConstBuffer.cpp">
       <Filter>Engine\03. Manager\01. Device\ConstantBuffer</Filter>
@@ -351,16 +357,19 @@
       <Filter>Engine\01. Header</Filter>
     </ClCompile>
     <ClCompile Include="CMaterial.cpp">
-      <Filter>Engine\07. Resource\01. Material</Filter>
+      <Filter>Engine\07. Resource\03. Material</Filter>
     </ClCompile>
     <ClCompile Include="CTexture.cpp">
-      <Filter>Engine\07. Resource\04. Texture</Filter>
+      <Filter>Engine\07. Resource\05. Texture</Filter>
     </ClCompile>
     <ClCompile Include="CEventMgr.cpp">
       <Filter>Engine\03. Manager\08. EventMgr</Filter>
     </ClCompile>
     <ClCompile Include="CMissileScript.cpp">
       <Filter>Engine\Scripts\MissileScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CPrefab.cpp">
+      <Filter>Engine\07. Resource\01. Prefab</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 
 CMissileScript::CMissileScript()
 	:m_fSpeed(300.f)
+	, m_fAccTime(0.f)
 {
 }
 
@@ -21,5 +22,11 @@ void CMissileScript::update()
 
 	Transform()->SetPos(vPos);
 
+
+	m_fAccTime += DT;
+	if (m_fAccTime >= 2.f)
+	{
+		GetOwner()->Destroy();
+	}
 }
 

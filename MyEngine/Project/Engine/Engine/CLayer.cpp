@@ -44,9 +44,21 @@ void CLayer::lateupdate()
 
 void CLayer::finalupdate()
 {
-	for (size_t i = 0; i < m_vecRoot.size(); ++i)
+	vector<CGameObject*>::iterator iter = m_vecRoot.begin();
+
+
+	for (; iter != m_vecRoot.end(); ++iter)
 	{
-		m_vecRoot[i]->finalupdate();
+		(*iter)->finalupdate();
+		if ((*iter)->IsDead())
+		{
+			iter = m_vecRoot.erase(iter);
+		}
+		else
+		{
+			++iter;
+
+		}
 
 	}
 }

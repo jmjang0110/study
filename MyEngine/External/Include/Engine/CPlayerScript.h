@@ -5,6 +5,7 @@ class CPlayerScript :
     public CScript
 {
 private:
+    Ptr<CPrefab> m_pMissilePrefab;
     float m_fSpeed;
 
 public:

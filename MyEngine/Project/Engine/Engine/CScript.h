@@ -1,5 +1,17 @@
 #pragma once
 #include "CComponent.h"
+#include "CTransform.h"
+#include "CMeshRender.h"
+
+#include "CResMgr.h"
+#include "CTimeMgr.h"
+#include "CKeyMgr.h"
+#include "CSceneMgr.h"
+#include "CScene.h"
+#include "CLayer.h"
+
+
+
 class CScript :
     public CComponent
 {

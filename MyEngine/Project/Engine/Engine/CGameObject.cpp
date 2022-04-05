@@ -6,12 +6,19 @@
 #include "CTransform.h"
 #include "CMeshRender.h"
 
+#include "CEventMgr.h"
+#include "CScene.h"
+#include "CSceneMgr.h"
+#include "CLayer.h"
+
 
 
 CGameObject::CGameObject()
 	: m_arrCom{}
-	,m_bActive(true)
+	, m_bActive(true)
 	, m_bDead(false)
+	, m_pParent(nullptr)
+	, m_iLayerIdx(-1)
 {
 }
 
@@ -20,6 +27,9 @@ CGameObject::CGameObject(const CGameObject& _origin)
 	, m_arrCom{}
 	, m_bActive(true)
 	, m_bDead(false)
+	, m_iLayerIdx(-1)
+	, m_pParent(nullptr)
+
 {
 	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
 	{
@@ -44,6 +54,13 @@ void CGameObject::start()
 
 	}
 
+	for (size_t i = 0; i < m_vecChild.size(); ++i)
+	{
+		m_vecChild[i]->start();
+
+	}
+
+
 }
 
 void CGameObject::update()
@@ -57,6 +74,12 @@ void CGameObject::update()
 			m_arrCom[i]->update();
 
 	}
+
+	for (size_t i = 0; i < m_vecChild.size(); ++i)
+	{
+		m_vecChild[i]->update();
+
+	}
 }
 
 void CGameObject::lateupdate()
@@ -67,6 +90,13 @@ void CGameObject::lateupdate()
 			m_arrCom[i]->lateupdate();
 
 	}
+
+	for (size_t i = 0; i < m_vecChild.size(); ++i)
+	{
+		m_vecChild[i]->lateupdate();
+
+	}
+
 }
 
 void CGameObject::finalupdate()
@@ -77,6 +107,19 @@ void CGameObject::finalupdate()
 			m_arrCom[i]->finalupdate();
 
 	}
+
+	for (size_t i = 0; i < m_vecChild.size(); ++i)
+	{
+		m_vecChild[i]->finalupdate();
+
+	}
+
+	// Layer 에 등록 
+	CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
+	CLayer* pLayer = pCurScene->GetLayer();
+	pLayer->RegisterObject(this);
+
+
 }
 
 void CGameObject::render()
@@ -84,6 +127,13 @@ void CGameObject::render()
 	if (nullptr != MeshRender()) // MeshRender 기능을 보유하고 있다면 
 		MeshRender()->render();
 	
+}
+
+void CGameObject::AddChild(CGameObject* _pChild)
+{
+
+	m_vecChild.push_back(_pChild);
+	_pChild->m_pParent = this;
 }
 
 void CGameObject::AddComponent(CComponent* _component)
@@ -94,6 +144,21 @@ void CGameObject::AddComponent(CComponent* _component)
 
 	m_arrCom[(UINT)eType] = _component;
 	_component->m_pOwner = this;
+
+}
+
+void CGameObject::Destroy()
+{
+	if (m_bDead)
+		return;
+
+	tEventInfo info = {};
+
+
+	info.eType = EVENT_TYPE::DELETE_OBJ;
+	info.lParam = (DWORD_PTR)this;
+
+	CEventMgr::GetInst()->AddEvent(info);
 
 }
 

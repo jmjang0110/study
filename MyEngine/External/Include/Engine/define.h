@@ -39,8 +39,9 @@ typedef Vector4 Vec4;
 
 enum class RES_TYPE
 {
-	MATERIAL,
+	PREFAB,
 	MESHDATA,
+	MATERIAL,
 	MESH,
 	TEXTURE,
 	SOUND,
@@ -164,9 +165,9 @@ enum class PIPELINE_STAGE
 };
 
 
-enum class EEVENT_TYPE
+enum class EVENT_TYPE
 {
-	CREATE_OBJ,			// lParam : Object Adress, wParam : Object Type
+	CREATE_OBJ,			// lParam : Object Adress, wParam : Layer Index
 	DELETE_OBJ,			// lParam : Object Adress
 	STAGE_CHANGE,		// lParam : Next Stage Enum
 	CHANGE_AI_STATE,	// lParam : FSM Adress, wParam : Next State Type

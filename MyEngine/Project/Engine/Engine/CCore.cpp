@@ -11,6 +11,8 @@
 #include "CDevice.h"
 
 #include "CResMgr.h"
+#include "CEventMgr.h"
+
 
 
 CCore::CCore()
@@ -67,4 +69,8 @@ void CCore::progress()
 	CSceneMgr::GetInst()->render();
 
 
+	// EventMgr update
+	CEventMgr::GetInst()->update();
+
 }
+

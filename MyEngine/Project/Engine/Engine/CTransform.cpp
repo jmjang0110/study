@@ -5,6 +5,7 @@
 #include "CConstBuffer.h"
 
 
+
 CTransform::CTransform()
 	: CComponent(COMPONENT_TYPE::TRANSFORM)
 	, m_vRelativeScale(Vec3(1.f, 1.f, 1.f))

@@ -2,7 +2,8 @@
 #include "CEventMgr.h"
 
 #include "CGameObject.h"
-
+#include "CSceneMgr.h"
+#include "CScene.h"
 CEventMgr::CEventMgr()
 {
 
@@ -31,25 +32,35 @@ void CEventMgr::update()
 	{
 		switch (m_vecEvent[i].eType)
 		{
-		case EEVENT_TYPE::CREATE_OBJ:
-			// lParam : Object Adress, wParam : Object Type
+		case EVENT_TYPE::CREATE_OBJ:
+			// lParam : Object Adress, wParam : Layer Index
 		{
+			CGameObject* pObj = (CGameObject*)m_vecEvent[i].lParam;
+			int iLayerIdx = (int)m_vecEvent[i].wParam;
+			CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
+			pCurScene->AddObject(pObj, iLayerIdx);
 
 		}
 		break;
 
-		case EEVENT_TYPE::DELETE_OBJ:
+		case EVENT_TYPE::DELETE_OBJ:
 			// lParam : Object Adress
 		{
-
+			CGameObject* pDeleteObject = (CGameObject*)m_vecEvent[i].lParam;
+			
+			if (false == pDeleteObject->m_bDead)
+			{
+				m_vecDead.push_back(pDeleteObject);
+				pDeleteObject->m_bDead = true;
+			}
 		}
 		break;
-		case EEVENT_TYPE::STAGE_CHANGE:
+		case EVENT_TYPE::STAGE_CHANGE:
 			// lParam : Next Stage Enum		
 
 			break;
 
-		case EEVENT_TYPE::CHANGE_AI_STATE:
+		case EVENT_TYPE::CHANGE_AI_STATE:
 		{
 			// lParam : FSM Adress, wParam : Next State Type
 

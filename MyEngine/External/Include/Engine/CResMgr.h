@@ -9,6 +9,7 @@
 #include "CMesh.h"
 #include "CTexture.h"
 #include "CGraphicsShader.h"
+#include "CPrefab.h"
 //#include "CComputeShader.h"
 //#include "CShound.h"
 
@@ -62,7 +63,10 @@ inline RES_TYPE CResMgr::GetResType()
 {
 	const type_info& info = typeid(type);
 
-	if (info.hash_code() == typeid(CMesh).hash_code())
+
+	if (info.hash_code() == typeid(CPrefab).hash_code())
+		return RES_TYPE::PREFAB;
+	else if (info.hash_code() == typeid(CMesh).hash_code())
 		return RES_TYPE::MESH;
 	else if (info.hash_code() == typeid(CGraphicsShader).hash_code())
 		return RES_TYPE::GRAPHICS_SHADER;

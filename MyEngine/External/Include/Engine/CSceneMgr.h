@@ -1,5 +1,6 @@
 #pragma once
 
+class CGameObject;
 
 class CSceneMgr
 	: public CSingleton<CSceneMgr>
@@ -18,10 +19,20 @@ private:
 	class CScene* m_pCurScene;
 
 public:
+
+	CScene* GetCurScene() { return m_pCurScene; }
+
+	void SpawnObject(CGameObject* _pSpawnObject, Vec3 _vWorldPos, 
+		wstring _strName, UINT _iLayerIdx);
+	void SpawnObject(CGameObject* _pSpawnObject, UINT _iLayerIdx);
+
+
+
+public:
 	void init();
 	void progress();
 	void render();
 
-	CScene* GetCurScene() { return m_pCurScene; }
+
 };
 
