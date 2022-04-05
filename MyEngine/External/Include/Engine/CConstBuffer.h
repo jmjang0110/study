@@ -19,7 +19,8 @@ public:
 
     void SetData(void* _pData, UINT _iSize);
 
-    virtual CConstBuffer* Clone() { return nullptr; }
+    //virtual CConstBuffer* Clone() { return nullptr; }
+    CLONE_DISABLE(CConstBuffer)
 
 
 public:

@@ -1,6 +1,7 @@
 #pragma once
 
 enum class KEY
+
 {
 	Q,
 	W,
@@ -89,6 +90,7 @@ struct tKeyInfo
 };
 
 class CKeyMgr
+	: public CSingleton<CKeyMgr>
 {
 	SINGLE(CKeyMgr);
 

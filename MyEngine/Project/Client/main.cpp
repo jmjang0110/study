@@ -36,7 +36,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ int       nCmdShow)
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc();
+    //_CrtSetBreakAlloc(); // 메모리 릭 발생 시 추적 코드 
 
     MyRegisterClass(hInstance);
 

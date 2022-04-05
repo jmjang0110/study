@@ -2,10 +2,13 @@
 
 
 class CSceneMgr
-	: CSingleton<CSceneMgr>
+	: public CSingleton<CSceneMgr>
 {
 
+	// Singleton 객체가 CSceneMgr 생성 소멸자에 접근 할 수 있게 friend 선언
 	friend class CSingleton<CSceneMgr>;
+
+
 private:
 	CSceneMgr();
 	~CSceneMgr();
@@ -19,14 +22,6 @@ public:
 	void progress();
 	void render();
 
-public:
-	CSceneMgr()
-	{
-
-	}
-	virtual ~CSceneMgr()
-	{
-
-	}
+	CScene* GetCurScene() { return m_pCurScene; }
 };
 

@@ -1,15 +1,20 @@
 #pragma once
 
 
-#define SINGLE(TYPE) private:	\
-	TYPE();					\
-	~TYPE();					\
-public:							\
-	static TYPE* GetInst()		\
-	{							\
-		static TYPE core;		\
-		return &core;			\
-	}							\
+#define SINGLE(TYPE) friend class CSingleton<TYPE>; \
+					 private:\
+						TYPE();\
+						~TYPE();\
+
+//#define SINGLE(TYPE) private:	\
+//	TYPE();						\
+//	~TYPE();					\
+//public:							\
+//	static TYPE* GetInst()		\
+//	{							\
+//		static TYPE mgr;		\
+//		return &mgr;			\
+//	}							\
 
 #define DT CTimeMgr::GetInst()->GetDT()
 #define KEY_TAP(key) KEY_STATE::TAP == CKeyMgr::GetInst()->GetKeyState(key) 
@@ -156,5 +161,16 @@ enum class PIPELINE_STAGE
 
 
 
+};
+
+
+enum class EEVENT_TYPE
+{
+	CREATE_OBJ,			// lParam : Object Adress, wParam : Object Type
+	DELETE_OBJ,			// lParam : Object Adress
+	STAGE_CHANGE,		// lParam : Next Stage Enum
+	CHANGE_AI_STATE,	// lParam : FSM Adress, wParam : Next State Type
+
+	END,
 };
 

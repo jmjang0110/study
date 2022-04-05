@@ -7,8 +7,9 @@
 
 
 class CDevice
+	: public CSingleton<CDevice>
 {
-	SINGLE(CDevice);
+	SINGLE(CDevice)
 private:
 
 	HWND							m_hwnd;			// Main window Handle

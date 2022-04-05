@@ -1,10 +1,20 @@
 #include "pch.h"
 #include "CPlayerScript.h"
 
-#include "CTransform.h"
 
 #include "CKeyMgr.h"
 #include "CTimeMgr.h"
+
+
+#include "CTransform.h"
+#include "CMeshRender.h"
+#include "CMissileScript.h"
+
+#include "CSceneMgr.h"
+#include "CScene.h"
+#include "CGameObject.h"
+#include "CResMgr.h"
+
 
 CPlayerScript::CPlayerScript()
 	: m_fSpeed(0.5f)
@@ -49,6 +59,23 @@ void CPlayerScript::update()
 		Transform()->SetRotation(vRot);
 	}
 
+	if (KEY_TAP(KEY::SPACE))
+	{
+		// 오브젝트 생성 
+		CGameObject* pMissileObj = new CGameObject;
+		pMissileObj->AddComponent(new CTransform);
+		pMissileObj->AddComponent(new CMeshRender);
+		pMissileObj->AddComponent(new CMissileScript);
+
+		pMissileObj->Transform()->SetPos(Transform()->GetPos() + Vec3(0.f, 50.f, 0.f));
+		pMissileObj->Transform()->SetScale(Vec3(50.f, 50.f, 1.f));
+		pMissileObj->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CircleMesh"));
+		pMissileObj->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));
+
+		// 생성된 오브젝트 Scene에 추가 
+		CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
+		pCurScene->AddObject(pMissileObj, 0);
+	}
 
 }
 

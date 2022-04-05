@@ -31,7 +31,7 @@ public:
     CComponent* GetComponent(COMPONENT_TYPE _eType) { return m_arrCom[(UINT)_eType]; }
 
     GET_COMPONENT(Transform, TRANSFORM)
-        GET_COMPONENT(MeshRender, MESHRENDER)
+    GET_COMPONENT(MeshRender, MESHRENDER)
 
 public:
     CLONE(CGameObject);

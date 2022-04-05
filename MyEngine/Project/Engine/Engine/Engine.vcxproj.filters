@@ -261,6 +261,9 @@
     <ClInclude Include="singleton.h">
       <Filter>Engine\03. Manager</Filter>
     </ClInclude>
+    <ClInclude Include="CMissileScript.h">
+      <Filter>Engine\Scripts\MissileScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -355,6 +358,9 @@
     </ClCompile>
     <ClCompile Include="CEventMgr.cpp">
       <Filter>Engine\03. Manager\08. EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CMissileScript.cpp">
+      <Filter>Engine\Scripts\MissileScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
