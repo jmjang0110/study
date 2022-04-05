@@ -3,7 +3,7 @@ class CCore
 	: public CSingleton<CCore>
 {
 
-	SINGLE(CCore);
+	SINGLE(CCore)
 private:
 	HWND m_hwnd;
 	POINT m_ptResolution;

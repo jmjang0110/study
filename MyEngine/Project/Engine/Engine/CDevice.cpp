@@ -327,7 +327,9 @@ void CDevice::CreateSamplerState()
 	CONTEXT->GSSetSamplers(0, 1, m_arrSam[0].GetAddressOf());
 	CONTEXT->PSSetSamplers(0, 1, m_arrSam[0].GetAddressOf());
 
-
+	/// <summary>
+	/// 
+	/// </summary>
 	CONTEXT->VSSetSamplers(1, 1, m_arrSam[1].GetAddressOf());
 	CONTEXT->HSSetSamplers(1, 1, m_arrSam[1].GetAddressOf());
 	CONTEXT->DSSetSamplers(1, 1, m_arrSam[1].GetAddressOf());

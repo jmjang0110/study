@@ -39,18 +39,20 @@ CSceneMgr::~CSceneMgr()
 void CSceneMgr::init()
 {
 	m_pCurScene = new CScene;
+
+	//  ** Layer 세팅 
 	m_pCurScene->SetLayerName(0, L"Default");
 	m_pCurScene->SetLayerName(1, L"Player");
 	m_pCurScene->SetLayerName(2, L"Monster");
-
-	// teture 한장 로딩해보기 
+	
+	// ** teture 한장 로딩해보기 
 	CResMgr::GetInst()->Load<CTexture>(L"PlayerTexture", L"texture\\Player.bmp");
 	Ptr<CTexture> pTex = CResMgr::GetInst()->FindRes<CTexture>(L"PlayerTexture");
 
 	//  텍스쳐를 렌더링 파이프라인 PixelShader 단계 때 t0 레지스터에 바인딩 시켜 둠 
 	// pTex->UpdateData((int)PIPELINE_STAGE::PS, 0);
 
-	//  Scene 에 Camera Object 추가 
+	//  **  Scene 에 Camera Object 추가 
 	CGameObject* pCamObj = new CGameObject;
 	pCamObj->AddComponent(new CTransform);
 	pCamObj->AddComponent(new CCamera);
@@ -60,7 +62,7 @@ void CSceneMgr::init()
 
 
 
-	// Scene 에 GameObject 추가
+	// ** Scene 에 GameObject 추가
 	CGameObject* pObject = new CGameObject;
 	pObject->SetName(L"Player");
 	pObject->AddComponent(new CTransform);
@@ -72,7 +74,6 @@ void CSceneMgr::init()
 	
 	//pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CircleMesh"));
-
 	pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));
 
 	int a = 1;
@@ -83,6 +84,8 @@ void CSceneMgr::init()
 
 	m_pCurScene->AddObject(pObject, L"Default");
 
+
+	// ** 오브젝트 복사본 생성 
 	pObject = pObject->Clone();
 	pObject->SetName(L"Player_Clone");
 	pObject->Transform()->SetPos(pObject->Transform()->GetPos() + Vec3(200.f, 0.f, 0.f));
