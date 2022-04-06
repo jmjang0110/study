@@ -104,15 +104,32 @@ void CSceneMgr::init()
 	pObject->MeshRender()->GetMaterial()->SetScalarParam(L"IsColorRed", &a);
 	pObject->MeshRender()->GetMaterial()->SetTexParam(L"OutputTex", pTex);
 
+	CGameObject* pChildObject = new CGameObject;
+	pChildObject->SetName(L"ChildObject");
 
+	pChildObject->AddComponent(new CTransform);
+	pChildObject->AddComponent(new CMeshRender);
+
+	pChildObject->Transform()->SetScale(Vec3(1.f, 1.f, 1.f));
+	pChildObject->Transform()->SetPos(Vec3(20.f, 0.f, 0.f));
+
+	pChildObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CircleMesh"));
+	pChildObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMrl"));
+
+
+	
+
+	pObject->AddChild(pChildObject);
 	m_pCurScene->AddObject(pObject, L"Default");
 
 
+	/*
 	// ** 오브젝트 복사본 생성 
 	pObject = pObject->Clone();
 	pObject->SetName(L"Player_Clone");
 	pObject->Transform()->SetPos(pObject->Transform()->GetPos() + Vec3(200.f, 0.f, 0.f));
 	m_pCurScene->AddObject(pObject, L"Default");
+	*/
 
 
 
@@ -136,7 +153,7 @@ void CSceneMgr::render()
 	CDevice::GetInst()->Present();
 }
 
-
+// 받은 객체를 CurScene에 생성한다.  
 void CSceneMgr::SpawnObject(CGameObject* _pSpawnObject, Vec3 _vWorldPos, wstring _strName, UINT _iLayerIdx)
 {
 	tEventInfo info = {};
@@ -163,6 +180,13 @@ void CSceneMgr::SpawnObject(CGameObject* _pSpawnObject, UINT _iLayerIdx)
 	CEventMgr::GetInst()->AddEvent(info);
 
 
+
+}
+
+void CSceneMgr::AddChild(CGameObject* _pParent, CGameObject* pchildObject)
+{
+	tEventInfo info = {};
+	info.eType = 
 
 }
 

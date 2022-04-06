@@ -107,29 +107,50 @@ int CScene::GetLayerIdxFromName(const wstring& _strName)
 }
 
 // LayerName Layer에 Obj 추가 - 최상위 오브젝트 단위로 추가된다. 
-void CScene::AddObject(CGameObject* _pObj, const wstring& _strLayerName)
+void CScene::AddObject(CGameObject* _pRootObj, const wstring& _strLayerName)
 {
 	int iLayerIdx = GetLayerIdxFromName(_strLayerName);
 
 	assert(iLayerIdx != -1);
 	// CScene 에서는 최상위 오브젝트만 다루기 때문에 
 	// 부모가 있는 오브젝트 들이 들어가면 안된다. 
-	assert(!_pObj->m_pParent); 
+	assert(!_pRootObj->m_pParent);
 
-	AddObject(_pObj, iLayerIdx);
+	AddObject(_pRootObj, iLayerIdx);
 
 }
 
 
 // LayerIdx Layer에 Obj 추기 - 최상위 오브젝트 단위로 추가된다. 
-void CScene::AddObject(CGameObject* _pObj, int _iLayerIdx)
+void CScene::AddObject(CGameObject* _pRootObj, int _iLayerIdx)
 {
 	assert(0 <= _iLayerIdx && _iLayerIdx < MAX_LAYER);
-	assert(!_pObj->m_pParent);
+	assert(!_pRootObj->m_pParent);
 
-	m_arrLayer[_iLayerIdx]->AddObject(_pObj);
+	m_arrLayer[_iLayerIdx]->AddObject(_pRootObj);
 
-	_pObj->m_iLayerIdx = _iLayerIdx;
+	// 자기 오브젝트 들도 해당 레이어의 인덱스를 알려준다. 
+	list<CGameObject*> queue;
+	queue.push_back(_pRootObj);
+
+	while (!queue.empty())
+	{
+		CGameObject* pTargetObj = queue.front();
+		queue.pop_front();
+
+		if (-1 == pTargetObj->m_iLayerIdx)
+			pTargetObj->m_iLayerIdx = _iLayerIdx;
+
+		pTargetObj->m_iLayerIdx = _iLayerIdx;
+		const vector<CGameObject*>& vecChild = pTargetObj->GetChild();
+		for (size_t i = 0; i < vecChild.size(); ++i)
+		{
+			queue.push_back(vecChild[i]);
+
+		}
+	}
+
+	_pRootObj->m_iLayerIdx = _iLayerIdx;
 
 }
 

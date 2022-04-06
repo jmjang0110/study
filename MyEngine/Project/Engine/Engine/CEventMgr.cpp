@@ -67,7 +67,22 @@ void CEventMgr::update()
 
 		}
 		break;
+
+		case EVENT_TYPE::ADD_CHILD:
+		{
+			CGameObject* pParent = (CGameObject*)m_vecEvent[i].lParam;
+			CGameObject* pChild = (CGameObject*)m_vecEvent[i].wParam;
+			int iLayerIdx = pChild->m_iLayerIdx;
+			pChild->Deregister();
+			pChild->m_iLayerIdx = iLayerIdx;
+
+			pParent->AddChild(pChild);
+
 		}
+		break;
+		}
+
+		
 
 		// 이벤트 중에 Stage 변경 이벤트가 있었다면,
 		// 나머지 이벤트는 다 무시하고 종료

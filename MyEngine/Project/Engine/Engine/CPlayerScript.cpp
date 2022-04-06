@@ -52,6 +52,7 @@ void CPlayerScript::update()
 	{
 		if (nullptr != m_pMissilePrefab)
 		{
+			// 원본을 복사한 객체를 받는다.
 			CGameObject* pMissileObject = m_pMissilePrefab->Instantiate();
 
 			Vec3 vMissilePos = Transform()->GetPos();

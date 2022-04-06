@@ -9,6 +9,7 @@
 CTransform::CTransform()
 	: CComponent(COMPONENT_TYPE::TRANSFORM)
 	, m_vRelativeScale(Vec3(1.f, 1.f, 1.f))
+	, m_bIgnoreParentScale(false)
 {
 
 }
@@ -37,11 +38,51 @@ void CTransform::finalupdate()
 	// World Matrix 생성 
 	m_matWorld = matScale * matRotation * matTranlation; // [ S * R * T ]
 
+	// 부모 오브젝트가 기준이다. 
+	if (GetOwner()->GetParent())
+	{
+		Matrix m_matParentWorld = GetOwner()->GetParent()->Transform()->GetWorldMat();
+		
+		if (m_bIgnoreParentScale)
+		{
+			Vec3 vParentWorldScale = GetOwner()->GetParent()->Transform()->GetWorldScale();
+			Matrix matParentScale = XMMatrixScaling(vParentWorldScale.x, vParentWorldScale.y, vParentWorldScale.z);
+			Matrix matParentScaleInv = XMMatrixInverse(nullptr, matParentScale);
+
+
+			m_matWorld = m_matWorld* matParentScaleInv* m_matParentWorld;
+		}
+		else
+		{
+
+		m_matWorld *= m_matParentWorld;
+		}
+		
+
+	}
 
 
 }
 
 
+
+ Vec3 CTransform::GetWorldScale()
+{
+
+	Vec3 vWorldScale = m_vRelativeScale;
+	CGameObject* pParent = GetOwner()->GetParent();
+
+	while (pParent)
+	{
+		pParent->Transform()->GetScale();
+
+		pParent = pParent->GetParent();
+
+	}
+
+	return vWorldScale;
+
+}
 
 void CTransform::UpdateData()
 {

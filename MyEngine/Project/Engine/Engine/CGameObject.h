@@ -31,6 +31,10 @@ public:
     void render();
 
 public:
+
+    CGameObject* GetParent() { return m_pParent; }
+  //  const vector<CGameObject*> GetChild() { }
+
     bool IsDead() { return m_bDead; }
     bool IsActive() { return m_bActive; }
 
@@ -40,6 +44,13 @@ public:
 
     void AddComponent(CComponent* _component);
     CComponent* GetComponent(COMPONENT_TYPE _eType) { return m_arrCom[(UINT)_eType]; }
+
+
+    // Deregister ==> 등록 취소 ( 등록 -> 미등록 )
+       // Unregister ==> 등록 안됨 ( 등록 x == 등록 -> 미등록, 애초에 등록 X )
+
+    void Deregister();
+    void DisconnectBetweenParent();
 
     void Destroy();
 
@@ -58,6 +69,8 @@ public:
 
     friend class CEventMgr;
     friend class CScene;
+    friend class CLayer;
+
 
 
 };

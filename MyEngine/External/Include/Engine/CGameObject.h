@@ -31,6 +31,9 @@ public:
     void render();
 
 public:
+
+    CGameObject* GetParent() { return m_pParent; }
+
     bool IsDead() { return m_bDead; }
     bool IsActive() { return m_bActive; }
 

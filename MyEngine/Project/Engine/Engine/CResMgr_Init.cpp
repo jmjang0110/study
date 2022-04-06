@@ -145,7 +145,7 @@ void CResMgr::CreateEngineShader()
 	pShader = new CGraphicsShader;
 	pShader->CreateVertexShader(L"shader\\test.fx", "VS_Test"); // ( CreateInputLayout 함수내 존재 )
 	pShader->CreatePixelShader(L"shader\\test.fx", "PS_Test");
-	pShader->SetRSType(RS_TYPE::CULL_BACK);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
 
 	// SCALAR_PARAM::INT_0 가 빨간색인지의 여부인지에 대한 Info 정보
 	pShader->AddScalarParamInfo(L"IsColorRed", SCALAR_PARAM::INT_0); 

@@ -11,6 +11,9 @@ private:
     Matrix  m_matWorld; // 위치변환 정보 행렬
 
 
+    bool m_bIgnoreParentScale;
+
+
 public:
     void SetPos(const Vec3& _vPos) { m_vRelativePos = _vPos; };
     void SetScale(const Vec3& _vScale) { m_vRelativeScale = _vScale; };;
@@ -20,7 +23,12 @@ public:
     const Vec3& GetScale() { return m_vRelativeScale; }
     const Vec3& GetRotation() { return m_vRelativeRot; }
 
+     Vec3 GetWorldScale();
 
+
+    const Matrix& GetWorldMat() { return m_matWorld; }
+
+    bool SetIgnoreParentScale(bool _bSet){m_bIgnoreParentScale = _bSet;}
     virtual void UpdateData() override;
     virtual void finalupdate() override;
 

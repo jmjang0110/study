@@ -76,3 +76,25 @@ void CLayer::AddObject(CGameObject* _pObj)
 
 
 }
+
+void CLayer::DeregisterObject(CGameObject* _pObj)
+{
+
+	if (_pObj->GetParent())
+		return;
+
+	vector<CGameObject*>::iterator iter = m_vecRoot.begin();
+
+	for (; iter != m_vecRoot.end(); ++iter)
+	{
+		if ((*iter) == _pObj)
+		{
+			m_vecRoot.erase(iter);
+			_pObj->m_iLayerIdx = -1;
+
+
+			return;
+
+		}
+	}
+}

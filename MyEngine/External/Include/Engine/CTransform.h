@@ -20,6 +20,7 @@ public:
     const Vec3& GetScale() { return m_vRelativeScale; }
     const Vec3& GetRotation() { return m_vRelativeRot; }
 
+    const Matrix& GetWorldMat() { return m_matWorld; }
 
     virtual void UpdateData() override;
     virtual void finalupdate() override;
