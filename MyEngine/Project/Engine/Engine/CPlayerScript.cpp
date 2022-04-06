@@ -3,8 +3,8 @@
 
 
 CPlayerScript::CPlayerScript()
-	: m_fSpeed(0.5f)
-	, m_pMissilePrefab(nullptr)
+	: m_pMissilePrefab(nullptr)
+	,m_fSpeed(0.5f)
 {
 }
 
@@ -51,14 +51,17 @@ void CPlayerScript::update()
 
 	if (KEY_TAP(KEY::SPACE))
 	{
-		CGameObject* pMissileObject = m_pMissilePrefab->Instantiate();
+		if (nullptr != m_pMissilePrefab)
+		{
+			CGameObject* pMissileObject = m_pMissilePrefab->Instantiate();
 
-		Vec3 vMissilePos = Transform()->GetPos();
-		vMissilePos.y += Transform()->GetScale().y / 2.f;
+			Vec3 vMissilePos = Transform()->GetPos();
+			vMissilePos.y += Transform()->GetScale().y / 2.f;
 
-		CSceneMgr::GetInst()->SpawnObject(pMissileObject,vMissilePos, L"Missile", 0);
-
+			CSceneMgr::GetInst()->SpawnObject(pMissileObject, vMissilePos, L"Missile", 0);
+		}
 	}
+
 
 }
 

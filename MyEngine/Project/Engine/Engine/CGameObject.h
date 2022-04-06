@@ -12,16 +12,15 @@ class CGameObject :
     public CEntity
 {
 private:
-    vector<CGameObject*>  m_vecChild;
-    class CComponent*   m_arrCom[(UINT)COMPONENT_TYPE::END];
+    vector<CGameObject*>    m_vecChild;
+    class CComponent*       m_arrCom[(UINT)COMPONENT_TYPE::END];
         
+    CGameObject*            m_pParent;
 
-    CGameObject*        m_pParent;
+    int                     m_iLayerIdx; // Game Object º“º” Layer ¿Œµ¶Ω∫ 
 
-    int                 m_iLayerIdx;
-
-    bool                m_bActive;
-    bool                m_bDead;
+    bool                    m_bActive;
+    bool                    m_bDead;
 
 
 public:
@@ -35,10 +34,10 @@ public:
     bool IsDead() { return m_bDead; }
     bool IsActive() { return m_bActive; }
 
+public:
+
     void AddChild(CGameObject* _pChild);
 
-
-public:
     void AddComponent(CComponent* _component);
     CComponent* GetComponent(COMPONENT_TYPE _eType) { return m_arrCom[(UINT)_eType]; }
 
@@ -58,6 +57,8 @@ public:
     ~CGameObject();
 
     friend class CEventMgr;
+    friend class CScene;
+
 
 };
 

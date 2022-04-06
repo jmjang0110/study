@@ -22,7 +22,7 @@ CPrefab::~CPrefab()
 
 }
 
-
+// Return m_pProtoObj Clone();
 CGameObject* CPrefab::Instantiate()
 {
 	// 원본 객체 복사본을 넘긴다. 

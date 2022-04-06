@@ -4,7 +4,7 @@
 #include "CTransform.h"
 
 CMissileScript::CMissileScript()
-	:m_fSpeed(300.f)
+	: m_fSpeed(100.f)
 	, m_fAccTime(0.f)
 {
 }
@@ -15,7 +15,6 @@ CMissileScript::~CMissileScript()
 
 void CMissileScript::update()
 {
-
 	Vec3 vPos = Transform()->GetPos();
 
 	vPos.y += DT * m_fSpeed;
@@ -24,9 +23,9 @@ void CMissileScript::update()
 
 
 	m_fAccTime += DT;
+
 	if (m_fAccTime >= 2.f)
 	{
 		GetOwner()->Destroy();
 	}
 }
-

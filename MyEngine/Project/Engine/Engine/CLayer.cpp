@@ -38,7 +38,6 @@ void CLayer::lateupdate()
 	for (size_t i = 0; i < m_vecRoot.size(); ++i)
 	{
 		m_vecRoot[i]->lateupdate();
-
 	}
 }
 
@@ -47,7 +46,7 @@ void CLayer::finalupdate()
 	vector<CGameObject*>::iterator iter = m_vecRoot.begin();
 
 
-	for (; iter != m_vecRoot.end(); ++iter)
+	for (; iter != m_vecRoot.end();)
 	{
 		(*iter)->finalupdate();
 		if ((*iter)->IsDead())
@@ -59,15 +58,14 @@ void CLayer::finalupdate()
 			++iter;
 
 		}
-
 	}
 }
 
 void CLayer::render()
 {
-	for (size_t i = 0; i < m_vecRoot.size(); ++i)
+	for (size_t i = 0; i < m_vecObj.size(); ++i)
 	{
-		m_vecRoot[i]->render();
+		m_vecObj[i]->render();
 
 	}
 }

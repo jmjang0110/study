@@ -15,9 +15,9 @@
 
 CGameObject::CGameObject()
 	: m_arrCom{}
+	, m_pParent(nullptr)
 	, m_bActive(true)
 	, m_bDead(false)
-	, m_pParent(nullptr)
 	, m_iLayerIdx(-1)
 {
 }
@@ -35,6 +35,11 @@ CGameObject::CGameObject(const CGameObject& _origin)
 	{
 		if(nullptr != _origin.m_arrCom[i])
 			AddComponent(_origin.m_arrCom[i]->Clone());
+	}
+	for (size_t i = 0; i < _origin.m_vecChild.size(); ++i)
+	{
+		AddChild(_origin.m_vecChild[i]->Clone());
+
 	}
 
 }
@@ -116,7 +121,7 @@ void CGameObject::finalupdate()
 
 	// Layer ¿¡ µî·Ï 
 	CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
-	CLayer* pLayer = pCurScene->GetLayer();
+	CLayer* pLayer = pCurScene->GetLayer(m_iLayerIdx);
 	pLayer->RegisterObject(this);
 
 
@@ -134,6 +139,8 @@ void CGameObject::AddChild(CGameObject* _pChild)
 
 	m_vecChild.push_back(_pChild);
 	_pChild->m_pParent = this;
+
+
 }
 
 void CGameObject::AddComponent(CComponent* _component)
@@ -159,6 +166,7 @@ void CGameObject::Destroy()
 	info.lParam = (DWORD_PTR)this;
 
 	CEventMgr::GetInst()->AddEvent(info);
+
 
 }
 

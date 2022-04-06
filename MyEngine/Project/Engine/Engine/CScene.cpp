@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CScene.h"
 #include "CLayer.h"
+#include "CGameObject.h"
 
 
 
@@ -105,23 +106,30 @@ int CScene::GetLayerIdxFromName(const wstring& _strName)
 
 }
 
-// LayerName Layer에 Obj 추가
+// LayerName Layer에 Obj 추가 - 최상위 오브젝트 단위로 추가된다. 
 void CScene::AddObject(CGameObject* _pObj, const wstring& _strLayerName)
 {
 	int iLayerIdx = GetLayerIdxFromName(_strLayerName);
+
 	assert(iLayerIdx != -1);
+	// CScene 에서는 최상위 오브젝트만 다루기 때문에 
+	// 부모가 있는 오브젝트 들이 들어가면 안된다. 
+	assert(!_pObj->m_pParent); 
 
 	AddObject(_pObj, iLayerIdx);
 
 }
 
 
-// LayerIdx Layer에 Obj 추기 
+// LayerIdx Layer에 Obj 추기 - 최상위 오브젝트 단위로 추가된다. 
 void CScene::AddObject(CGameObject* _pObj, int _iLayerIdx)
 {
 	assert(0 <= _iLayerIdx && _iLayerIdx < MAX_LAYER);
+	assert(!_pObj->m_pParent);
+
 	m_arrLayer[_iLayerIdx]->AddObject(_pObj);
 
+	_pObj->m_iLayerIdx = _iLayerIdx;
 
 }
 

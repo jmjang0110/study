@@ -5,12 +5,12 @@
 #include "CDevice.h"
 #include "CPathMgr.h"
 #include "CEventMgr.h"
-
-
 #include "CResMgr.h"
+
+
+
 #include "CMesh.h"
 #include "CGraphicsShader.h"
-
 #include "CScene.h"
 #include "CLayer.h"
 #include "CGameObject.h"

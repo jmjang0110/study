@@ -50,6 +50,7 @@ void CEventMgr::update()
 			
 			if (false == pDeleteObject->m_bDead)
 			{
+				// 여기서 죽은 객체들은 다음 프레임에서 삭제된다 .
 				m_vecDead.push_back(pDeleteObject);
 				pDeleteObject->m_bDead = true;
 			}

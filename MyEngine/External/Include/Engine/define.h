@@ -37,8 +37,19 @@ typedef Vector2 Vec2;
 typedef Vector3 Vec3;
 typedef Vector4 Vec4;
 
+
+/*
+	delete 순서도 고려했다.
+	예를들어 Material 보다 Texture 가 더 빨리 삭제가 된다면 
+	Material 이 지워질 때 이미 삭제된 Texture 를 또 삭제할려고 한다
+	이미 존재하지 않는 곳에 접근을 할 수 있기 떄문에 crush 날 수 있다. 
+
+*/
 enum class RES_TYPE
 {
+	/*
+		참조 우열 순위 
+	*/
 	PREFAB,
 	MESHDATA,
 	MATERIAL,
