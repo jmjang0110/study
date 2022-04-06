@@ -163,5 +163,6 @@ void CSceneMgr::SpawnObject(CGameObject* _pSpawnObject, UINT _iLayerIdx)
 	CEventMgr::GetInst()->AddEvent(info);
 
 
+
 }
 

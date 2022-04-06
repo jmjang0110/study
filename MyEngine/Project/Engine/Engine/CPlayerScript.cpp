@@ -14,7 +14,6 @@ CPlayerScript::~CPlayerScript()
 
 
 void CPlayerScript::start()
-	
 {
 
 	m_pMissilePrefab = CResMgr::GetInst()->FindRes<CPrefab>(L"MissilePrefab");
