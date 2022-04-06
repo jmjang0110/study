@@ -47,6 +47,7 @@ CGameObject::CGameObject(const CGameObject& _origin)
 CGameObject::~CGameObject()
 {
 	Safe_Del_Arr(m_arrCom);
+	Safe_Del_Vec(m_vecChild);
 
 }
 
@@ -159,9 +160,7 @@ void CGameObject::AddChild(CGameObject* _pChild)
 	}
 
 
-	_pChild->m_iLayerIdx = iLayerIdx;
-
-
+	//_pChild->m_iLayerIdx = iLayerIdx;
 	m_vecChild.push_back(_pChild);
 	_pChild->m_pParent = this;
 
@@ -179,6 +178,7 @@ void CGameObject::AddComponent(CComponent* _component)
 
 }
 
+// 소속되어있는 Layer 로 부터 Object 객체관계를 끊는다. 
 void CGameObject::Deregister()
 {
 	if (-1 == m_iLayerIdx)
@@ -200,7 +200,7 @@ void CGameObject::DisconnectBetweenParent()
 
 	for (; iter != m_pParent->m_vecChild.end(); ++iter)
 	{
-		// 나를 Child 로 여기는 부모를 연결 끊는다. 
+		// 나를 Child 로 여기는 부모와 연결을 끊는다. 
 		if ((*iter) == this)
 		{
 			m_pParent->m_vecChild.erase(iter);

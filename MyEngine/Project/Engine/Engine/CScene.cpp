@@ -18,7 +18,7 @@ CScene::CScene()
 CScene::~CScene()
 {
 	Safe_Del_Arr(m_arrLayer);
-
+	
 }
 
 
@@ -129,15 +129,18 @@ void CScene::AddObject(CGameObject* _pRootObj, int _iLayerIdx)
 
 	m_arrLayer[_iLayerIdx]->AddObject(_pRootObj);
 
-	// 자기 오브젝트 들도 해당 레이어의 인덱스를 알려준다. 
+	// 자식 오브젝트 들도 해당 레이어의 인덱스를 알려준다. 
 	list<CGameObject*> queue;
 	queue.push_back(_pRootObj);
 
+	// 부모 오브젝트 포함 , 자식들 모두 해당 레이어의 인덱스를 알려준다.
+	// ( 특정 레이어 소속이 아닌 경우에 ) 
 	while (!queue.empty())
 	{
 		CGameObject* pTargetObj = queue.front();
 		queue.pop_front();
 
+		// 레이어에 소속되어 있지 않았을 경우 
 		if (-1 == pTargetObj->m_iLayerIdx)
 			pTargetObj->m_iLayerIdx = _iLayerIdx;
 
@@ -149,8 +152,6 @@ void CScene::AddObject(CGameObject* _pRootObj, int _iLayerIdx)
 
 		}
 	}
-
-	_pRootObj->m_iLayerIdx = _iLayerIdx;
 
 }
 

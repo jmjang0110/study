@@ -33,7 +33,7 @@ public:
 public:
 
     CGameObject* GetParent() { return m_pParent; }
-  //  const vector<CGameObject*> GetChild() { }
+    const vector<CGameObject*>& GetChild() { return m_vecChild; }
 
     bool IsDead() { return m_bDead; }
     bool IsActive() { return m_bActive; }
@@ -41,7 +41,6 @@ public:
 public:
 
     void AddChild(CGameObject* _pChild);
-
     void AddComponent(CComponent* _component);
     CComponent* GetComponent(COMPONENT_TYPE _eType) { return m_arrCom[(UINT)_eType]; }
 

@@ -26,7 +26,7 @@ public:
 		wstring _strName, UINT _iLayerIdx);
 	void SpawnObject(CGameObject* _pSpawnObject, UINT _iLayerIdx);
 
-	void AddChild(CGameObject* _pParent, CGameObject* pchildObject);
+	void AddChild(CGameObject* _pParentObject, CGameObject* _pchildObject);
 
 
 public:

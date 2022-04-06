@@ -18,8 +18,8 @@ public:
 
 public:
     void SetLayerName(int _iLayerIdx, const wstring& _strName);
-    void AddObject(class CGameObject* _pObj, const wstring& _strLayerName); 
-    void AddObject(class CGameObject* _pObj, int _iLayerIdx);   
+    void AddObject(class CGameObject* _pRootObj, const wstring& _strLayerName); 
+    void AddObject(class CGameObject* _pRootObj, int _iLayerIdx);
     CLayer* GetLayer(int _iIdx) { assert(!(_iIdx < 0 || MAX_LAYER <= _iIdx));  return m_arrLayer[_iIdx]; }
 
 private:

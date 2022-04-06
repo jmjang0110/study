@@ -28,7 +28,7 @@ public:
 
     const Matrix& GetWorldMat() { return m_matWorld; }
 
-    bool SetIgnoreParentScale(bool _bSet){m_bIgnoreParentScale = _bSet;}
+    void SetIgnoreParentScale(bool _bSet) { m_bIgnoreParentScale = _bSet; }
     virtual void UpdateData() override;
     virtual void finalupdate() override;
 

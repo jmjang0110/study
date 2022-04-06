@@ -77,6 +77,7 @@ void CLayer::AddObject(CGameObject* _pObj)
 
 }
 
+// Layer에서 해당 _pObj 를 제거한다. ( m_vecRoot[] 에서 뺀다. ) 
 void CLayer::DeregisterObject(CGameObject* _pObj)
 {
 

@@ -110,17 +110,16 @@ void CSceneMgr::init()
 	pChildObject->AddComponent(new CTransform);
 	pChildObject->AddComponent(new CMeshRender);
 
-	pChildObject->Transform()->SetScale(Vec3(1.f, 1.f, 1.f));
-	pChildObject->Transform()->SetPos(Vec3(20.f, 0.f, 0.f));
+	pChildObject->Transform()->SetIgnoreParentScale(true);
+	pChildObject->Transform()->SetScale(Vec3(150.f, 150.f, 1.f));
+	pChildObject->Transform()->SetPos(Vec3(300.f, 0.f, 0.f));
 
 	pChildObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CircleMesh"));
-	pChildObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMrl"));
-
-
-	
+	pChildObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));
 
 	pObject->AddChild(pChildObject);
-	m_pCurScene->AddObject(pObject, L"Default");
+	m_pCurScene->AddObject(pObject, L"Default"); // Default 레이어에 추가한다. 
+
 
 
 	/*
@@ -183,10 +182,15 @@ void CSceneMgr::SpawnObject(CGameObject* _pSpawnObject, UINT _iLayerIdx)
 
 }
 
-void CSceneMgr::AddChild(CGameObject* _pParent, CGameObject* pchildObject)
+void CSceneMgr::AddChild(CGameObject* _pParentObject, CGameObject* _pchildObject)
 {
 	tEventInfo info = {};
-	info.eType = 
+	info.eType = EVENT_TYPE::ADD_CHILD;
+	info.lParam = (DWORD_PTR)_pParentObject;
+	info.wParam = (DWORD_PTR)_pchildObject;
+
+	CEventMgr::GetInst()->AddEvent(info);
+
 
 }
 

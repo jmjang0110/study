@@ -45,17 +45,22 @@ void CTransform::finalupdate()
 		
 		if (m_bIgnoreParentScale)
 		{
+			/*
+				 부모 행렬의 Scale에  영향을 받지 않는다. 
+			*/
 			Vec3 vParentWorldScale = GetOwner()->GetParent()->Transform()->GetWorldScale();
 			Matrix matParentScale = XMMatrixScaling(vParentWorldScale.x, vParentWorldScale.y, vParentWorldScale.z);
 			Matrix matParentScaleInv = XMMatrixInverse(nullptr, matParentScale);
 
 
-			m_matWorld = m_matWorld* matParentScaleInv* m_matParentWorld;
+			m_matWorld = m_matWorld * matParentScaleInv * m_matParentWorld;
 		}
 		else
 		{
-
-		m_matWorld *= m_matParentWorld;
+			/*
+				 부모 행렬의 Scale에  영향을 받는다. 
+			*/
+			m_matWorld *= m_matParentWorld;
 		}
 		
 

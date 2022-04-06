@@ -56,22 +56,18 @@ void CEventMgr::update()
 			}
 		}
 		break;
-		case EVENT_TYPE::STAGE_CHANGE:
-			// lParam : Next Stage Enum		
-
-			break;
-
-		case EVENT_TYPE::CHANGE_AI_STATE:
-		{
-			// lParam : FSM Adress, wParam : Next State Type
-
-		}
-		break;
+		
 
 		case EVENT_TYPE::ADD_CHILD:
 		{
 			CGameObject* pParent = (CGameObject*)m_vecEvent[i].lParam;
 			CGameObject* pChild = (CGameObject*)m_vecEvent[i].wParam;
+
+			// pChild 는 특정 레이어에서 최상위 오브젝트 였는데
+			// ADD_CHILD 로 특정 객체의 자식이 되었다. 
+			// pChild 는 특정 레이어 소속을 유지하면서 
+			// pParent 객체 소속 레이어에도 소속된다. 
+			// 즉 2개 이상의 레이어에 소속된다는 것이다. 
 			int iLayerIdx = pChild->m_iLayerIdx;
 			pChild->Deregister();
 			pChild->m_iLayerIdx = iLayerIdx;
