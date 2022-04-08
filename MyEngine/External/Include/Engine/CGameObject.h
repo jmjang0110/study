@@ -6,6 +6,7 @@
 class CComponent;
 class CTransform;
 class CMeshRender;
+class CColider2D;
 
 
 class CGameObject :
@@ -56,6 +57,7 @@ public:
 
     GET_COMPONENT(Transform, TRANSFORM)
     GET_COMPONENT(MeshRender, MESHRENDER)
+    GET_COMPONENT(Collider2D, COLLIDER2D)
 
 public:
     CLONE(CGameObject);

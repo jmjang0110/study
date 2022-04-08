@@ -13,58 +13,54 @@ void CResMgr::init()
 void CResMgr::CreateEngineMesh()
 {
 	CMesh* pMesh = nullptr;
-	vector<Vtx> vecVtx;
-	vector<UINT> vecIdx;
+
+	vector<Vtx>		vecVtx;
+	vector<UINT>	vecIdx;
 
 	Vtx v;
 
-	// ==============
+	// ========
 	// RectMesh
 	// 0 --- 1
 	// |  \  |
 	// 3 --- 2
-	// ==============
-	// 지역 변수들 
-	// 
-	// ==============
-	// RectMesh
-	// ==============
-
+	// ========
 	v.vPos = Vec3(-0.5f, 0.5f, 0.f);
-	v.vColor = Vec4(0.f, 1.f, 0.f, 1.f);
+	v.vColor = Vec4(1.f, 0.2f, 0.2f, 1.f);
 	v.vUV = Vec2(0.f, 0.f);
 	vecVtx.push_back(v);
 
-
 	v.vPos = Vec3(0.5f, 0.5f, 0.f);
-	v.vColor = Vec4(1.f, 0.f, 0.f, 1.f);
-	v.vUV = Vec2(2.f, 0.f);
-
+	v.vColor = Vec4(0.2f, 1.f, 0.2f, 1.f);
+	v.vUV = Vec2(1.f, 0.f);
 	vecVtx.push_back(v);
 
 	v.vPos = Vec3(0.5f, -0.5f, 0.f);
-	v.vColor = Vec4(0.f, 0.f, 1.f, 1.f);
-	v.vUV = Vec2(2.f, 2.f);
-
+	v.vColor = Vec4(0.2f, 0.2f, 1.f, 1.f);
+	v.vUV = Vec2(1.f, 1.f);
 	vecVtx.push_back(v);
-
 
 	v.vPos = Vec3(-0.5f, -0.5f, 0.f);
-	v.vColor = Vec4(0.f, 1.f, 0.f, 1.f);
-	v.vUV = Vec2(0.f, 2.f);
-
+	v.vColor = Vec4(1.f, 0.2f, 0.2f, 1.f);
+	v.vUV = Vec2(0.f, 1.f);
 	vecVtx.push_back(v);
-
 
 	vecIdx.push_back(0); vecIdx.push_back(2); vecIdx.push_back(3);
 	vecIdx.push_back(0); vecIdx.push_back(1); vecIdx.push_back(2);
-	
-	pMesh = new CMesh;
-	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(),(UINT)vecIdx.size());
-	AddRes<CMesh>(L"RectMesh", pMesh);
 
-	vecVtx.clear();
+	pMesh = new CMesh;
+	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	AddRes<CMesh>(L"RectMesh", pMesh);
 	vecIdx.clear();
+
+
+	vecIdx.push_back(0); vecIdx.push_back(1); vecIdx.push_back(2); vecIdx.push_back(3); vecIdx.push_back(0);
+
+	pMesh = new CMesh;
+	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	AddRes<CMesh>(L"RectMesh_LineStrip", pMesh);
+	vecVtx.clear(); vecIdx.clear();
+
 
 
 	// ==============
@@ -154,6 +150,21 @@ void CResMgr::CreateEngineShader()
 
 	AddRes<CGraphicsShader>(L"TestShader", pShader);
 
+	// Collider 2D Shader 
+	pShader = new CGraphicsShader;
+	pShader->CreateVertexShader(L"Shader\\std2d.fx", "VS_Collider2D");
+	pShader->CreatePixelShader(L"Shader\\std2d.fx", "PS_Collider2D");
+
+	//pShader->SetRSType(RS_TYPE::WIRE_FRAME);
+	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE); // 깊이 판정 하지 않고 무조건 그린다. 
+
+	//pShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+
+
+	AddRes<CGraphicsShader>(L"Collider2DShader", pShader);
+
+
+
 }
 
 void CResMgr::CreateEngineMaterial()
@@ -165,6 +176,15 @@ void CResMgr::CreateEngineMaterial()
 	pMtrl->SetShader(FindRes<CGraphicsShader>(L"TestShader"));
 
 	AddRes<CMaterial>(L"TestMtrl", pMtrl);
+
+
+	// Collider2D Mrtl
+	pMtrl = new CMaterial;
+	pMtrl->SetShader(FindRes<CGraphicsShader>(L"Collider2DShader"));
+
+	AddRes<CMaterial>(L"Collider2DMtrl", pMtrl);
+
+
 
 	}
 

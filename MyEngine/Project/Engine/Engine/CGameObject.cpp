@@ -11,6 +11,8 @@
 #include "CSceneMgr.h"
 #include "CLayer.h"
 
+#include "CCollider2D.h"
+
 
 
 CGameObject::CGameObject()
@@ -137,6 +139,9 @@ void CGameObject::render()
 	if (nullptr != MeshRender()) // MeshRender 기능을 보유하고 있다면 
 		MeshRender()->render();
 	
+	if (nullptr != Collider2D())
+		Collider2D()->render();
+
 }
 
 void CGameObject::AddChild(CGameObject* _pChild)

@@ -30,6 +30,7 @@ private:
 
 
 	ComPtr<ID3D11RasterizerState>	m_arrRS[(UINT)RS_TYPE::END];
+	ComPtr<ID3D11DepthStencilState> m_arrDS[(UINT)DS_TYPE::END];
 	class CConstBuffer*				m_arrCB[(UINT)CB_TYPE::END];
 
 
@@ -44,7 +45,7 @@ public:
 
 	ComPtr<ID3D11Device> GetDevice() { return m_pDevice;}
 	ComPtr<ID3D11DeviceContext> GetDeviceContext() { return m_pDeviceContext; }
-
+	ComPtr<ID3D11DepthStencilState> GetDS(DS_TYPE _eType) { return m_arrDS[(UINT)_eType]; }
 	// return Rasterizer State 
 	ComPtr<ID3D11RasterizerState> GetRS(RS_TYPE _eType) { return m_arrRS[(UINT)_eType]; }
 	// return Constant Buffer 
@@ -58,6 +59,7 @@ private:
 	int CreateSawpChain();
 	int CreateView();
 	int CreateRasterizerState();
+	int CreateDepthStencilState();
 	int CreateConstBuffer();
 	void CreateSamplerState();
 

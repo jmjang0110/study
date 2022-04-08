@@ -20,6 +20,8 @@
 #include "CCameraMoveScript.h"
 #include "CCamera.h"
 #include "CMaterial.h"
+#include "CCollider2D.h"
+
 
 
 #include "CTexture.h"
@@ -85,24 +87,27 @@ void CSceneMgr::init()
 
 
 
-	// ** Scene ¿¡ GameObject Ãß°¡
+	// Player Object
 	CGameObject* pObject = new CGameObject;
 	pObject->SetName(L"Player");
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CMeshRender);
+	pObject->AddComponent(new CCollider2D);
 	pObject->AddComponent(new CPlayerScript);
 
-	pObject->Transform()->SetScale(Vec3(200.f, 200.f, 1.f));
+	pObject->Transform()->SetScale(Vec3(300.f, 300.f, 1.f));
 
-	
-	//pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CircleMesh"));
+	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));
 
-	int a = 1;
-	//pObject->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, &a);
+	int a = 0;
 	pObject->MeshRender()->GetMaterial()->SetScalarParam(L"IsColorRed", &a);
 	pObject->MeshRender()->GetMaterial()->SetTexParam(L"OutputTex", pTex);
+
+	pObject->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
+	pObject->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
+
+
 
 	CGameObject* pChildObject = new CGameObject;
 	pChildObject->SetName(L"ChildObject");

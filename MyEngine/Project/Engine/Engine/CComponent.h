@@ -22,8 +22,9 @@ public:
     COMPONENT_TYPE GetType() { return m_eComType; }
     CGameObject* GetOwner() { return m_pOwner; }
 
-    GET_OTHER_COMPONENT(Transform);
-    GET_OTHER_COMPONENT(MeshRender);
+    GET_OTHER_COMPONENT(Transform)
+    GET_OTHER_COMPONENT(MeshRender)
+    GET_OTHER_COMPONENT(Collider2D)
 
     CComponent* Clone() = 0;
 

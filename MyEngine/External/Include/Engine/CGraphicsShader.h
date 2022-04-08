@@ -48,12 +48,16 @@ private:
 
 
     RS_TYPE                         m_eRSType;
+    DS_TYPE                         m_eDSType;
+
     ComPtr<ID3D11InputLayout>       m_InputLayout;
     D3D11_PRIMITIVE_TOPOLOGY        m_eTopology; // Triangle? Rectangle? 
 
     vector<tScalarParamInfo>        m_vecScalarParamInfo;
     vector<tTexrParamInfo>          m_VecTexParamInfo;
 
+
+  
 public:
 
     int CreateVertexShader(const wstring& _strRrelativePath, const string& _strFunc);
@@ -64,7 +68,10 @@ public:
 
 
     void SetRSType(RS_TYPE _eType) { m_eRSType = _eType; }
+    void SetDSType(DS_TYPE _eType) { m_eDSType = _eType; }
+
     void SetTopology(D3D11_PRIMITIVE_TOPOLOGY _eTopology) { m_eTopology = _eTopology; }
+    
     D3D11_PRIMITIVE_TOPOLOGY GetTopology() { return m_eTopology; }
 
 

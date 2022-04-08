@@ -16,6 +16,7 @@ vector<D3D11_INPUT_ELEMENT_DESC> CGraphicsShader::g_vecLayout;
 
 CGraphicsShader::CGraphicsShader()
 	: m_eRSType(RS_TYPE::CULL_BACK)
+	, m_eDSType(DS_TYPE::LESS)
 	, m_eTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 {
 }
@@ -113,6 +114,8 @@ void CGraphicsShader::UpdateData()
 
 
 	CONTEXT->RSSetState(CDevice::GetInst()->GetRS(m_eRSType).Get());
+	CONTEXT->OMSetDepthStencilState(CDevice::GetInst()->GetDS(m_eDSType).Get(), 0); // 쉐이더의 깊이판정 방법 설정 
+
 
 }
 

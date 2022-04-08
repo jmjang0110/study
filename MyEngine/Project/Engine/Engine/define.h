@@ -72,6 +72,7 @@ enum class CB_TYPE
 	END,
 };
 
+// Rasterizer option
 enum class RS_TYPE
 {
 	CULL_BACK,	// Default
@@ -79,6 +80,23 @@ enum class RS_TYPE
 	CULL_NONE,
 	WIRE_FRAME,
 	END,
+
+};
+
+enum class DS_TYPE
+{
+	LESS,				// 깊이가 가까울 수록 통과 
+	LESS_EQUAL,
+	
+	GREATER,			// 깊이가 멀어질 수록 통과 
+	GREATER_EQUAL,
+	
+	NO_TEST,			// 깊이 테스트 X.		깊이 기록 O 
+	NO_WRITE,			// 깊이 테스트 O,		깊이 기록 X  
+
+	NO_TEST_NO_WRITE,	// 깊이 테스트 X,		깊이 기록 X 
+	END,
+
 
 };
 
