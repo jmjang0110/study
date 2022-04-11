@@ -29,6 +29,14 @@ public:
     // 스크립트로 finalupdate 를 또 해버리면 프레임이 꼬인다. 
 
 
+    // 충돌이 발생하면 해당 Object 가 가지고 있는 Script 에서 처리한다. 
+    virtual void OnCollisionEnter(CGameObject* _OtherObject) {};
+    virtual void OnCollision(CGameObject* _OtherObject) {};
+    virtual void OnCollisionExit(CGameObject* _OtherObject) {};
+
+
+
+
     virtual CScript* Clone() = 0;
 
 

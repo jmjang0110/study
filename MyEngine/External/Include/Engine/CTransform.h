@@ -23,7 +23,8 @@ public:
     const Vec3& GetScale() { return m_vRelativeScale; }
     const Vec3& GetRotation() { return m_vRelativeRot; }
 
-     Vec3 GetWorldScale();
+    Vec3 GetWorldPos() { return m_matWorld.Translation(); }
+    Vec3 GetWorldScale();
 
 
     const Matrix& GetWorldMat() { return m_matWorld; }

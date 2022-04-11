@@ -1,23 +1,18 @@
 #include "pch.h"
 #include "CCore.h"
 
-#include "CKeyMgr.h"
-#include "CPathMgr.h"
-#include "CTimeMgr.h"
-#include "CSceneMgr.h"
-
-
-#include "Temp.h"
 #include "CDevice.h"
-
+#include "CTimeMgr.h"
+#include "CPathMgr.h"
+#include "CKeyMgr.h"
 #include "CResMgr.h"
+#include "CSceneMgr.h"
+#include "CCollisionMgr.h"
 #include "CEventMgr.h"
-
-
 
 CCore::CCore()
 	: m_hwnd(nullptr)
-	, m_ptResolution()
+	, m_ptResolution{}
 {
 
 }
@@ -27,18 +22,16 @@ CCore::~CCore()
 
 }
 
-int CCore::init(HWND _hwnd, POINT _ptResolution)
+int CCore::init(HWND _hWnd, POINT _ptResolution)
 {
-	RECT rt = { 0,0,_ptResolution.x, _ptResolution.y };
+	RECT rt = { 0, 0, _ptResolution.x, _ptResolution.y };
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
-	SetWindowPos(_hwnd, nullptr, 10, 10, rt.right - rt.left, rt.bottom - rt.top, 0);
+	SetWindowPos(_hWnd, nullptr, 10, 10, rt.right - rt.left, rt.bottom - rt.top, 0);
 
-	m_hwnd = _hwnd;
+	m_hwnd = _hWnd;
 	m_ptResolution = _ptResolution;
 
-	//===============
 	// Manager ÃÊ±âÈ­
-	//===============
 	if (FAILED(CDevice::GetInst()->init(m_hwnd, Vec2((float)m_ptResolution.x, (float)m_ptResolution.y))))
 	{
 		return E_FAIL;
@@ -51,19 +44,19 @@ int CCore::init(HWND _hwnd, POINT _ptResolution)
 	CSceneMgr::GetInst()->init();
 
 
-
-
 	return S_OK;
 }
 
 void CCore::progress()
 {
-	// 1. Update
 	CTimeMgr::GetInst()->update();
 	CKeyMgr::GetInst()->update();
 
 	// Scene Update
 	CSceneMgr::GetInst()->progress();
+
+	// Collision Check
+	CCollisionMgr::GetInst()->update();
 
 	// Scene Render
 	CSceneMgr::GetInst()->render();
@@ -71,6 +64,4 @@ void CCore::progress()
 
 	// EventMgr update
 	CEventMgr::GetInst()->update();
-
 }
-

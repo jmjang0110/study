@@ -6,7 +6,7 @@
 #include "CPathMgr.h"
 #include "CEventMgr.h"
 #include "CResMgr.h"
-
+#include "CCollisionMgr.h"
 
 
 #include "CMesh.h"
@@ -109,23 +109,42 @@ void CSceneMgr::init()
 
 
 
-	CGameObject* pChildObject = new CGameObject;
-	pChildObject->SetName(L"ChildObject");
+	//CGameObject* pChildObject = new CGameObject;
+	//pChildObject->SetName(L"ChildObject");
 
-	pChildObject->AddComponent(new CTransform);
-	pChildObject->AddComponent(new CMeshRender);
+	//pChildObject->AddComponent(new CTransform);
+	//pChildObject->AddComponent(new CMeshRender);
 
-	pChildObject->Transform()->SetIgnoreParentScale(true);
-	pChildObject->Transform()->SetScale(Vec3(150.f, 150.f, 1.f));
-	pChildObject->Transform()->SetPos(Vec3(300.f, 0.f, 0.f));
+	//pChildObject->Transform()->SetIgnoreParentScale(true);
+	//pChildObject->Transform()->SetScale(Vec3(150.f, 150.f, 1.f));
+	//pChildObject->Transform()->SetPos(Vec3(300.f, 0.f, 0.f));
 
-	pChildObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CircleMesh"));
-	pChildObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));
+	//pChildObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CircleMesh"));
+	//pChildObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));
 
-	pObject->AddChild(pChildObject);
-	m_pCurScene->AddObject(pObject, L"Default"); // Default 레이어에 추가한다. 
+	//pObject->AddChild(pChildObject);
+	m_pCurScene->AddObject(pObject, L"Player"); // Player 레이어에 추가한다. 
 
 
+
+
+	// Monster Object
+	pObject = new CGameObject;
+	pObject->SetName(L"Monster");
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CMeshRender);
+	pObject->AddComponent(new CCollider2D);
+	pObject->AddComponent(new CMissileScript);
+
+	pObject->Transform()->SetPos(Vec3(400.f, 0.f, 0.f));
+	pObject->Transform()->SetScale(Vec3(300.f, 300.f, 1.f));
+
+	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestMtrl"));
+
+	pObject->Collider2D()->SetOffsetPos(Vec2(0.f, 0.f));
+	pObject->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
+	m_pCurScene->AddObject(pObject, L"Monster"); // Default 레이어에 추가한다. 
 
 	/*
 	// ** 오브젝트 복사본 생성 
@@ -137,7 +156,7 @@ void CSceneMgr::init()
 
 
 
-
+	CCollisionMgr::GetInst()->CollisionCheck(1,2);
 	m_pCurScene->start();
 }
 
@@ -146,6 +165,7 @@ void CSceneMgr::progress()
 	m_pCurScene->update();
 	m_pCurScene->lateupdate();
 	m_pCurScene->finalupdate();
+	
 }
 
 void CSceneMgr::render()

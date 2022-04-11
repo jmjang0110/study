@@ -71,18 +71,25 @@ void CTransform::finalupdate()
 
 
 
- Vec3 CTransform::GetWorldScale()
+
+Vec3 CTransform::GetWorldScale()
 {
 
 	Vec3 vWorldScale = m_vRelativeScale;
+
 	CGameObject* pParent = GetOwner()->GetParent();
+	if (m_bIgnoreParentScale)
+		pParent = nullptr;
 
 	while (pParent)
 	{
-		pParent->Transform()->GetScale();
+		vWorldScale *= pParent->Transform()->GetScale();
 
+		bool bIgnoreParentScale = pParent->Transform()->m_bIgnoreParentScale;
 		pParent = pParent->GetParent();
 
+		if (bIgnoreParentScale)
+			pParent = nullptr;
 	}
 
 	return vWorldScale;

@@ -41,6 +41,7 @@ float4 PS_Std2D(VTX_OUT _in) : SV_Target
 
 // =================
 // Collider2D Shader
+// g_int_0 : Collision
 // =================
 VTX_OUT VS_Collider2D(VTX_IN _in)
 {
@@ -57,16 +58,14 @@ float4 PS_Collider2D(VTX_OUT _in) : SV_Target
 {
     float4 vOutColor = (float4) 0.f;
        
-    vOutColor = float4(0.f, 1.f, 0.f, 1.f);
-    
-    if (0.1f <= _in.vUV.x && _in.vUV.x <= 0.9f
-        && 0.1f <= _in.vUV.y && _in.vUV.y <= 0.9f)
+    if (g_int_0)
     {
-        discard;
+        vOutColor = float4(1.f, 0.f, 0.f, 1.f);
     }
-    
-    //discard;
-    //clip(-1);
+    else
+    {
+        vOutColor = float4(0.f, 1.f, 0.f, 1.f);
+    }
     
     return vOutColor;
 }
