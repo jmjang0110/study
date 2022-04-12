@@ -18,6 +18,9 @@ private:
     void*                   m_pVtxSys; // GPU 말고 CPU메모리인 시스템 메모리의 정점 정보도 관리한다. 
     void*                   m_pIdxSys;
 
+public:
+    Vtx* GetVtxSysMem() { return (Vtx*), m_pVtxSys; }
+
 
 public:
     virtual int Load(const wstring& _strFilePath) { return S_OK; }

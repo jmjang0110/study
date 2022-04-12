@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "CCollisionMgr.h"
+#include "CResMgr.h"
+
 
 #include "CSceneMgr.h"
 #include "CScene.h"
@@ -134,25 +136,37 @@ void CCollisionMgr::CollisionBetweenLayer(const vector<CGameObject*>& _left, con
 
 bool CCollisionMgr::IsCollision(CCollider2D* _pLeftCol, CCollider2D* _pRightCol)
 {
-	Vec3 vLeftPos = _pLeftCol->GetWorldPos();
-	Vec3 vRightPos = _pRightCol->GetWorldPos();
+	// 충돌체가 사용하는 기본 도형(사각형) 로컬 정점위치를 알아낸다.
+	// 0 -- 1
+	// | \  |
+	// 3 -- 2	
+	static CMesh* pRectMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh").Get();
+	static Vtx* pVtx = pRectMesh->GetVtxSysMem();
+	static Vec3 vLocalPos[4] = { pVtx[0].vPos, pVtx[1].vPos, pVtx[2].vPos, pVtx[3].vPos };
 
-	Vec3 vLeftScale = _pLeftCol->GetWorldScale();
-	Vec3 vRightScal = _pRightCol->GetWorldScale();
+	Matrix matLeft = _pLeftCol->GetWorldMat();
+	Matrix matRight = _pRightCol->GetWorldMat();
 
-	float fDist = 0.f;
+	// Local 스페이스의 네개의 정점을 각 충돌체 월드 위치로 보낸다.
+	Vec3 vAsix[4] = {};
 
-	// x 축 테스트
-	fDist = abs(vLeftPos.x - vRightPos.x);
-	if (fDist > (vLeftScale.x / 2.f) + (vRightScal.x / 2.f))
-		return false;
+	// (Vector3, 0.f) X Matirx(4x4) - 방향정보이므로 이동 파트에 0.f 를 넣어야한다. ( 이동벡터까지 계산하면 방향이 틀어지기 떄문 ) 
+	// XMVector3TransformNormal();
 
-	// y 축 테스트
-	fDist = abs(vLeftPos.y - vRightPos.y);
-	if (fDist > (vLeftScale.y / 2.f) + (vRightScal.y / 2.f))
-		return false;
+	// (Vector3, 1.f) X Matirx(4x4)
+	// 월드로 보낸 정점을 통해서 각 투영 축 이면서 투영시킬 벡터 성분 4개를 구한다.
+	vAsix[0] = XMVector3TransformCoord(vLocalPos[1], matLeft) - XMVector3TransformCoord(vLocalPos[0], matLeft);
+	vAsix[1] = XMVector3TransformCoord(vLocalPos[3], matLeft) - XMVector3TransformCoord(vLocalPos[0], matLeft);
+	vAsix[2] = XMVector3TransformCoord(vLocalPos[1], matRight) - XMVector3TransformCoord(vLocalPos[0], matRight);
+	vAsix[3] = XMVector3TransformCoord(vLocalPos[3], matRight) - XMVector3TransformCoord(vLocalPos[0], matRight);
 
-	return true;
+	// 월드에 배치된 두 충돌체의 중심을 이은 벡터
+	//Vec3 vCenter = XMVector3TransformCoord(Vec3::Zero, matRight) - XMVector3TransformCoord(Vec3::Zero, matLeft);	
+	Vec3 vCenter = _pRightCol->GetWorldPos() - _pLeftCol->GetWorldPos();
+
+
+
+
 }
 
 
